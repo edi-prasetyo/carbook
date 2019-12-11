@@ -76,8 +76,10 @@
 
             <div class="col-md-4">
               <div class="card">
-                <i class="far fa-user-circle mr-2"></i> <?php echo $mobil->kap_penumpang ?> Penumpang<br>
-                <i class="fa fa-briefcase mr-2"></i> <?php echo $mobil->kap_bagasi ?> Koper<br>
+                <div class="card-body">
+                  <i class="far fa-user-circle mr-2"></i> <?php echo $mobil->kap_penumpang ?> Penumpang<br>
+                  <i class="fa fa-briefcase mr-2"></i> <?php echo $mobil->kap_bagasi ?> Koper<br>
+                </div>
 
               </div>
             </div>
