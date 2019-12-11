@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller{
+class Home extends CI_Controller
+{
 
   //Load Model
   public function __construct()
@@ -13,6 +14,7 @@ class Home extends CI_Controller{
     $this->load->model('galeri_model');
     $this->load->model('section_model');
     $this->load->model('services_model');
+    $this->load->model('mobil_model');
   }
 
   //main page - home page
@@ -24,20 +26,23 @@ class Home extends CI_Controller{
     $berita                         = $this->berita_model->home();
     $section                        = $this->section_model->listing();
     $services                        = $this->services_model->listing();
+    $mobil                          = $this->mobil_model->listing();
 
 
 
-    $data = array(  'title'         => $konfigurasi->namaweb.' - '.$konfigurasi->tagline,
-                    'keywords'      => $konfigurasi->namaweb.' - '.$konfigurasi->tagline.','.$konfigurasi->keywords,
-                    'deskripsi'     => $konfigurasi->deskripsi,
-                    'slider'        => $slider,
-                    'layanan'       => $layanan,
-                    'berita'        => $berita,
-                    'section'       => $section,
-                    'services'      => $services,
-                    'isi'       => 'home/list'
-   );
-   $this->load->view('layout/wrapper', $data, FALSE);
+    $data = array(
+      'title'         => $konfigurasi->namaweb . ' - ' . $konfigurasi->tagline,
+      'keywords'      => $konfigurasi->namaweb . ' - ' . $konfigurasi->tagline . ',' . $konfigurasi->keywords,
+      'deskripsi'     => $konfigurasi->deskripsi,
+      'slider'        => $slider,
+      'layanan'       => $layanan,
+      'berita'        => $berita,
+      'section'       => $section,
+      'services'      => $services,
+      'mobil'         => $mobil,
+      'isi'       => 'home/list'
+    );
+    $this->load->view('layout/wrapper', $data, FALSE);
   }
 }
 
