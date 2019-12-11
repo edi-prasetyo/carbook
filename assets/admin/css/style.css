@@ -1,0 +1,24 @@
+.alert-green{
+  background-color: #009688;
+  border-left: 5px solid #02776c;
+  color:#fff;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+
+.custom-badge{
+  font-size: 5px;
+  color:red;
+  padding: 4px 5px 4px 5px;
+ border-radius: 50%;
+  width:12px;
+  height:12px;
+  background:red;
+}
+.dropdown a:hover{
+  text-decoration: none;
+}
