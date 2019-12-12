@@ -54,7 +54,7 @@
     <li data-target="#myCarousel" data-slide-to="2"></li>
     <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
-  <div class="carousel-product my-5">
+  <div class="carousel-product py-5">
     <?php $i = 1;
     foreach ($mobil as $mobil) { ?>
       <div class="carousel-item <?php if ($i == 1) {
