@@ -42,10 +42,8 @@
           <input type="hidden" name="id_mobil" value="<?php echo $listpaket->id_mobil ?>">
           <input type="hidden" name="nama_mobil" value="<?php echo $listpaket->nama_mobil ?>">
 
-
-
-
-          <?php $sub = substr($listpaket->harga, -3);
+          <?php
+          $sub = substr($listpaket->harga, -3);
           $total =  random_string('numeric', 3);
           $hasil =  $listpaket->harga + $total;
           $no = substr($hasil, -3);

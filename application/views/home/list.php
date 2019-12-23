@@ -9,8 +9,8 @@
     <?php $i = 1;
     foreach ($slider as $slider) { ?>
       <div class="carousel-item <?php if ($i == 1) {
-                                    echo 'active';
-                                  } ?> ">
+                                  echo 'active';
+                                } ?> ">
         <a href="<?php echo base_url() . $slider->website; ?>"><img class="img-fluid" width="100%" src="<?php echo base_url('assets/upload/image/' . $slider->gambar) ?>" alt="<?php echo $slider->judul_galeri ?>"></a>
         <div class="container">
           <div class="carousel-caption text-left">
@@ -58,8 +58,8 @@
     <?php $i = 1;
     foreach ($mobil as $mobil) { ?>
       <div class="carousel-item <?php if ($i == 1) {
-                                    echo 'active';
-                                  } ?> ">
+                                  echo 'active';
+                                } ?> ">
 
         <div class="container">
           <div class="row">

@@ -1,5 +1,12 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
+h1 a:link{
+color: #222;
+}
+h2 a:link{
+  color: #222;
+  text-decoration: none;
+  }
 /* Padding below the footer and lighter body text */
 
 @font-face {
@@ -236,17 +243,6 @@ content:"";
   z-index:9;
   background: #e74c3c;
 }
-.sidebar-konten{
-
-}
-
-
-
-
-
-
-
-
 
 .sidebar a{
  color:#333;
@@ -260,16 +256,11 @@ content:"";
   float:left;
   margin: 0 10px 0 0;
 }
-.sidebar-title{
-
-}
-
 .img-frame{
     height:190px;overflow: hidden;
     float:left;
 
 }
-
 
 .thumb-img{
   float:left;
@@ -278,8 +269,6 @@ content:"";
 .card img{
   border-radius: 0;
 }
-
-
 
 .sidebar-img-frame{
     width:100px;
@@ -321,7 +310,7 @@ i {margin-right:5px;}
 .card-icon-margin {margin-top:10px;}
 
 .cat-judul{padding:10px;background:#008fe1;color:#fff;font-size:26px;}
-.bg-green{background: }
+.bg-green{background: #16a085}
 .bantuan{background-color:#008fe1 }
 .credit{background-color:#008fe1 }
 .detail_harga{
@@ -505,8 +494,6 @@ input[type=number] {
    box-shadow:none;
    border:1px solid #008fe1;
 }
-
-.error_404{}
 .text_404{
   font-size: 250px;
 }
@@ -726,10 +713,6 @@ input[type=number] {
 .breadcrumb a{
   color:#444444;
 }
-.breadcrumb >.active {
-
-}
-
 .div_image{
   width:100px;
 }
@@ -955,13 +938,6 @@ input[type=number] {
 	left: 50%;
 	margin-left: -5px;
 	border-radius: 50%;
-}
-
-
-
-
-.single-blog{
-  /* border:1px solid #ddd; */
 }
 .single-blog-img {
     overflow: hidden;
