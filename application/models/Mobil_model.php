@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Mobil_model extends CI_Model{
+class Mobil_model extends CI_Model
+{
   //load database
   public function __construct()
   {
@@ -15,11 +16,11 @@ class Mobil_model extends CI_Model{
                        merek.nama_merek, merek.slug_merek, jenismobil.nama_jenismobil, user.nama');
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->order_by('id_mobil','DESC');
+    $this->db->order_by('id_mobil', 'DESC');
 
     $query = $this->db->get();
     return $query->result();
@@ -29,66 +30,68 @@ class Mobil_model extends CI_Model{
   //listing Mobil Home
   public function home()
   {
-    $this->db->select('mobil.*,
+    $this->db->select(
+      'mobil.*,
                       merek.nama_merek,
                       merek.slug_merek,
                       jenismobil.nama_jenismobil,
                       user.nama'
-                      );
+    );
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'status_mobil'     =>  'Aktif'));
-    $this->db->order_by('harga_awal','ASC');
+    $this->db->where(array('status_mobil'     =>  'Aktif'));
+    $this->db->order_by('harga_awal', 'ASC');
     $this->db->limit(3);
     $query = $this->db->get();
     return $query->result();
   }
-	
-	 //listing Mobil Sidebar
+
+  //listing Mobil Sidebar
   public function sidebar()
   {
-    $this->db->select('mobil.*,
+    $this->db->select(
+      'mobil.*,
                       merek.nama_merek,
                       merek.slug_merek,
                       jenismobil.nama_jenismobil,
                       user.nama'
-                      );
+    );
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'status_mobil'     =>  'Aktif'));
-    $this->db->order_by('harga_awal','ASC');
+    $this->db->where(array('status_mobil'     =>  'Aktif'));
+    $this->db->order_by('harga_awal', 'ASC');
     $this->db->limit(12);
     $query = $this->db->get();
     return $query->result();
   }
 
   //listing Mobil Main Page
-  public function mobil($limit,$start)
+  public function mobil($limit, $start)
   {
     $this->db->select(
-                        'mobil.*,
+      'mobil.*,
                         merek.nama_merek,
                         merek.slug_merek,
                         jenismobil.nama_jenismobil,
                         user.nama'
-                      );
+    );
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'status_mobil'     =>  'Aktif'));
-    $this->db->order_by('harga_awal','ASC');
-    $this->db->limit($limit,$start);
+    $this->db->where(array('status_mobil'     =>  'Aktif'));
+    $this->db->order_by('harga_awal', 'ASC');
+    $this->db->limit($limit, $start);
     $query = $this->db->get();
     return $query->result();
   }
@@ -97,26 +100,26 @@ class Mobil_model extends CI_Model{
   public function total()
   {
     $this->db->select(
-                      'mobil.*,
+      'mobil.*,
                       merek.nama_merek,
                       merek.slug_merek,
                       jenismobil.nama_jenismobil,
                       user.nama'
-                      );
+    );
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'status_mobil'     =>  'Aktif'));
-    $this->db->order_by('id_mobil','DESC');
+    $this->db->where(array('status_mobil'     =>  'Aktif'));
+    $this->db->order_by('id_mobil', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
 
   //listing Kategori Mobil
-  public function mobil_kategori($id_kategori,$limit,$start)
+  public function mobil_kategori($id_kategori, $limit, $start)
   {
     $this->db->select('mobil.*,
                       merek.nama_merek,
@@ -125,14 +128,16 @@ class Mobil_model extends CI_Model{
                       user.nama');
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'status_mobil'           =>  'publish',
-                            'mobil.id_kategori'      =>  $id_kategori));
-    $this->db->order_by('id_mobil','DESC');
-    $this->db->limit($limit,$start);
+    $this->db->where(array(
+      'status_mobil'           =>  'publish',
+      'mobil.id_kategori'      =>  $id_kategori
+    ));
+    $this->db->order_by('id_mobil', 'DESC');
+    $this->db->limit($limit, $start);
     $query = $this->db->get();
     return $query->result();
   }
@@ -147,13 +152,15 @@ class Mobil_model extends CI_Model{
                         user.nama');
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'status_mobil'           =>  'Aktif',
-                            'mobil.id_kategori'      =>  $id_kategori));
-    $this->db->order_by('id_mobil','DESC');
+    $this->db->where(array(
+      'status_mobil'           =>  'Aktif',
+      'mobil.id_kategori'      =>  $id_kategori
+    ));
+    $this->db->order_by('id_mobil', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
@@ -168,13 +175,15 @@ class Mobil_model extends CI_Model{
                       user.nama');
     $this->db->from('mobil');
     // Join
-    $this->db->join('merek', 'merek.id_merek = mobil.id_merek', 'LEFT');
-    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.id_jenismobil', 'LEFT');
-    $this->db->join('user', 'user.id_user = mobil.id_user', 'LEFT');
+    $this->db->join('merek', 'merek.id_merek = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id_jenismobil = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'status_mobil'           =>  'Aktif',
-                            'mobil.id_mobil'        =>  $id_mobil));
-    $this->db->order_by('id_mobil','DESC');
+    $this->db->where(array(
+      'status_mobil'           =>  'Aktif',
+      'mobil.id_mobil'        =>  $id_mobil
+    ));
+    $this->db->order_by('id_mobil', 'DESC');
     $query = $this->db->get();
     return $query->row();
   }
@@ -183,8 +192,8 @@ class Mobil_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('paket');
-    $this->db->where('id_mobil',$id_mobil);
-    $this->db->order_by('id_mobil','DESC');
+    $this->db->where('mobil_id', $id_mobil);
+    $this->db->order_by('mobil_id', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
@@ -194,19 +203,20 @@ class Mobil_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('mobil');
-    $this->db->where('id_mobil',$id_mobil);
-    $this->db->order_by('id_mobil','DESC');
+    $this->db->where('id_mobil', $id_mobil);
+    $this->db->order_by('id_mobil', 'DESC');
     $query = $this->db->get();
     return $query->row();
   }
   public function detail_paket($id_paket)
   {
-    $this->db->select('paket.*, ketentuan.isi_ketentuan, ketentuan.nama_ketentuan, mobil.nama_mobil, mobil.kap_penumpang, mobil.kap_bagasi, mobil.gambar');
+    $this->db->select('paket.*, ketentuan.isi_ketentuan, ketentuan.nama_ketentuan, mobil.nama_mobil, mobil.kap_penumpang, mobil.kap_bagasi, mobil.gambar, user.nama');
     $this->db->from('paket');
-    $this->db->join('ketentuan', 'ketentuan.id_ketentuan = paket.id_ketentuan', 'LEFT');
-    $this->db->join('mobil', 'mobil.id_mobil = paket.id_mobil', 'LEFT');
-    $this->db->where('id_paket',$id_paket);
-    $this->db->order_by('id_paket','DESC');
+    $this->db->join('ketentuan', 'ketentuan.id_ketentuan = paket.ketentuan_id', 'LEFT');
+    $this->db->join('mobil', 'mobil.id_mobil = paket.mobil_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = mobil.user_id', 'LEFT');
+    $this->db->where('id_paket', $id_paket);
+    $this->db->order_by('id_paket', 'DESC');
     $query = $this->db->get();
     return $query->row();
   }
@@ -215,8 +225,8 @@ class Mobil_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('paket');
-    $this->db->where('id_mobil',$id_mobil);
-    $this->db->order_by('id_mobil','DESC');
+    $this->db->where('id_mobil', $id_mobil);
+    $this->db->order_by('id_mobil', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
@@ -230,8 +240,8 @@ class Mobil_model extends CI_Model{
     $this->db->select('*');
     $this->db->from('paket');
 
-    $this->db->where('id_paket',$id_paket);
-    $this->db->order_by('id_paket','DESC');
+    $this->db->where('id_paket', $id_paket);
+    $this->db->order_by('id_paket', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
@@ -239,8 +249,8 @@ class Mobil_model extends CI_Model{
   //Edit Data
   public function edit_paket($data)
   {
-    $this->db->where('id_paket',$data['id_paket']);
-    $this->db->update('paket',$data);
+    $this->db->where('id_paket', $data['id_paket']);
+    $this->db->update('paket', $data);
   }
 
   //tambah / Insert Data
@@ -249,26 +259,25 @@ class Mobil_model extends CI_Model{
     $this->db->insert('mobil', $data);
   }
 
-    //Edit Data
-    public function edit($data)
-    {
-      $this->db->where('id_mobil',$data['id_mobil']);
-      $this->db->update('mobil',$data);
-    }
+  //Edit Data
+  public function edit($data)
+  {
+    $this->db->where('id_mobil', $data['id_mobil']);
+    $this->db->update('mobil', $data);
+  }
 
-    //Delete Data
-    public function delete($data)
-    {
-      $this->db->where('id_mobil',$data['id_mobil']);
-      $this->db->delete('mobil',$data);
-    }
-    //Delete Data Paket
-    public function delete_paket($data)
-    {
-      $this->db->where('id_paket',$data['id_paket']);
-      $this->db->delete('paket',$data);
-    }
-
+  //Delete Data
+  public function delete($data)
+  {
+    $this->db->where('id_mobil', $data['id_mobil']);
+    $this->db->delete('mobil', $data);
+  }
+  //Delete Data Paket
+  public function delete_paket($data)
+  {
+    $this->db->where('id_paket', $data['id_paket']);
+    $this->db->delete('paket', $data);
+  }
 }
 
 /* end of file Mobil_model.php */

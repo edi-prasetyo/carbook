@@ -21,8 +21,8 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-	
-	//get_all Transaksi yang di dahsboard
+
+  //get_all Transaksi yang di dahsboard
   public function dashboard()
   {
     $this->db->select('transaksi.*, mobil.nama_mobil');
@@ -34,7 +34,7 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-	
+
   //get_all Transaksi berdasarkan Header
   public function kode_transaksi($kode_transaksi)
   {
@@ -64,6 +64,17 @@ class Transaksi_model extends CI_Model
     return $query->row();
   }
 
+  public function transaksi_user($user_id)
+  {
+    $this->db->select('transaksi.*, mobil.nama_mobil');
+    $this->db->from('transaksi');
+    //join
+    $this->db->join('mobil', 'mobil.id_mobil = transaksi.id_mobil', 'left');
+    //End Join
+    $this->db->where('user_id', $user_id);
+    $query = $this->db->get();
+    return $query->result();
+  }
   //Detail transaksi
   public function detail_transaksi($id_transaksi)
   {
@@ -111,10 +122,11 @@ class Transaksi_model extends CI_Model
   public function tambah($data)
   {
 
-    $this->db->select('transaksi.*, mobil.nama_mobil');
+    $this->db->select('transaksi.*, mobil.nama_mobil, user.nama');
     $this->db->from('transaksi');
     //join
     $this->db->join('mobil', 'mobil.id_mobil = transaksi.id_mobil', 'left');
+    $this->db->join('user', 'user.id_user = transaksi.id_user', 'LEFT');
     //End Join
 
     $this->db->insert('transaksi', $data);

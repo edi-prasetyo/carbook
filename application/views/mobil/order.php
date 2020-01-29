@@ -57,21 +57,24 @@
           <input type="hidden" name="ketentuan" value="<?php echo $listpaket->isi_ketentuan ?>">
           <input type="hidden" name="tanggal_transaksi" value="<?php echo date('Y-m-d'); ?>">
           <div class="row">
+
             <div class="col-md-6">
               <label>Nama Lengkap <span class="text-danger">*</span></label>
-              <input class="form-control" type="text" name="nama" placeholder="Nama Lengkap" value="<?php echo set_value('nama'); ?>">
+              <input class="form-control" type="text" name="nama" placeholder="Nama Lengkap" value="<?php echo $pelanggan->nama; ?>">
               <?php echo form_error('nama', '<span class="text-danger">', '</span>'); ?>
             </div>
             <div class="col-md-6">
               <label>Email <span class="text-danger">*</span></label>
-              <input class="form-control" type="email" name="email" placeholder="Email" value="<?php echo set_value('email'); ?>">
+              <input class="form-control" type="email" name="email" placeholder="Email" value="<?php echo $pelanggan->email; ?>">
               <?php echo form_error('email', '<span class="text-danger">', '</span>'); ?>
             </div>
             <div class="col-md-12">
               <label>Nomor Handphone <span class="text-danger">*</span></label>
-              <input class="form-control" type="text" name="telp" placeholder="Nomor Handphone" value="<?php echo set_value('telp'); ?>">
+              <input class="form-control" type="text" name="telp" placeholder="Nomor Handphone" value="<?php echo $pelanggan->telp; ?>">
               <?php echo form_error('telp', '<span class="text-danger">', '</span>'); ?>
             </div>
+
+
             <div class="col-md-4">
               <label>Tanggal Jemput <span class="text-danger">*</span></label>
               <input type="text" name="tanggal_jemput" class="form-control" placeholder="Tanggal" id="id_tanggal">

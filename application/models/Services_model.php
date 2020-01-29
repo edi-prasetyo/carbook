@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Services_model extends CI_Model{
+class Services_model extends CI_Model
+{
   //load database
   public function __construct()
   {
@@ -15,7 +16,7 @@ class Services_model extends CI_Model{
                         user.nama');
     $this->db->from('services');
     // Join
-    $this->db->join('user', 'user.id_user = services.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = services.user_id', 'LEFT');
     //End Join
     $this->db->order_by('id_services');
     $query = $this->db->get();
@@ -28,7 +29,7 @@ class Services_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('services');
-    $this->db->where('id_services',$id_services);
+    $this->db->where('id_services', $id_services);
     $this->db->order_by('id_services');
     $query = $this->db->get();
     return $query->row();
@@ -40,53 +41,52 @@ class Services_model extends CI_Model{
     $this->db->insert('services', $data);
   }
 
-    //Edit Data
-    public function edit($data)
-    {
-      $this->db->where('id_services',$data['id_services']);
-      $this->db->update('services',$data);
-    }
+  //Edit Data
+  public function edit($data)
+  {
+    $this->db->where('id_services', $data['id_services']);
+    $this->db->update('services', $data);
+  }
 
-    //Delete Data
-    public function delete($data)
-    {
-      $this->db->where('id_services',$data['id_services']);
-      $this->db->delete('services',$data);
-    }
+  //Delete Data
+  public function delete($data)
+  {
+    $this->db->where('id_services', $data['id_services']);
+    $this->db->delete('services', $data);
+  }
 
 
-    // Front end
+  // Front end
 
-    //Layanan
-    public function services($limit,$start)
-    {
-      $this->db->select('services.*,user.nama');
-      $this->db->from('services');
-      // Join
-      $this->db->join('user', 'user.id_user = services.id_user', 'LEFT');
-      //End Join
-      $this->db->where('services.posisi_services','Services');
-      $this->db->order_by('id_services');
-      $this->db->limit($limit,$start);
-      $this->db->order_by('id_services', 'DESC');
-      $query = $this->db->get();
-      return $query->result();
-    }
+  //Layanan
+  public function services($limit, $start)
+  {
+    $this->db->select('services.*,user.nama');
+    $this->db->from('services');
+    // Join
+    $this->db->join('user', 'user.id_user = services.user_id', 'LEFT');
+    //End Join
+    $this->db->where('services.posisi_services', 'Services');
+    $this->db->order_by('id_services');
+    $this->db->limit($limit, $start);
+    $this->db->order_by('id_services', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
 
-    //Total Services
-    public function total()
-    {
-      $this->db->select('services.*,user.nama');
-      $this->db->from('services');
-      // Join
-      $this->db->join('user', 'user.id_user = services.id_user', 'LEFT');
-      //End Join
-      $this->db->where('services.posisi_services','Services');
-      $this->db->order_by('id_services','DESC');
-      $query = $this->db->get();
-      return $query->result();
-    }
-
+  //Total Services
+  public function total()
+  {
+    $this->db->select('services.*,user.nama');
+    $this->db->from('services');
+    // Join
+    $this->db->join('user', 'user.id_user = services.user_id', 'LEFT');
+    //End Join
+    $this->db->where('services.posisi_services', 'Services');
+    $this->db->order_by('id_services', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
 }
 
 /* end of file Services_model.php */

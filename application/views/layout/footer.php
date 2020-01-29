@@ -59,6 +59,19 @@ $layanan        = $this->konfigurasi_model->menu_layanan();
 <script src="<?php echo base_url() ?>assets/template/js/moment-with-locales.js"></script>
 <script src="<?php echo base_url() ?>assets/template/js/bootstrap-datetimepicker.js"></script>
 <script src="<?php echo base_url() ?>assets/template/js/timepicker.js"></script>
+
+
+<script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+  $('#dataTable').DataTable({
+    order: [
+      [0, 'desc']
+    ],
+  });
+</script>
+
 <script>
   $(function() {
     $('#id_tanggal').datetimepicker({

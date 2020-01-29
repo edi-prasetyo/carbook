@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Layanan_model extends CI_Model{
+class Layanan_model extends CI_Model
+{
   //load database
   public function __construct()
   {
@@ -15,7 +16,7 @@ class Layanan_model extends CI_Model{
                         user.nama');
     $this->db->from('layanan');
     // Join
-    $this->db->join('user', 'user.id_user = layanan.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = layanan.user_id', 'LEFT');
     //End Join
     $this->db->order_by('id_layanan');
     $query = $this->db->get();
@@ -28,9 +29,9 @@ class Layanan_model extends CI_Model{
     $this->db->select('layanan.*,user.nama');
     $this->db->from('layanan');
     // Join
-    $this->db->join('user', 'user.id_user = layanan.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = layanan.user_id', 'LEFT');
     //End Join
-    $this->db->where('layanan.status_layanan','Publish');
+    $this->db->where('layanan.status_layanan', 'Publish');
     $this->db->order_by('id_layanan');
     $this->db->limit(6);
     $query = $this->db->get();
@@ -38,16 +39,16 @@ class Layanan_model extends CI_Model{
   }
 
   //Layanan
-  public function layanan($limit,$start)
+  public function layanan($limit, $start)
   {
     $this->db->select('layanan.*,user.nama');
     $this->db->from('layanan');
     // Join
-    $this->db->join('user', 'user.id_user = layanan.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = layanan.user_id', 'LEFT');
     //End Join
-    $this->db->where('layanan.status_layanan','Publish');
+    $this->db->where('layanan.status_layanan', 'Publish');
     $this->db->order_by('id_layanan');
-    $this->db->limit($limit,$start);
+    $this->db->limit($limit, $start);
     $query = $this->db->get();
     return $query->result();
   }
@@ -58,9 +59,9 @@ class Layanan_model extends CI_Model{
     $this->db->select('layanan.*,user.nama');
     $this->db->from('layanan');
     // Join
-    $this->db->join('user', 'user.id_user = layanan.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = layanan.user_id', 'LEFT');
     //End Join
-    $this->db->where('layanan.status_layanan','Publish');
+    $this->db->where('layanan.status_layanan', 'Publish');
     $this->db->order_by('id_layanan');
     $query = $this->db->get();
     return $query->result();
@@ -72,10 +73,12 @@ class Layanan_model extends CI_Model{
     $this->db->select('layanan.*,user.nama');
     $this->db->from('layanan');
     // Join
-    $this->db->join('user', 'user.id_user = layanan.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = layanan.user_id', 'LEFT');
     //End Join
-    $this->db->where(array( 'layanan.status_layanan'    => 'Publish',
-                            'layanan.slug_layanan'     =>  $slug_layanan));
+    $this->db->where(array(
+      'layanan.status_layanan'    => 'Publish',
+      'layanan.slug_layanan'     =>  $slug_layanan
+    ));
     $this->db->order_by('id_layanan');
     $query = $this->db->get();
     return $query->row();
@@ -86,7 +89,7 @@ class Layanan_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('layanan');
-    $this->db->where('id_layanan',$id_layanan);
+    $this->db->where('id_layanan', $id_layanan);
     $this->db->order_by('id_layanan');
     $query = $this->db->get();
     return $query->row();
@@ -98,20 +101,19 @@ class Layanan_model extends CI_Model{
     $this->db->insert('layanan', $data);
   }
 
-    //Edit Data
-    public function edit($data)
-    {
-      $this->db->where('id_layanan',$data['id_layanan']);
-      $this->db->update('layanan',$data);
-    }
+  //Edit Data
+  public function edit($data)
+  {
+    $this->db->where('id_layanan', $data['id_layanan']);
+    $this->db->update('layanan', $data);
+  }
 
-    //Delete Data
-    public function delete($data)
-    {
-      $this->db->where('id_layanan',$data['id_layanan']);
-      $this->db->delete('layanan',$data);
-    }
-
+  //Delete Data
+  public function delete($data)
+  {
+    $this->db->where('id_layanan', $data['id_layanan']);
+    $this->db->delete('layanan', $data);
+  }
 }
 
 /* end of file Layanan_model.php */

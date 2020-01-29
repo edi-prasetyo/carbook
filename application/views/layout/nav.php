@@ -18,7 +18,12 @@ $menu_profil        = $this->konfigurasi_model->menu_profil();
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="<?php echo base_url('daftar') ?>">Daftar</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo base_url('login') ?>">Login</a></li>
+        <?php if ($this->session->userdata('id_user')) { ?>
+          <li class="nav-item"><a class="nav-link" href="<?php echo base_url('myaccount') ?>"><i class="far fa-user"></i> myaccount</a></li>
+        <?php } else { ?>
+          <li class="nav-item"><a class="nav-link" href="<?php echo base_url('login') ?>"><i class="fas fa-lock"></i> Login</a></li>
+        <?php } ?>
+
         <a href="<?php echo base_url('transaksi') ?>" class="btn btn-outline-primary">Cek Order</a>
       </ul>
     </div>

@@ -119,11 +119,14 @@ class Mobil extends CI_Controller
   //main page - detail Mobil
   public function add($id_paket)
   {
-
-    $listing        	    = $this->mobil_model->sidebar();
+    $id_user               = $this->session->userdata('id_user');
+    $listing              = $this->mobil_model->sidebar();
     $listpaket            = $this->mobil_model->detail_paket($id_paket);
-    $info				          = $this->info_model->listing();
-    $konfigurasi		      = $this->konfigurasi_model->listing();
+    $info                  = $this->info_model->listing();
+    $konfigurasi          = $this->konfigurasi_model->listing();
+    $pelanggan            = $this->user_model->detail($id_user);
+
+
 
 
     $this->form_validation->set_rules(
@@ -131,24 +134,24 @@ class Mobil extends CI_Controller
       'Nama',
       'required',
       [
-        'required' 		=> 'Nama harus di isi',
+        'required'     => 'Nama harus di isi',
       ]
     );
     $this->form_validation->set_rules(
-			'email',
-			'Email',
-			'required|trim|valid_email',
-			[
-				'required' 		       => 'Email harus di isi',
-				'valid_email'    	   => 'Format email Tidak sesuai'
-			]
-		);
+      'email',
+      'Email',
+      'required|trim|valid_email',
+      [
+        'required'            => 'Email harus di isi',
+        'valid_email'         => 'Format email Tidak sesuai'
+      ]
+    );
     $this->form_validation->set_rules(
       'telp',
       'No Handphone',
       'required',
       [
-        'required' 		=> 'Nomor Handphone harus di isi',
+        'required'     => 'Nomor Handphone harus di isi',
       ]
     );
     $this->form_validation->set_rules(
@@ -156,7 +159,7 @@ class Mobil extends CI_Controller
       'Jam Jemput',
       'required',
       [
-        'required' 		=> 'Pilih Jam Penjemputan',
+        'required'     => 'Pilih Jam Penjemputan',
       ]
     );
     $this->form_validation->set_rules(
@@ -164,7 +167,7 @@ class Mobil extends CI_Controller
       'Lama Sewa',
       'required',
       [
-        'required' 		=> 'Pilih Lama Sewa',
+        'required'     => 'Pilih Lama Sewa',
       ]
     );
     $this->form_validation->set_rules(
@@ -172,7 +175,7 @@ class Mobil extends CI_Controller
       'Alamat Jemput',
       'required',
       [
-        'required' 		=> 'Silahkan Isi Detail alamat Penjemputan',
+        'required'     => 'Silahkan Isi Detail alamat Penjemputan',
       ]
     );
 
@@ -181,12 +184,13 @@ class Mobil extends CI_Controller
       'Metode Pembayaran',
       'required',
       [
-        'required' 		=> 'Silahkan Pilih metode pembayaran',
+        'required'     => 'Silahkan Pilih metode pembayaran',
       ]
     );
 
 
     if ($this->form_validation->run() == false) {
+
 
       $data = array(
         'id_user'       => $this->session->userdata('id_user'),
@@ -196,12 +200,12 @@ class Mobil extends CI_Controller
         // 'mobil'      => $mobil,
         'listpaket'     => $listpaket,
         'listing'       => $listing,
+        'pelanggan'     => $pelanggan,
         'tanggal_post'  => date('Y-m-d H:i:s'),
         'isi'           => 'mobil/order'
       );
       $this->load->view('layout/wrapper', $data, FALSE);
-
-    }else{
+    } else {
 
       $i     = $this->input;
       $data  = array(
@@ -225,32 +229,32 @@ class Mobil extends CI_Controller
         'tanggal_post'      => date('Y-m-d H:i:s')
         // 'tanggal_bayar'      => date('Y-m-d H:i:s')
 
-    );
-    //Proses Masuk Header Transaksi
-    // $this->transaksi_model->tambah($data);
-    $insert_id = $this->transaksi_model->tambah($data);
+      );
+      //Proses Masuk Header Transaksi
+      // $this->transaksi_model->tambah($data);
+      $insert_id = $this->transaksi_model->tambah($data);
 
-    //Kirim Ke Email Pelanggan
-    $config = array(
-      'protocol'  => 'smtp',
-      'smtp_host' => 'ssl://smtp.googlemail.com',
-      'smtp_port' => 465,
-      'smtp_user' => 'design.atrans@gmail.com', // change it to yours
-      'smtp_pass' => 'atrans88', // change it to yours
-      'mailtype'  => 'html',
-      'charset'   => 'iso-8859-1',
-      'wordwrap'  => TRUE
-    );
-    foreach ($info as $info):
-      $nama_bank = $info->nama_bank;
-      $cabang = $info->cabang;
-      $atas_nama = $info->atas_nama;
-      $nomor_rek = $info->nomor_rek;
-    endforeach;
+      //Kirim Ke Email Pelanggan
+      $config = array(
+        'protocol'  => 'smtp',
+        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_port' => 465,
+        'smtp_user' => 'design.atrans@gmail.com', // change it to yours
+        'smtp_pass' => 'atrans88', // change it to yours
+        'mailtype'  => 'html',
+        'charset'   => 'iso-8859-1',
+        'wordwrap'  => TRUE
+      );
+      foreach ($info as $info) :
+        $nama_bank = $info->nama_bank;
+        $cabang = $info->cabang;
+        $atas_nama = $info->atas_nama;
+        $nomor_rek = $info->nomor_rek;
+      endforeach;
 
 
 
-    $message =   "
+      $message =   "
     <html>
     <head>
     <title>Invoice Order</title>
@@ -291,7 +295,7 @@ class Mobil extends CI_Controller
     <p>
     <section style='text-align: center;'>
     <h3 align='center'>
-    <img width='60%' src='". base_url('assets/upload/image/'.$konfigurasi->logo) ."'>
+    <img width='60%' src='" . base_url('assets/upload/image/' . $konfigurasi->logo) . "'>
     </h3>
     </section>
     </p>
@@ -369,10 +373,10 @@ class Mobil extends CI_Controller
     " . $data['lama_sewa'] . " Hari
     </td>
     <td width='120' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 5px 3px 5px;border-bottom:dashed 1px #e5e5e5'>
-    Rp. " . number_format($data['harga'],'0',',','.') . "
+    Rp. " . number_format($data['harga'], '0', ',', '.') . "
     </td>
     <td width='90' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 5px 3px 5px;border-bottom:dashed 1px #e5e5e5'>
-    Rp. " . number_format($data['harga']*$data['lama_sewa'],'0',',','.') . "
+    Rp. " . number_format($data['harga'] * $data['lama_sewa'], '0', ',', '.') . "
     </td>
     </tr>
 
@@ -387,7 +391,7 @@ class Mobil extends CI_Controller
     <strong>Sub-total :</strong>
     </td>
     <td width='90' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 5px 3px 5px;'>
-    Rp. " .number_format($data['harga']*$data['lama_sewa'],'0',',','.') . "
+    Rp. " . number_format($data['harga'] * $data['lama_sewa'], '0', ',', '.') . "
     </td>
     </tr>
 
@@ -417,7 +421,7 @@ class Mobil extends CI_Controller
     <strong>Grand Total :</strong>
     </td>
     <td width='90' align='right' valign='top' style='color:#339933;font-size:13px;line-height:16px;;padding:5px 5px 3px 5px;'>
-    <strong> Rp. " . number_format($data['harga']*$data['lama_sewa'],'0',',','.') . "</strong>
+    <strong> Rp. " . number_format($data['harga'] * $data['lama_sewa'], '0', ',', '.') . "</strong>
     </td>
     </tr>
 
@@ -432,7 +436,7 @@ class Mobil extends CI_Controller
     </td>
     </tr>
 
-    <span style='color: #848484;padding-left:20px; font-family: arial,sans-serif;'>Untuk melihat status transaksi anda silahkan cek disini <a href='". base_url('transaksi')."'>". base_url('transaksi')."</a></span>
+    <span style='color: #848484;padding-left:20px; font-family: arial,sans-serif;'>Untuk melihat status transaksi anda silahkan cek disini <a href='" . base_url('transaksi') . "'>" . base_url('transaksi') . "</a></span>
 
     <span><h3 style='color: #848484;padding-left:20px; font-family: arial,sans-serif; font-weight: 200;'>Detail Order</h3></span>
 
@@ -598,29 +602,29 @@ class Mobil extends CI_Controller
     </html>
     ";
 
-    $this->load->library('email', $config);
-    $this->email->set_newline("\r\n");
-    $this->email->from($config['smtp_user']);
-    $this->email->to($data['email']);
-    $this->email->cc('ediprasetyo@atrans.co.id');
-    $this->email->subject('Pesanan Rentcar');
-    $this->email->message($message);
+      $this->load->library('email', $config);
+      $this->email->set_newline("\r\n");
+      $this->email->from($config['smtp_user']);
+      $this->email->to($data['email']);
+      $this->email->cc('ediprasetyo@atrans.co.id');
+      $this->email->subject('Pesanan Rentcar');
+      $this->email->message($message);
 
-    //sending email
-    if ($this->email->send()) {
-      $this->session->set_flashdata('sukses', 'Order Anda berhasil di buat silahkan cek email anda untuk detail Order Anda');
+      //sending email
+      if ($this->email->send()) {
+        $this->session->set_flashdata('sukses', 'Order Anda berhasil di buat silahkan cek email anda untuk detail Order Anda');
+        redirect(base_url('mobil/sukses/' . $insert_id), 'refresh');
+      } else {
+        $this->session->set_flashdata('message', $this->email->print_debugger());
+      }
+
+      //End Masuk tabel transaksi
+      $this->session->set_flashdata('sukses', 'Checkout Berhasil');
       redirect(base_url('mobil/sukses/' . $insert_id), 'refresh');
-    } else {
-      $this->session->set_flashdata('message', $this->email->print_debugger());
-    }
 
-    //End Masuk tabel transaksi
-    $this->session->set_flashdata('sukses', 'Checkout Berhasil');
-    redirect(base_url('mobil/sukses/' .$insert_id), 'refresh');
-
-    //End Masuk Database
+      //End Masuk Database
     }
-    }
+  }
 
 
 
@@ -639,7 +643,7 @@ class Mobil extends CI_Controller
       'insert_id'    => $insert_id,
       'last_transaksi' => $last_transaksi,
       'site_info'    => $site_info,
-      'info'		=> $info,
+      'info'    => $info,
       'isi'          => 'mobil/sukses'
     );
     $this->load->view('layout/wrapper', $data, FALSE);

@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Galeri_model extends CI_Model{
+class Galeri_model extends CI_Model
+{
   //load database
   public function __construct()
   {
@@ -15,7 +16,7 @@ class Galeri_model extends CI_Model{
                         user.nama');
     $this->db->from('galeri');
     // Join
-    $this->db->join('user', 'user.id_user = galeri.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = galeri.user_id', 'LEFT');
     //End Join
     $this->db->order_by('id_galeri');
     $query = $this->db->get();
@@ -29,9 +30,9 @@ class Galeri_model extends CI_Model{
                         user.nama');
     $this->db->from('galeri');
     // Join
-    $this->db->join('user', 'user.id_user = galeri.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = galeri.user_id', 'LEFT');
     //End Join
-    $this->db->where('posisi_galeri','Homepage');
+    $this->db->where('posisi_galeri', 'Homepage');
     $this->db->order_by('id_galeri');
     $this->db->limit(5);
     $query = $this->db->get();
@@ -43,18 +44,20 @@ class Galeri_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('galeri');
-    $this->db->where('id_galeri',$id_galeri);
+    $this->db->where('id_galeri', $id_galeri);
     $this->db->order_by('id_galeri');
     $query = $this->db->get();
     return $query->row();
   }
   //Login Galeri
-  public function login($galeriname,$password)
+  public function login($galeriname, $password)
   {
     $this->db->select('*');
     $this->db->from('galeri');
-    $this->db->where(array(  'galeriname'    => $galeriname,
-                              'password'   => sha1($password)));
+    $this->db->where(array(
+      'galeriname'    => $galeriname,
+      'password'   => sha1($password)
+    ));
     $this->db->order_by('id_galeri');
     $query = $this->db->get();
     return $query->row();
@@ -66,53 +69,52 @@ class Galeri_model extends CI_Model{
     $this->db->insert('galeri', $data);
   }
 
-    //Edit Data
-    public function edit($data)
-    {
-      $this->db->where('id_galeri',$data['id_galeri']);
-      $this->db->update('galeri',$data);
-    }
+  //Edit Data
+  public function edit($data)
+  {
+    $this->db->where('id_galeri', $data['id_galeri']);
+    $this->db->update('galeri', $data);
+  }
 
-    //Delete Data
-    public function delete($data)
-    {
-      $this->db->where('id_galeri',$data['id_galeri']);
-      $this->db->delete('galeri',$data);
-    }
+  //Delete Data
+  public function delete($data)
+  {
+    $this->db->where('id_galeri', $data['id_galeri']);
+    $this->db->delete('galeri', $data);
+  }
 
 
-    // Front end
+  // Front end
 
-    //Layanan
-    public function galeri($limit,$start)
-    {
-      $this->db->select('galeri.*,user.nama');
-      $this->db->from('galeri');
-      // Join
-      $this->db->join('user', 'user.id_user = galeri.id_user', 'LEFT');
-      //End Join
-      $this->db->where('galeri.posisi_galeri','Galeri');
-      $this->db->order_by('id_galeri');
-      $this->db->limit($limit,$start);
-      $this->db->order_by('id_galeri', 'DESC');
-      $query = $this->db->get();
-      return $query->result();
-    }
+  //Layanan
+  public function galeri($limit, $start)
+  {
+    $this->db->select('galeri.*,user.nama');
+    $this->db->from('galeri');
+    // Join
+    $this->db->join('user', 'user.id_user = galeri.user_id', 'LEFT');
+    //End Join
+    $this->db->where('galeri.posisi_galeri', 'Galeri');
+    $this->db->order_by('id_galeri');
+    $this->db->limit($limit, $start);
+    $this->db->order_by('id_galeri', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
 
-    //Total Galeri
-    public function total()
-    {
-      $this->db->select('galeri.*,user.nama');
-      $this->db->from('galeri');
-      // Join
-      $this->db->join('user', 'user.id_user = galeri.id_user', 'LEFT');
-      //End Join
-      $this->db->where('galeri.posisi_galeri','Galeri');
-      $this->db->order_by('id_galeri','DESC');
-      $query = $this->db->get();
-      return $query->result();
-    }
-
+  //Total Galeri
+  public function total()
+  {
+    $this->db->select('galeri.*,user.nama');
+    $this->db->from('galeri');
+    // Join
+    $this->db->join('user', 'user.id_user = galeri.user_id', 'LEFT');
+    //End Join
+    $this->db->where('galeri.posisi_galeri', 'Galeri');
+    $this->db->order_by('id_galeri', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
 }
 
 /* end of file Galeri_model.php */

@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Konfigurasi_model extends CI_Model{
+class Konfigurasi_model extends CI_Model
+{
 
   public function __construct()
   {
@@ -18,7 +19,7 @@ class Konfigurasi_model extends CI_Model{
   public function edit($data)
   {
     $this->db->where('id_konfigurasi', $data['id_konfigurasi']);
-    $this->db->update('konfigurasi',$data);
+    $this->db->update('konfigurasi', $data);
   }
   //Menu Berita
   public function menu_berita()
@@ -26,13 +27,15 @@ class Konfigurasi_model extends CI_Model{
     $this->db->select('berita.*, kategori.nama_kategori, kategori.slug_kategori, user.nama');
     $this->db->from('berita');
     // Join
-    $this->db->join('kategori', 'kategori.id_kategori = berita.id_kategori', 'LEFT');
-    $this->db->join('user', 'user.id_user = berita.id_user', 'LEFT');
+    $this->db->join('kategori', 'kategori.id_kategori = berita.kategori_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = berita.user_id', 'LEFT');
     //End Join
-    $this->db->where(array ( 'berita.status_berita'   =>  'Publish',
-                             'berita.jenis_berita'    =>  'Berita'));
-    $this->db->group_by('berita.id_kategori');
-    $this->db->order_by('id_berita','DESC');
+    $this->db->where(array(
+      'berita.status_berita'   =>  'Publish',
+      'berita.jenis_berita'    =>  'Berita'
+    ));
+    $this->db->group_by('berita.kategori_id');
+    $this->db->order_by('id_berita', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
@@ -44,10 +47,10 @@ class Konfigurasi_model extends CI_Model{
     $this->db->select('layanan.*,user.nama');
     $this->db->from('layanan');
     // Join
-    $this->db->join('user', 'user.id_user = layanan.id_user', 'LEFT');
+    $this->db->join('user', 'user.id_user = layanan.user_id', 'LEFT');
     //End Join
-    $this->db->where('layanan.status_layanan','Publish');
-    $this->db->order_by('id_layanan','DESC');
+    $this->db->where('layanan.status_layanan', 'Publish');
+    $this->db->order_by('id_layanan', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
@@ -58,11 +61,13 @@ class Konfigurasi_model extends CI_Model{
     $this->db->select('berita.*, kategori.nama_kategori, kategori.slug_kategori, user.nama');
     $this->db->from('berita');
     // Join
-    $this->db->join('kategori', 'kategori.id_kategori = berita.id_kategori', 'LEFT');
-    $this->db->join('user', 'user.id_user = berita.id_user', 'LEFT');
+    $this->db->join('kategori', 'kategori.id_kategori = berita.kategori_id', 'LEFT');
+    $this->db->join('user', 'user.id_user = berita.user_id', 'LEFT');
     //End Join
-    $this->db->where(array ( 'berita.status_berita'   =>  'Publish',
-                             'berita.jenis_berita'    =>  'Profil'));
+    $this->db->where(array(
+      'berita.status_berita'   =>  'Publish',
+      'berita.jenis_berita'    =>  'Profil'
+    ));
     $this->db->order_by('id_berita');
     $query = $this->db->get();
     return $query->result();
@@ -72,7 +77,7 @@ class Konfigurasi_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('page');
-    $this->db->order_by('id_page','DESC');
+    $this->db->order_by('id_page', 'DESC');
     $query = $this->db->get();
     return $query->result();
   }
@@ -81,7 +86,7 @@ class Konfigurasi_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('pendaftaran');
-    $this->db->where('status_read',0);
+    $this->db->where('status_read', 0);
     $query = $this->db->get();
     return $query->result();
   }
@@ -90,7 +95,7 @@ class Konfigurasi_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('kontak');
-    $this->db->where('status_read',0);
+    $this->db->where('status_read', 0);
     $query = $this->db->get();
     return $query->result();
   }
@@ -98,37 +103,35 @@ class Konfigurasi_model extends CI_Model{
   {
     $this->db->select('*');
     $this->db->from('transaksi');
-    $this->db->where('status_read',0);
+    $this->db->where('status_read', 0);
     $query = $this->db->get();
     return $query->result();
   }
 
 
   //Total Data Pendaftaran dan Pesan Masuk
-    public function total_unread()
-    {
+  public function total_unread()
+  {
 
 
 
 
 
-      // $this->db->select('*');
-      // $this->db->from('pendaftaran');
-      // $this->db->and('pendaftaran');
-      //
-      // //$this->db->join('kontak','kontak.status_read = pendaftaran.status_read');
-      //  $this->db->where('pendaftaran.status_read',0);
-      //  $this->db->where('kontak.status_read',0);
-      // $query = $this->db->get();
-      // return $query->result();
+    // $this->db->select('*');
+    // $this->db->from('pendaftaran');
+    // $this->db->and('pendaftaran');
+    //
+    // //$this->db->join('kontak','kontak.status_read = pendaftaran.status_read');
+    //  $this->db->where('pendaftaran.status_read',0);
+    //  $this->db->where('kontak.status_read',0);
+    // $query = $this->db->get();
+    // return $query->result();
 
-     //
-     // $this->db->where('status_read',0);
-     // $this->db->where('status_read',0);
-     // $this->db->get();
-    }
-
-
+    //
+    // $this->db->where('status_read',0);
+    // $this->db->where('status_read',0);
+    // $this->db->get();
+  }
 }
 
 
