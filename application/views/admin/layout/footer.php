@@ -1,65 +1,57 @@
-</main>
-<!-- Essential javascripts for application to work-->
-    <script src="<?php echo base_url() ?>assets/admin/js/jquery-3.2.1.min.js"></script>
-    <script src="<?php echo base_url() ?>assets/admin/js/popper.min.js"></script>
-    <script src="<?php echo base_url() ?>assets/admin/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url() ?>assets/admin/js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="<?php echo base_url() ?>assets/admin/js/plugins/pace.min.js"></script>
-    <!-- Data table plugin-->
-      <script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/jquery.dataTables.min.js"></script>
-      <script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/dataTables.bootstrap.min.js"></script>
+</div>
+<!---Container Fluid-->
+</div>
+<!-- Footer -->
+<footer class="sticky-footer bg-white mt-3">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Application Version 1.0
+            </span>
+        </div>
+    </div>
+</footer>
+<!-- Footer -->
+</div>
+</div>
 
-      <script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/bootstrap-datepicker.min.js"></script>
-    <script src="<?php echo base_url() ?>assets/admin/js/chosen.jquery.min.js"></script>
+<!-- Scroll to top -->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
-      <script type="text/javascript">
-      $('#dataTable').DataTable({
-    order: [[0, 'desc']],
-});
-    </script>
-      <script>
-          window.setTimeout(function() {
-            //$(".custom-alert").alert('close'); <--- Do not use this
+<script src="<?php echo base_url('assets/admin/vendor/jquery/jquery.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/admin/vendor/bootstrap/js/bootstrap.min.js') ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/admin/vendor/jquery-easing/jquery.easing.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/admin/js/myscript.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/admin/vendor/chart.js/Chart.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/admin/js/demo/chart-area-demo.js'); ?>"></script>
 
-            $(".custom-alert").slideUp(500, function() {
-                $(this).remove();
-            });
-          }, 3000);
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
-          $('.form-control-chosen').chosen({
-          });
+<!-- SUMMERNOTE -->
+<link href="<?php echo base_url('assets/admin/js/summernote/summernote-lite.min.css'); ?>" rel="stylesheet">
+<script src="<?php echo base_url('assets/admin/js/summernote/summernote-lite.min.js'); ?>"></script>
 
-        </script>
-
-  <!-- TinyMce -->
-  <script src="<?php echo base_url() ?>assets/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
-
-  <script>
-  tinymce.init({
-  selector: '.tinymce',
-  height: 300,
-  menubar: false,
-  plugins: [
-    'advlist autolink lists link image charmap print preview anchor textcolor',
-    'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table contextmenu paste code help wordcount'
-  ],
-  toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-  content_css: [
-    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-    '//www.tinymce.com/css/codepen.min.css']
-});
-
-  </script>
-
-
-  <script type="text/javascript" src="<?php echo base_url() ?>assets/admin/js/plugins/chart.js"></script>
-      
+<script>
+    $('#summernote').summernote({
+        tabsize: 2,
+        height: 130,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+</script>
 
 
 
-  </body>
+
+</body>
+
 </html>

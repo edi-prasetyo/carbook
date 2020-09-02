@@ -3,48 +3,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
-
-  //Load Model
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('berita_model');
-    $this->load->model('konfigurasi_model');
-    $this->load->model('layanan_model');
-    $this->load->model('galeri_model');
-    $this->load->model('section_model');
-    $this->load->model('services_model');
-    $this->load->model('mobil_model');
+    $this->load->model('meta_model');
+    $this->load->model('products_model');
+    $this->load->model('galery_model');
   }
-
-  //main page - home page
   public function index()
   {
-    $konfigurasi                    = $this->konfigurasi_model->listing();
-    $slider                         = $this->galeri_model->slider();
-    $layanan                        = $this->layanan_model->home();
-    $berita                         = $this->berita_model->home();
-    $section                        = $this->section_model->listing();
-    $services                        = $this->services_model->listing();
-    $mobil                          = $this->mobil_model->listing();
-
-
-
+    $meta                     = $this->meta_model->get_meta();
+    $minigold                 = $this->products_model->product_minigold();
+    $antam                    = $this->products_model->product_antam();
+    $slider                   = $this->galery_model->slider();
     $data = array(
-      'title'         => $konfigurasi->namaweb . ' - ' . $konfigurasi->tagline,
-      'keywords'      => $konfigurasi->namaweb . ' - ' . $konfigurasi->tagline . ',' . $konfigurasi->keywords,
-      'deskripsi'     => $konfigurasi->deskripsi,
-      'slider'        => $slider,
-      'layanan'       => $layanan,
-      'berita'        => $berita,
-      'section'       => $section,
-      'services'      => $services,
-      'mobil'         => $mobil,
-      'isi'       => 'home/list'
+      'title'                 => $meta->title . ' - ' . $meta->tagline,
+      'keywords'              => $meta->title . ' - ' . $meta->tagline . ',' . $meta->keywords,
+      'deskripsi'             => $meta->description,
+      'minigold'              => $minigold,
+      'antam'                 => $antam,
+      'slider'                =>  $slider,
+      'content'               => 'front/home/index_home'
     );
-    $this->load->view('layout/wrapper', $data, FALSE);
+    $this->load->view('front/layout/wrapp', $data, FALSE);
   }
 }
-
- /* End of file home.php */
- /* Location: ./application/controllers/Home.php */
