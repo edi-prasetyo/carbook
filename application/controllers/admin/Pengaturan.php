@@ -42,24 +42,12 @@ class Pengaturan extends CI_Controller
         } else {
             $data = [
                 'id'                      => $pengaturan->id,
-                'user_id'                 => $this->session->userdata('id'),
-                'title'                   => $this->input->post('title'),
-                'tagline'                 => $this->input->post('tagline'),
-                'description'             => $this->input->post('description'),
-                'keywords'                => $this->input->post('keywords'),
-                'google_pengaturan'             => $this->input->post('google_pengaturan'),
-                'bing_pengaturan'               => $this->input->post('bing_pengaturan'),
-                'google_analytics'        => $this->input->post('google_analytics'),
-                'google_tag'              => $this->input->post('google_tag'),
-                'email'                   => $this->input->post('email'),
-                'telepon'                 => $this->input->post('telepon'),
-                'alamat'                  => $this->input->post('alamat'),
-                'link'                    => $this->input->post('link'),
-                'map'                     => $this->input->post('map'),
-                'facebook'                => $this->input->post('facebook'),
-                'instagram'               => $this->input->post('instagram'),
-                'youtube'                 => $this->input->post('youtube'),
-                'twitter'                 => $this->input->post('twitter'),
+                'name'                   => $this->input->post('name'),
+                'protocol'                 => $this->input->post('protocol'),
+                'smtp_host'             => $this->input->post('smtp_port'),
+                'smtp_port'                => $this->input->post('keywords'),
+                'smtp_user'             => $this->input->post('smtp_user'),
+                'smtp_user'               => $this->input->post('smtp_user'),
                 'date_updated'            => time()
             ];
             $this->pengaturan_model->update($data);
