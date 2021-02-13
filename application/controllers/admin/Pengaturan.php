@@ -27,8 +27,8 @@ class Pengaturan extends CI_Controller
     {
         $pengaturan = $this->pengaturan_model->detail_pengaturan($id);
         $this->form_validation->set_rules(
-            'title',
-            'Judul Web',
+            'name',
+            'Nama',
             'required',
             array('required'            => '%s Harus Diisi')
         );
@@ -44,10 +44,10 @@ class Pengaturan extends CI_Controller
                 'id'                      => $pengaturan->id,
                 'name'                   => $this->input->post('name'),
                 'protocol'                 => $this->input->post('protocol'),
-                'smtp_host'             => $this->input->post('smtp_port'),
-                'smtp_port'                => $this->input->post('keywords'),
+                'smtp_host'             => $this->input->post('smtp_host'),
+                'smtp_port'                => $this->input->post('smtp_port'),
                 'smtp_user'             => $this->input->post('smtp_user'),
-                'smtp_user'               => $this->input->post('smtp_user'),
+                'smtp_pass'               => $this->input->post('smtp_pass'),
                 'date_updated'            => time()
             ];
             $this->pengaturan_model->update($data);

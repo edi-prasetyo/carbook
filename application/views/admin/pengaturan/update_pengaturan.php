@@ -30,28 +30,28 @@
             <label class="col-lg-3 col-form-label">smtp_host <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <input type="text" class="form-control" name="smtp_host " value="<?php echo $pengaturan->smtp_host; ?>">
+                <input type="text" class="form-control" name="smtp_host" value="<?php echo $pengaturan->smtp_host; ?>">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-lg-3 col-form-label">smtp_port <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <input type="text" class="form-control" name="smtp_port  " value="<?php echo $pengaturan->smtp_port; ?>">
+                <input type="text" class="form-control" name="smtp_port" value="<?php echo $pengaturan->smtp_port; ?>">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-lg-3 col-form-label">smtp_user <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <input type="text" class="form-control" name="smtp_user  " value="<?php echo $pengaturan->smtp_user; ?>">
+                <input type="text" class="form-control" name="smtp_user" value="<?php echo $pengaturan->smtp_user; ?>">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-lg-3 col-form-label">smtp_pass <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <input type="text" class="form-control" name="smtp_pass  " value="<?php echo $pengaturan->smtp_pass; ?>">
+                <input type="text" class="form-control" name="smtp_pass" value="<?php echo $pengaturan->smtp_pass; ?>">
             </div>
         </div>
 
