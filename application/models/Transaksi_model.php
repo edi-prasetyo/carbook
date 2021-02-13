@@ -165,4 +165,59 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+
+  public function get_transaksi_user($id, $limit, $start)
+  {
+    $this->db->select('transaksi.*, user.user_name');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    //End Join
+    $this->db->where('user_id', $id);
+    $this->db->order_by('transaksi.id', 'DESC');
+    $this->db->limit($limit, $start);
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function total_transaksi_user()
+  {
+    $this->db->select('transaksi.*,user.user_name');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    //End Join
+    $this->db->order_by('id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  // Detail Transaksi User
+  public function detail_transaksi($id)
+  {
+    $this->db->select('*');
+    $this->db->from('transaksi');
+    //join
+    // $this->db->join('mobil', 'mobil.id_mobil = transaksi.id_mobil', 'left');
+    //End Join
+    $this->db->where('id', $id);
+    $this->db->order_by('id');
+    $query = $this->db->get();
+    return $query->row();
+  }
+
+  //Cek transaksi
+  public function cek_transaksi($kode_transaksi, $email)
+  {
+    $this->db->select('transaksi.*, mobil.mobil_name');
+    $this->db->from('transaksi');
+    //join
+    $this->db->join('mobil', 'mobil.id = transaksi.mobil_id', 'left');
+    //End Join
+    $this->db->like('kode_transaksi', $kode_transaksi);
+    $this->db->like('user_email', $email);
+
+    // $this->db->where('kode_transaksi',$kode_transaksi);
+
+    $query = $this->db->get();
+    return $query->row();
+  }
 }

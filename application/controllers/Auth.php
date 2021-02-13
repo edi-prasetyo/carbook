@@ -7,12 +7,11 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		
 	}
 
 	public function index()
 	{
-		if($this->session->userdata('id')){
+		if ($this->session->userdata('id')) {
 			redirect('myaccount');
 		}
 
@@ -36,6 +35,8 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data = [
 				'title' 		=> 'User Login',
+				'deskripsi'		=> 'deskripsi',
+				'keywords'		=> 'keywords',
 				'content'       => 'front/auth/login'
 			];
 			$this->load->view('front/layout/wrapp', $data, FALSE);
@@ -87,10 +88,10 @@ class Auth extends CI_Controller
 
 	public function register()
 	{
-		if($this->session->userdata('id')){
+		if ($this->session->userdata('id')) {
 			redirect('myaccount');
 		}
-		
+
 		$this->form_validation->set_rules(
 			'user_name',
 			'Nama',
@@ -120,7 +121,9 @@ class Auth extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data = [
-				'title'			=> 'Register Reseller',
+				'title'			=> 'Register',
+				'deskripsi'		=> 'Deskripsi',
+				'keywords'		=> 'Keywords',
 				'content'       => 'front/auth/register'
 			];
 			$this->load->view('front/layout/wrapp', $data, FALSE);
@@ -133,7 +136,7 @@ class Auth extends CI_Controller
 				'user_image' 	=> 'default.jpg',
 				'user_phone'	=> $this->input->post('user_phone'),
 				'password'		=> password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-				'role_id'		=> 2,
+				'role_id'		=> 3,
 				'is_active'		=> 0,
 				'date_created'	=> time()
 			];
@@ -155,17 +158,18 @@ class Auth extends CI_Controller
 	}
 	private function _sendEmail($token, $type)
 	{
+		$email_register = $this->pengaturan_model->email_register();
 		$config = [
 
-			'protocol' 		=> 'smtp',
-			'smtp_host' 	=> 'ssl://mail.sitemail.com',
-			'smtp_port' 	=> 465,
-			'smtp_user' 	=> 'mail@sitemail.com',
-			'smtp_pass' 	=> 'password',
+			'protocol'     => "' . $email_register->protocol . '",
+			'smtp_host'   => "' . $email_register->smtp_host . '",
+			'smtp_port'   => $email_register->smtp_port,
+			'smtp_user'   => "' . $email_register->smtp_user . '",
+			'smtp_pass'   => "' . $email_register->smtp_pass . '",
 			'mailtype' 		=> 'html',
 			'charset' 		=> 'utf-8',
 
-			
+
 		];
 
 		$this->load->library('email', $config);
@@ -173,7 +177,7 @@ class Auth extends CI_Controller
 
 		$this->email->set_newline("\r\n");
 
-		$this->email->from('system@tokominigold.com', 'Testing');
+		$this->email->from("'.$email_register->smtp_user.'", 'System');
 		$this->email->to($this->input->post('email'));
 
 		if ($type == 'verify') {
@@ -242,6 +246,8 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data = [
 				'title'		=> 'Forgot Password',
+				'deskripsi'		=> 'Deskripsi',
+				'keywords'		=> 'Keywords',
 				'content'	=> 'front/auth/forgot_password'
 			];
 			$this->load->view('front/layout/wrapp', $data, FALSE);
@@ -306,6 +312,8 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data = [
 				'title'		=> 'Change Password',
+				'deskripsi'		=> 'Deskripsi',
+				'keywords'		=> 'Keywords',
 				'content'	=> 'front/auth/change_password'
 			];
 			$this->load->view('front/layout/wrapp', $data, FALSE);

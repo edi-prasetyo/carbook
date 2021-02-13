@@ -7,6 +7,7 @@
         <input autocomplete='off' id='show-menu' role='button' type='checkbox' />
         <ul id='menus'>
             <li><a href="<?php echo base_url('myaccount'); ?>"><i class="ti-user"></i> My Account</a></li>
+            <li><a href="<?php echo base_url('myaccount/transaksi'); ?>"><i class="ti-bag"></i> Transaksi</a></li>
             <li><a href="<?php echo base_url('myaccount/ubah_password'); ?>"><i class='ti-lock'></i> Ubah Password</a></li>
             <li><a href="<?php echo base_url('auth/logout'); ?>"><i class='ti-share'></i> Logout</a></li>
         </ul>

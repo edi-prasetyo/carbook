@@ -1,5 +1,5 @@
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Delete<?php
-                                                                                        echo $berita->id ?>">
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Delete<?php
+                                                                                            echo $berita->id ?>">
     <i class="ti-trash"></i> Hapus
 </button>
 

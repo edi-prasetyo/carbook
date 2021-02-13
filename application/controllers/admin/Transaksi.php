@@ -63,6 +63,42 @@ class transaksi extends CI_Controller
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }
+    public function confirm($id)
+    {
+        //Proteksi delete
+        is_login();
+        $data = [
+            'id'                    => $id,
+            'status_bayar'             => 'Done',
+        ];
+        $this->transaksi_model->update($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Transaksi Telah di Konfirmasi</div>');
+        redirect(base_url('admin/transaksi'), 'refresh');
+    }
+    public function process($id)
+    {
+        //Proteksi delete
+        is_login();
+        $data = [
+            'id'                    => $id,
+            'status_bayar'             => 'Process',
+        ];
+        $this->transaksi_model->update($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Transaksi Telah di Konfirmasi</div>');
+        redirect(base_url('admin/transaksi'), 'refresh');
+    }
+    public function cancel($id)
+    {
+        //Proteksi delete
+        is_login();
+        $data = [
+            'id'                    => $id,
+            'status_bayar'             => 'Cancel',
+        ];
+        $this->transaksi_model->update($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button> Transaksi Telah di Batalkan</div>');
+        redirect(base_url('admin/transaksi'), 'refresh');
+    }
     //delete
     public function delete($id)
     {
@@ -77,7 +113,7 @@ class transaksi extends CI_Controller
         //End Hapus Gambar
         $data = ['id'               => $transaksi->id];
         $this->transaksi_model->delete($data);
-        $this->session->set_flashdata('message', 'Data telah di Hapus');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Data telah di Hapus</div>');
         redirect($_SERVER['HTTP_REFERER']);
     }
 }

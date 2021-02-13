@@ -14,7 +14,7 @@
             ?>
         </div>
         <?php
-        echo form_open_multipart('admin/galery/update/' .$galery->id);
+        echo form_open_multipart('admin/galery/update/' . $galery->id);
         ?>
 
         <div class="form-group row">
@@ -45,12 +45,12 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-lg-3 col-form-label">Upload Gambar <span class="text-danger">*</span>
+            <label class="col-lg-3 col-form-label">Ganti Gambar <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
                 <div class="input-group mb-3">
                     <input type="file" name="galery_img">
-                    <img src="<?php echo base_url('assets/img/galery/'.$galery->galery_img);?>">
+                    <img src="<?php echo base_url('assets/img/galery/' . $galery->galery_img); ?>" class="img-fluid">
                 </div>
             </div>
         </div>

@@ -7,26 +7,30 @@
     </div>
 </div>
 
-<div class="margin-top container">
+<div class="container">
     <div class="col-md-9">
-        <div class="card">
-            <div class="card-body row">
-                <?php foreach ($berita as $berita) { ?>
+
+        <?php foreach ($berita as $berita) { ?>
+            <div class="card">
+                <div class="row">
                     <div class="col-md-4"><img class="img-fluid" src="<?php echo base_url('assets/img/artikel/' . $berita->berita_gambar); ?>"> </div>
                     <div class="col-md-8">
-                        <h2><?php echo $berita->berita_title; ?></h2>
-                        <?php echo $berita->berita_desc; ?>
-                        <a href="<?php echo base_url('berita/detail/' . $berita->berita_slug); ?>">Detail</a>
+                        <div class="card-body">
+                            <h4><?php echo $berita->berita_title; ?></h4>
+                            <?php echo $berita->berita_desc; ?>
+                            <a href="<?php echo base_url('berita/detail/' . $berita->berita_slug); ?>">Detail</a>
+                        </div>
                     </div>
-                <?php }; ?>
+                </div>
+            </div>
+        <?php }; ?>
 
 
-            </div>
-            <div class="pagination col-md-12 text-center">
-                <?php if (isset($paginasi)) {
-                    echo $paginasi;
-                } ?>
-            </div>
+
+        <div class="pagination col-md-12 text-center">
+            <?php if (isset($paginasi)) {
+                echo $paginasi;
+            } ?>
         </div>
     </div>
 </div>

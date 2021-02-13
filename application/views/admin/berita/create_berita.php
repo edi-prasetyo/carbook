@@ -1,4 +1,4 @@
-<div class="card shadow mb-4">
+<div class="card mb-4">
     <div class="card-header py-3">
         <?php echo $title; ?>
     </div>
@@ -29,7 +29,7 @@
             <label class="col-lg-3 col-form-label">Kategori <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <select name="category_id" class="form-control form-control-chosen select2_demo_1">
+                <select name="category_id" class="form-control custom-select">
                     <option value="">Pilih Kategori</option>
                     <?php foreach ($category as $category) { ?>
                         <option value="<?php echo $category->id ?>">
@@ -43,7 +43,7 @@
             <label class="col-lg-3 col-form-label">Status Berita <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <select name="berita_status" class="form-control form-control-chosen select2_demo_1">
+                <select name="berita_status" class="form-control custom-select">
                     <option value="Publish">Publish</option>
                     <option value="Draft">Draft</option>
                 </select>

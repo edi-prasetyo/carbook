@@ -29,7 +29,7 @@
             <label class="col-lg-3 col-form-label">Kategori <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <select name="category_id" class="form-control form-control-chosen select2_demo_1">
+                <select name="category_id" class="form-control custom-select ">
                     <?php foreach ($category as $category) { ?>
                         <option value="<?php echo $category->id ?>" <?php if ($berita->category_id == $category->id) {
                                                                         echo "selected";
@@ -44,7 +44,7 @@
             <label class="col-lg-3 col-form-label">Status Berita <span class="text-danger">*</span>
             </label>
             <div class="col-lg-6">
-                <select name="berita_status" class="form-control form-control-chosen select2_demo_1">
+                <select name="berita_status" class="form-control custom-select ">
                     <option value="Publish">Publish</option>
                     <option value="Draft" <?php if ($berita->berita_status == "Draft") {
                                                 echo "selected";
@@ -67,7 +67,7 @@
             </label>
             <div class="col-lg-9">
 
-                <textarea class="form-control summernote" name="berita_desc" placeholder="Deskripsi Berita"> <?php echo $berita->berita_desc ?></textarea>
+                <textarea class="form-control" id="summernote" name="berita_desc" placeholder="Deskripsi Berita"> <?php echo $berita->berita_desc ?></textarea>
                 <?php echo form_error('berita_desc', '<small class="text-danger">', '</small>'); ?>
             </div>
         </div>

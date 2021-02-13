@@ -32,8 +32,11 @@ class User_model extends CI_Model
   }
   public function user_detail()
   {
-    $this->db->select('*');
+    $this->db->select('user.*, user_role.role');
     $this->db->from('user');
+    // join
+    $this->db->join('user_role', 'user_role.id = user.role_id', 'LEFT');
+    // End Join
     $this->db->where(array(
       'user.email'    => $this->session->userdata('email')
     ));
@@ -46,7 +49,7 @@ class User_model extends CI_Model
     $this->db->update('user', $data);
   }
   // Dashboard
-  public function user_seller()
+  public function user_member()
   {
     $this->db->select('*');
     $this->db->from('user');

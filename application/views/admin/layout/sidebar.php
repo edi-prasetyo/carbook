@@ -5,102 +5,148 @@ $meta = $this->meta_model->get_meta();
 ?>
 
 
-<!-- Sidebar -->
-<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon">
-            <i class="ti-lock"></i> </div>
-        <div class="sidebar-brand-text mx-3">Admin</div>
-    </a>
-    <hr class="sidebar-divider my-0">
-    <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url('admin/dashboard'); ?>">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        MASTER DATA
-    </div>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/transaksi'); ?>">
-            <i class="fas fa-fw fa-shopping-bag"></i>
-            <span>Transaksi</span>
-        </a>
-    </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/products'); ?>">
-            <i class="fas fa-fw fa-box"></i>
-            <span>Produk</span>
-        </a>
-    </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/buyback'); ?>">
-            <i class="fas fa-fw fa-exchange-alt"></i>
-            <span>Buyback</span>
-        </a>
-    </li>
+<div class="d-flex" id="wrapper">
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/category_products'); ?>">
-            <i class="fas fa-fw fa-tag"></i>
-            <span>Category Beli</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/category_buy'); ?>">
-            <i class="fas fa-fw fa-hashtag"></i>
-            <span>Category Buyback</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/galery'); ?>">
-            <i class="fas fa-fw fa-image"></i>
-            <span>Galery</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/seller'); ?>">
-            <i class="far fa-fw fa-user"></i>
-            <span>Reseller</span>
-        </a>
-    </li>
-
-    <hr class="sidebar-divider">
-
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Seting Web
-    </div>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true" aria-controls="collapsePage">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Site Setings</span>
-        </a>
-        <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Example Pages</h6> -->
-                <a class="collapse-item" href="<?php echo base_url('admin/meta'); ?>">Setings</a>
-                <a class="collapse-item" href="<?php echo base_url('admin/meta/logo'); ?>">Logo</a>
-                <a class="collapse-item" href="<?php echo base_url('admin/meta/favicon'); ?>">Favicon</a>
+    <!-- Sidebar -->
+    <div class="bg-white border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom">Admin </div>
+        <div class="py-4 px-3 mb-4 bg-white">
+            <div class="media d-flex align-items-center"><img src="<?php echo base_url('assets/img/avatars/' . $user->user_image); ?>" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+                <div class="media-body">
+                    <h5 class="m-0"><?php echo $user->user_name; ?></h5>
+                    <p class="font-weight-light text-muted mb-0"><?php echo $user->role; ?></p>
+                </div>
             </div>
         </div>
-    </li>
-    <!-- <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('admin/menu'); ?>">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Menu</span>
-        </a>
-    </li> -->
-    <hr class="sidebar-divider">
+        <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
 
-</ul>
-<!-- Sidebar -->
+        <ul class="nav flex-column bg-white mb-0">
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/dashboard'); ?>" class="nav-link text-dark bg-light">
+                    <i class="ti-home mr-3 text-muted fa-fw"></i>
+                    Dashboard
+                </a>
+            </li>
 
-<div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/transaksi'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-clipboard-data mr-3 text-muted fa-fw"></i>
+                    Transaksi
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/bank'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-credit-card-2-front mr-3 text-muted fa-fw"></i>
+                    Bank
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/mobil'); ?>" class="nav-link text-dark bg-light">
+                    <i class="ti-car mr-3 text-muted fa-fw"></i>
+                    Mobil
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav flex-column bg-white mb-0">
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/jenismobil'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-bookmarks mr-3 text-muted fa-fw"></i>
+                    Jenis Mobil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/merek'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-lightbulb mr-3 text-muted fa-fw"></i>
+                    Merek Mobil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/galery'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-images mr-3 text-muted fa-fw"></i>
+                    Galery
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/berita'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-newspaper mr-3 text-muted fa-fw"></i>
+                    Berita
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/category'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-tags mr-3 text-muted fa-fw"></i>
+                    Kategori
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/member'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-people mr-3 text-muted fa-fw"></i>
+                    Member
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/user'); ?>" class="nav-link text-dark bg-light">
+                    <i class="bi-person mr-3 text-muted fa-fw"></i>
+                    Admin
+                </a>
+            </li>
+
+
+            <li class="nav-item" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a href="#" class="nav-link text-dark d-flex w-100 justify-content-between bg-light">
+                    <div><i class="bi-gear mr-3 text-muted fa-fw"></i> Pengaturan </div>
+                    <i class="ti-angle-right my-auto small"></i>
+                </a>
+            </li>
+
+            <ul class="collapse list-unstyled" id="collapseExample">
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/meta'); ?>" class="nav-link text-dark bg-light">
+                        <i class="bi-record"></i>
+                        Situs
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/meta/logo'); ?>" class="nav-link text-dark bg-light">
+                        <i class="bi-record"></i>
+                        Logo
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/meta/favicon'); ?>" class="nav-link text-dark bg-light">
+                        <i class="bi-record"></i>
+                        Favicon
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/menu'); ?>" class="nav-link text-dark bg-light">
+                        <i class="bi-record"></i>
+                        Menu
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/ketentuan'); ?>" class="nav-link text-dark bg-light">
+                        <i class="bi-record"></i>
+                        Ketentuan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/pengaturan'); ?>" class="nav-link text-dark bg-light">
+                        <i class="bi-record"></i>
+                        Pengaturan Email
+                    </a>
+                </li>
+
+            </ul>
+
+
+
+        </ul>
+    </div>

@@ -9,7 +9,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="margin-top row">
+    <div class="row">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">

@@ -1,38 +1,23 @@
 </div>
-<!---Container Fluid-->
-</div>
-<!-- Footer -->
-<footer class="sticky-footer bg-white mt-3">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Application Version 1.0
-            </span>
-        </div>
-    </div>
-</footer>
-<!-- Footer -->
 </div>
 </div>
+<!-- /#wrapper -->
 
-<!-- Scroll to top -->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+<!-- Bootstrap core JavaScript -->
+<script src="<?php echo base_url('assets/template/admin/vendor/jquery/jquery.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
 
-<script src="<?php echo base_url('assets/admin/vendor/jquery/jquery.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin/vendor/bootstrap/js/bootstrap.min.js') ?>" type="text/javascript"></script>
-<script src="<?php echo base_url('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin/vendor/jquery-easing/jquery.easing.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin/js/myscript.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/admin/vendor/chart.js/Chart.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin/js/demo/chart-area-demo.js'); ?>"></script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 
 <!-- SUMMERNOTE -->
-<link href="<?php echo base_url('assets/admin/js/summernote/summernote-lite.min.css'); ?>" rel="stylesheet">
-<script src="<?php echo base_url('assets/admin/js/summernote/summernote-lite.min.js'); ?>"></script>
-
+<link href="<?php echo base_url('assets/template/admin/vendor/summernote/summernote-bs4.min.css'); ?>" rel="stylesheet">
+<script src="<?php echo base_url('assets/template/admin/vendor/summernote/summernote-bs4.min.js'); ?>"></script>
 <script>
     $('#summernote').summernote({
         tabsize: 2,
@@ -48,9 +33,6 @@
         ]
     });
 </script>
-
-
-
 
 </body>
 

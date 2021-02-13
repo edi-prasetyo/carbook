@@ -9,8 +9,8 @@ class Myaccount extends CI_Controller
     parent::__construct();
     $this->load->library('pagination');
     $this->load->model('meta_model');
-    $this->load->model('products_model');
-    $this->load->model('category_products_model');
+    $this->load->model('transaksi_model');
+    $this->load->model('bank_model');
   }
   //main page - Berita
   public function index()
@@ -35,7 +35,9 @@ class Myaccount extends CI_Controller
     $user = $this->user_model->user_detail($id);
     $meta = $this->meta_model->get_meta();
     $this->form_validation->set_rules(
-      'user_name','Nama','required',
+      'user_name',
+      'Nama',
+      'required',
       [
         'required'                      => 'Nama harus di isi'
       ]
@@ -53,6 +55,8 @@ class Myaccount extends CI_Controller
           //End Validasi
           $data = [
             'title'                     => 'Ubah Profile',
+            'deskripsi'                       => 'Berita - ' . $meta->description,
+            'keywords'                        => 'Berita - ' . $meta->keywords,
             'meta'                      => $meta,
             'error_upload'              => $this->upload->display_errors(),
             'content'                   => 'front/myaccount/update_account'
@@ -98,14 +102,14 @@ class Myaccount extends CI_Controller
         //Update Berita Tanpa Ganti Gambar
         // Hapus Gambar Lama Jika ada upload gambar baru
         if ($user->user_image != "")
-        $data  = [
-          'id'                          => $id,
-          'user_name'                   => $this->input->post('user_name'),
-          'email'                       => $this->input->post('email'),
-          'user_phone'                  => $this->input->post('user_phone'),
-          'user_address'                => $this->input->post('user_address'),
-          'date_updated'                => time()
-        ];
+          $data  = [
+            'id'                          => $id,
+            'user_name'                   => $this->input->post('user_name'),
+            'email'                       => $this->input->post('email'),
+            'user_phone'                  => $this->input->post('user_phone'),
+            'user_address'                => $this->input->post('user_address'),
+            'date_updated'                => time()
+          ];
         $this->user_model->update($data);
         $this->session->set_flashdata('message', 'Data telah di Update');
         redirect(base_url('myaccount'), 'refresh');
@@ -113,6 +117,8 @@ class Myaccount extends CI_Controller
     }
     $data = [
       'title'                           => 'Ubah Profile',
+      'deskripsi'                       => 'Berita - ' . $meta->description,
+      'keywords'                        => 'Berita - ' . $meta->keywords,
       'meta'                            => $meta,
       'user'                            => $user,
       'content'                         => 'front/myaccount/update_account'
@@ -126,7 +132,9 @@ class Myaccount extends CI_Controller
     $meta                               = $this->meta_model->get_meta();
 
     $this->form_validation->set_rules(
-      'password1','Password','required|trim|min_length[3]|matches[password2]',
+      'password1',
+      'Password',
+      'required|trim|min_length[3]|matches[password2]',
       [
         'required'                      => 'Password harus Di isi',
         'matches'                       => 'Password tidak sama',
@@ -156,10 +164,10 @@ class Myaccount extends CI_Controller
     }
   }
   // Fungsi Produk
-  public function myproducts()
+  public function transaksi()
   {
-    $config['base_url']                 = base_url('myaccount/myproducts/index/');
-    $config['total_rows']               = count($this->products_model->total_myproduct());
+    $config['base_url']                 = base_url('myaccount/transaksi/index/');
+    $config['total_rows']               = count($this->transaksi_model->total_transaksi_user());
     $config['per_page']                 = 5;
     $config['uri_segment']              = 4;
     // $config['use_page_numbers'] = TRUE;
@@ -192,222 +200,33 @@ class Myaccount extends CI_Controller
     $id = $this->session->userdata('id');
     $user = $this->user_model->user_detail($id);
     $meta = $this->meta_model->get_meta();
-    $myproducts = $this->products_model->get_myproducts($id, $limit, $start);
+    $transaksi = $this->transaksi_model->get_transaksi_user($id, $limit, $start);
     $data = [
-      'title'                           => 'Data Produk',
-      'myproducts'                      => $myproducts,
+      'title'                           => 'Data Transaksi',
+      'deskripsi'                       => 'deskripsi',
+      'keywords'                        => 'keywords',
+      'transaksi'                      => $transaksi,
       'user'                            => $user,
       'meta'                            => $meta,
       'pagination'                      => $this->pagination->create_links(),
-      'content'                         => 'front/myaccount/myproducts'
+      'content'                         => 'front/myaccount/transaksi'
     ];
     $this->load->view('front/layout/wrapp', $data, FALSE);
   }
-  //Create New products
-  public function create()
+
+  public function detail_transaksi($id)
   {
-    $meta = $this->meta_model->get_meta();
-    $category_products = $this->category_products_model->get_category_products();
-    $this->form_validation->set_rules(
-      'product_name','Nama produk','required',
-      [
-        'required'                      => 'Nama produk harus di isi',
-      ]
-    );
-    $this->form_validation->set_rules(
-      'product_desc','Deskripsi Produk','required',
-      [
-        'required'                      => 'Deskripsi Produk harus di isi',
-      ]
-    );
-    if ($this->form_validation->run()) {
-      if (!empty($_FILES['product_img']['name'])) {
-        $config['upload_path']          = './assets/img/product/';
-        $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = 5000; //Dalam Kilobyte
-        $config['max_width']            = 5000; //Lebar (pixel)
-        $config['max_height']           = 5000; //tinggi (pixel)
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('product_img')) {
-          //End Validasi
-          $data = [
-            'title'                     => 'Tambah Produk',
-            'category_products'         => $category_products,
-            'meta'                      => $meta,
-            'error_upload'              => $this->upload->display_errors(),
-            'content'                   => 'front/myaccount/create_product'
-          ];
-          $this->load->view('front/layout/wrapp', $data, FALSE);
-          //Masuk Database
-        } else {
-          //Proses Manipulasi Gambar
-          $upload_data    = array('uploads'  => $this->upload->data());
-          //Gambar Asli disimpan di folder assets/upload/image
-          //lalu gambara Asli di copy untuk versi mini size ke folder assets/upload/image/thumbs
-          $config['image_library']      = 'gd2';
-          $config['source_image']       = './assets/img/product/' . $upload_data['uploads']['file_name'];
-          //Gambar Versi Kecil dipindahkan
-          // $config['new_image']        = './assets/img/artikel/thumbs/' . $upload_data['uploads']['file_name'];
-          $config['create_thumb']       = TRUE;
-          $config['maintain_ratio']     = TRUE;
-          $config['width']              = 500;
-          $config['height']             = 500;
-          $config['thumb_marker']       = '';
-          $this->load->library('image_lib', $config);
-          $this->image_lib->resize();
-          $slugcode                     = random_string('numeric', 5);
-          $product_slug                 = url_title($this->input->post('product_name'), 'dash', TRUE);
-          $data  = [
-            'user_id'                   => $this->session->userdata('id'),
-            'category_product_id'       => $this->input->post('category_id'),
-            'product_slug'              => $slugcode . '-' . $product_slug,
-            'product_name'              => $this->input->post('product_name'),
-            'product_desc'              => $this->input->post('product_desc'),
-            'product_price'             => $this->input->post('product_price'),
-            'product_stock'             => $this->input->post('product_stock'),
-            'product_size'              => $this->input->post('product_size'),
-            'product_img'               => $upload_data['uploads']['file_name'],
-            'product_status'            => $this->input->post('product_status'),
-            'date_created'              => time()
-          ];
-          $this->products_model->create($data);
-          $this->session->set_flashdata('message', 'Data Produk telah ditambahkan');
-          redirect(base_url('myaccount/myproducts'), 'refresh');
-        }
-      } else {
-        $slugcode = random_string('numeric', 5);
-        $product_slug  = url_title($this->input->post('product_name'), 'dash', TRUE);
-        $data  = [
-          'user_id'                     => $this->session->userdata('id'),
-          'category_product_id'         => $this->input->post('category_id'),
-          'product_slug'                => $slugcode . '-' . $product_slug,
-          'product_name'                => $this->input->post('product_name'),
-          'product_desc'                => $this->input->post('product_desc'),
-          'product_price'               => $this->input->post('product_price'),
-          'product_stock'               => $this->input->post('product_stock'),
-          'product_size'                => $this->input->post('product_size'),
-          'product_status'              => $this->input->post('product_status'),
-          'date_created'                => time()
-        ];
-        $this->products_model->create($data);
-        $this->session->set_flashdata('message', 'Data telah di Update');
-        redirect(base_url('myaccount/myproducts'), 'refresh');
-      }
-    }
-    //End Masuk Database
+    $transaksi = $this->transaksi_model->detail_transaksi($id);
+    $bank = $this->bank_model->get_allbank();
     $data = [
-      'title'                           => 'Tambah Produk',
-      'category_products'               => $category_products,
-      'content'                         => 'front/myaccount/create_product'
+      'title'                         => 'Detail Transaksi',
+      'deskripsi'                     => 'detail Transaksi',
+      'keywords'                      => 'detail Transaksi',
+      'transaksi'                          => $transaksi,
+      'bank'                          => $bank,
+      'content'                       => 'front/myaccount/detail_transaksi'
     ];
     $this->load->view('front/layout/wrapp', $data, FALSE);
-  }
-  //Edit Berita
-  public function Updateproduct($id)
-  {
-    // $id = $this->session->userdata('id');
-    // $user = $this->user_model->user_detail($id);
-    $products                           = $this->products_model->product_detail($id);
-    //Validasi
-    $category_products = $this->category_products_model->get_category_products();
-    if ($products->user_id == $this->session->userdata('id')) {
-      //Validasi
-      $valid = $this->form_validation;
-      $valid->set_rules(
-        'product_name','Nama Produk','required',
-        ['required'                     => '%s harus diisi']
-      );
-      if ($valid->run()) {
-        //Kalau nggak Ganti gambar
-        if (!empty($_FILES['product_img']['name'])) {
-          $config['upload_path']          = './assets/img/product/';
-          $config['allowed_types']        = 'gif|jpg|png|jpeg';
-          $config['max_size']             = 5000; //Dalam Kilobyte
-          $config['max_width']            = 5000; //Lebar (pixel)
-          $config['max_height']           = 5000; //tinggi (pixel)
-          $this->load->library('upload', $config);
-          if (!$this->upload->do_upload('product_img')) {
-            //End Validasi
-            $data = [
-              'title'                     => 'Edit Produk',
-              'category_products'         => $category_products,
-              'products'                  => $products,
-              'error_upload'              => $this->upload->display_errors(),
-              'content'                   => 'front/myaccount/update_product'
-            ];
-            $this->load->view('front/layout/wrapp', $data, FALSE);
-            //Masuk Database
-          } else {
-            //Proses Manipulasi Gambar
-            $upload_data    = array('uploads'  => $this->upload->data());
-            //Gambar Asli disimpan di folder assets/upload/image
-            //lalu gambar Asli di copy untuk versi mini size ke folder assets/upload/image/thumbs
-            $config['image_library']      = 'gd2';
-            $config['source_image']       = './assets/img/product/' . $upload_data['uploads']['file_name'];
-            //Gambar Versi Kecil dipindahkan
-            // $config['new_image']        = './assets/img/artikel/thumbs/' . $upload_data['uploads']['file_name'];
-            $config['create_thumb']       = TRUE;
-            $config['maintain_ratio']     = TRUE;
-            $config['width']              = 500;
-            $config['height']             = 500;
-            $config['thumb_marker']       = '';
-            $this->load->library('image_lib', $config);
-            $this->image_lib->resize();
-            // Hapus Gambar Lama Jika Ada upload gambar baru
-            if ($products->product_img != "") {
-              unlink('./assets/img/product/' . $products->product_img);
-              // unlink('./assets/img/artikel/thumbs/' . $berita->berita_gambar);
-            }
-            //End Hapus Gambar
-            $data  = [
-              'id'                        => $id,
-              'user_id'                   => $this->session->userdata('id'),
-              'category_product_id'       => $this->input->post('category_id'),
-              'product_name'              => $this->input->post('product_name'),
-              'product_desc'              => $this->input->post('product_desc'),
-              'product_price'             => $this->input->post('product_price'),
-              'product_stock'             => $this->input->post('product_stock'),
-              'product_size'              => $this->input->post('product_size'),
-              'product_img'               => $upload_data['uploads']['file_name'],
-              'product_status'            => $this->input->post('product_status'),
-              'date_updated'              => time()
-            ];
-            $this->products_model->update($data);
-            $this->session->set_flashdata('message', 'Data telah di Update');
-            redirect(base_url('myaccount/myproducts'), 'refresh');
-          }
-        } else {
-          //Update Berita Tanpa Ganti Gambar
-          // Hapus Gambar Lama Jika ada upload gambar baru
-          if ($products->product_img != "")
-          $data  = [
-            'id'                          => $id,
-            'user_id'                     => $this->session->userdata('id'),
-            'category_product_id'         => $this->input->post('category_id'),
-            'product_name'                => $this->input->post('product_name'),
-            'product_desc'                => $this->input->post('product_desc'),
-            'product_price'               => $this->input->post('product_price'),
-            'product_stock'               => $this->input->post('product_stock'),
-            'product_size'                => $this->input->post('product_size'),
-            'product_status'              => $this->input->post('product_status'),
-            'date_updated'                => time()
-          ];
-          $this->products_model->update($data);
-          $this->session->set_flashdata('message', 'Data telah di Update');
-          redirect(base_url('myaccount/myproducts'), 'refresh');
-        }
-      }
-      //End Masuk Database
-      $data = [
-        'title'                           => 'Update Produk',
-        'category_products'               => $category_products,
-        'products'                        => $products,
-        'content'                         => 'front/myaccount/update_product'
-      ];
-      $this->load->view('front/layout/wrapp', $data, FALSE);
-    } else {
-      redirect('myaccount/myproducts');
-    }
   }
   //delete
   public function delete($id)

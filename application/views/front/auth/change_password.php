@@ -1,12 +1,12 @@
 <div class="container">
     <div class="col-md-6 mx-auto">
-        <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
 
                 <div class="p-5">
-                    <div class="text-center">
-                        <h1 class="h4 text-gray-900">Change your password?</h1>
+                    <div class="text-muted">
+                        <h1 class="h4 text-gray-900"><i class="bi-shield-lock" style="font-size: 2rem;"></i> Change your password?</h1>
                         <h5 class="mb-4"><?php echo $this->session->userdata('reset_email'); ?></h5>
                         <?php echo $this->session->flashdata('message'); ?>
                     </div>
@@ -25,7 +25,7 @@
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                    <button type="submit" class="btn btn-info btn-block">
                         Change Password
                     </button>
 

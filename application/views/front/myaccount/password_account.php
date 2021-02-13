@@ -9,11 +9,9 @@
         </div>
     </div>
 
-    <div class="margin-top container">
+    <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <?php include "sidebar_account.php"; ?>
-            </div>
+
 
             <div class="col-md-9">
                 <div class="card">
@@ -21,10 +19,10 @@
                     <?php
                     echo form_open_multipart('myaccount/ubah_password');
                     ?>
-
+                    <div class="card-header">Ubah Password, <?php echo $user->user_name; ?></div>
                     <div class="card-body">
-                        <h2>Ubah Password, <?php echo $user->user_name; ?></h2>
-                        <hr>
+
+
 
                         <div class="row">
 

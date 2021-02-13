@@ -9,11 +9,9 @@
         </div>
     </div>
 
-    <div class="margin-top container">
+    <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <?php include "sidebar_account.php"; ?>
-            </div>
+
 
             <div class="col-md-9">
                 <div class="card">
@@ -28,12 +26,12 @@
                         <div class="row">
 
                             <div class="col-3">
-                                Foto
+                                <img src="<?php echo base_url('assets/img/avatars/' . $user->user_image); ?>" width="50%" class="img-fluid">
                             </div>
                             <div class="col-9">
                                 <div class="input-group">
                                     <input type="file" name="user_image">
-                                    <img src="<?php echo base_url('assets/img/avatars/' . $user->user_image); ?>" width="50%" class="img img-thumbnail">
+
                                 </div>
 
                             </div>
