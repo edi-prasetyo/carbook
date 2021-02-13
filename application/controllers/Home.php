@@ -7,21 +7,16 @@ class Home extends CI_Controller
   {
     parent::__construct();
     $this->load->model('meta_model');
-    $this->load->model('products_model');
     $this->load->model('galery_model');
   }
   public function index()
   {
     $meta                     = $this->meta_model->get_meta();
-    $minigold                 = $this->products_model->product_minigold();
-    $antam                    = $this->products_model->product_antam();
     $slider                   = $this->galery_model->slider();
     $data = array(
       'title'                 => $meta->title . ' - ' . $meta->tagline,
       'keywords'              => $meta->title . ' - ' . $meta->tagline . ',' . $meta->keywords,
       'deskripsi'             => $meta->description,
-      'minigold'              => $minigold,
-      'antam'                 => $antam,
       'slider'                =>  $slider,
       'content'               => 'front/home/index_home'
     );
