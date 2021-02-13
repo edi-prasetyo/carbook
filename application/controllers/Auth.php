@@ -162,11 +162,11 @@ class Auth extends CI_Controller
 		$email_register = $this->pengaturan_model->email_register();
 		$config = [
 
-			'protocol'     => "' . $email_register->protocol . '",
-			'smtp_host'   => "' . $email_register->smtp_host . '",
+			'protocol'     => "$email_register->protocol",
+			'smtp_host'   => "$email_register->smtp_host",
 			'smtp_port'   => $email_register->smtp_port,
-			'smtp_user'   => "' . $email_register->smtp_user . '",
-			'smtp_pass'   => "' . $email_register->smtp_pass . '",
+			'smtp_user'   => "$email_register->smtp_user",
+			'smtp_pass'   => "$email_register->smtp_pass",
 			'mailtype' 		=> 'html',
 			'charset' 		=> 'utf-8',
 
