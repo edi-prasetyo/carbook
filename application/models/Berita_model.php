@@ -80,6 +80,20 @@ class Berita_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  public function berita_home()
+  {
+    $this->db->select('berita.*,category.category_name, user.user_name');
+    $this->db->from('berita');
+    // Join
+    $this->db->join('category', 'category.id = berita.category_id', 'LEFT');
+    $this->db->join('user', 'user.id = berita.user_id', 'LEFT');
+    //End Join
+    $this->db->where(['berita_status'     =>  'Publish']);
+    $this->db->order_by('berita.id', 'DESC');
+    $this->db->limit(3);
+    $query = $this->db->get();
+    return $query->result();
+  }
   //Total Berita Main Page
   public function total()
   {

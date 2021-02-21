@@ -3,35 +3,47 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Page extends CI_Controller
 {
-    //main page - home page
+
+    //Load Model
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('meta_model');
+        $this->load->model('page_model');
+    }
+
+    //main page - Berita
     public function index()
     {
-        $data = [
-            'title'     => 'Page',
-            'deskripsi' => 'Page',
-            'keywords'  => 'Page',
-            'content'   => 'front/page/index_page'
-        ];
+        $meta           = $this->meta_model->get_meta();
+        $page           = $this->page_model->get_page();
+
+        // End Listing Berita dengan paginasi
+        $data = array(
+            'title'       => 'Halaman',
+            'deskripsi'   => 'Berita - ' . $meta->description,
+            'keywords'    => 'Berita - ' . $meta->keywords,
+            'page'        => $page,
+            'content'     => 'front/page/index_page'
+        );
         $this->load->view('front/layout/wrapp', $data, FALSE);
     }
-    public function cara_order()
+    // Detail Page
+    public function detail($page_slug)
     {
-        $data = [
-            'title'     => 'Cara Order',
-            'deskripsi' => 'Cara Order',
-            'keywords'  => 'Cara Order',
-            'content'   => 'front/page/order_page'
-        ];
-        $this->load->view('front/layout/wrapp', $data, FALSE);
-    }
-    public function reseller()
-    {
-        $data = [
-            'title'     => 'Reseller',
-            'deskripsi' => 'Reseller',
-            'keywords'  => 'Reseller',
-            'content'   => 'front/page/reseller_page'
-        ];
+        $meta           = $this->meta_model->get_meta();
+        $page           = $this->page_model->read($page_slug);
+
+        $data = array(
+            'title'       => $page->page_title,
+            'deskripsi'   => 'Halaman - ' . $meta->description,
+            'keywords'    => 'Halaman - ' . $meta->keywords,
+            'page'        => $page,
+            'content'     => 'front/page/detail_page'
+        );
         $this->load->view('front/layout/wrapp', $data, FALSE);
     }
 }
+
+/* End of file berita.php */
+/* Location: ./application/controllers/Berita.php */

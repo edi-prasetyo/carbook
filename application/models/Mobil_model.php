@@ -43,6 +43,23 @@ class Mobil_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  //Mobil Populer
+  public function mobil_populer()
+  {
+    $this->db->select('mobil.*,
+                       merek.merek_name, merek.merek_slug, jenismobil.jenismobil_name, user.user_name');
+    $this->db->from('mobil');
+    // Join
+    $this->db->join('merek', 'merek.id = mobil.merek_id', 'LEFT');
+    $this->db->join('jenismobil', 'jenismobil.id = mobil.jenismobil_id', 'LEFT');
+    $this->db->join('user', 'user.id = mobil.user_id', 'LEFT');
+    //End Join
+    $this->db->where(['mobil_status' => 'Aktif']);
+    $this->db->order_by('mobil.mobil_views', 'DESC');
+    $this->db->limit(3);
+    $query = $this->db->get();
+    return $query->result();
+  }
 
 
   //listing Mobil Home
@@ -293,7 +310,18 @@ class Mobil_model extends CI_Model
   }
   //Delete Data Paket
 
-
+  // Update Counter Mobil Views
+  function update_counter($id)
+  {
+    // return current article views
+    $this->db->where('id', urldecode($id));
+    $this->db->select('mobil_views');
+    $count = $this->db->get('mobil')->row();
+    // then increase by one
+    $this->db->where('id', urldecode($id));
+    $this->db->set('mobil_views', ($count->mobil_views + 1));
+    $this->db->update('mobil');
+  }
 }
 
 /* end of file Mobil_model.php */

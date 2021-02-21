@@ -46,6 +46,7 @@ class Rental_mobil extends CI_Controller
           'mobil'       => $mobil,
           'content'         => 'front/rental/detail_rental'
         );
+
         $this->load->view('front/layout/wrapp', $data, FALSE);
       } else {
         $listpaket          = $this->mobil_model->listpaket($id);
@@ -59,8 +60,35 @@ class Rental_mobil extends CI_Controller
           'listpaket'   => $listpaket,
           'content'         => 'front/rental/detail_rental'
         );
+        $this->add_count($id);
         $this->load->view('front/layout/wrapp', $data, FALSE);
       }
+    }
+  }
+
+  // Update Count Mobil Views
+
+  function add_count($id)
+  {
+    // load cookie helper
+    $this->load->helper('cookie');
+    // this line will return the cookie which has slug name
+    $check_visitor2 = $this->input->cookie(urldecode($id), FALSE);
+    // this line will return the visitor ip address
+    $ip = $this->input->ip_address();
+    // if the visitor visit this article for first time then //
+    //set new cookie and update article_views column  ..
+    //you might be notice we used slug for cookie name and ip
+    //address for value to distinguish between articles  views
+    if ($check_visitor2 == false) {
+      $cookie = array(
+        "name"                      => urldecode($id),
+        "value"                     => "$ip",
+        "expire"                    =>  time() + 7200,
+        "secure"                    => false
+      );
+      $this->input->set_cookie($cookie);
+      $this->mobil_model->update_counter(urldecode($id));
     }
   }
 
@@ -206,11 +234,11 @@ class Rental_mobil extends CI_Controller
 
     $config = [
 
-      'protocol'     => "' . $email_order->protocol . '",
-      'smtp_host'   => "' . $email_order->smtp_host . '",
+      'protocol'     => "$email_order->protocol",
+      'smtp_host'   => "$email_order->smtp_host",
       'smtp_port'   => $email_order->smtp_port,
-      'smtp_user'   => "' . $email_order->smtp_user . '",
-      'smtp_pass'   => "' . $email_order->smtp_pass . '",
+      'smtp_user'   => "$email_order->smtp_user",
+      'smtp_pass'   => "$email_order->smtp_pass",
       'mailtype'     => 'html',
       'charset'     => 'utf-8',
 
@@ -222,11 +250,11 @@ class Rental_mobil extends CI_Controller
 
     $this->email->set_newline("\r\n");
 
-    $this->email->from("'.$email_order->smtp_user.'", 'Order');
+    $this->email->from("$email_order->smtp_user", 'Order');
     $this->email->to($this->input->post('email'));
 
 
-    $this->email->subject('Account Verification');
+    $this->email->subject('Order');
     $this->email->message("Terima Kasih Atas Order Anda ' . $insert_id->kode_transaksi . ' ");
 
 

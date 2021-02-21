@@ -1,11 +1,12 @@
 <div class="row mb-3">
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card h-100 bg-info text-white">
+        <div class="card shadow-sm bg-info text-white">
+            <div class="card-header text-xs font-weight-bold text-uppercase">Transaksi</div>
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Transaksi</div>
+
                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo count($transaksi); ?></div>
                         <div class="mt-2 mb-0 text-muted text-xs">
                             <a href="<?php echo base_url('admin/transaksi'); ?>" style="color:#fff;text-decoration:none;">
@@ -24,21 +25,21 @@
 
     <!-- Earnings (Annual) Card Example -->
     <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card h-100 bg-primary text-white">
+        <div class="card h-100 bg-success text-white">
+            <div class="card-header text-xs font-weight-bold text-uppercase">Admin</div>
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">User</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo count($count_user); ?></div>
-                        <div class="mt-2 mb-0 text-muted text-xs">
-                            <a href="<?php echo base_url('admin/category_products'); ?>" style="color:#fff;text-decoration:none;">
+                        <div class="text-muted text-xs">
+                            <a href="<?php echo base_url('admin/user'); ?>" style="color:#fff;text-decoration:none;">
                                 <span class="text-white mr-2"><i class="fas fa-arrow-right"></i> </span>
-                                <span>Lihat Data Category Products</span>
+                                <span>Lihat Data Admin</span>
                             </a>
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-tag fa-2x text-white"></i>
+                        <i class="bi-person fa-4x text-white"></i>
                     </div>
                 </div>
             </div>
@@ -47,10 +48,10 @@
     <!-- New User Card Example -->
     <div class="col-xl-4 col-md-6 mb-4">
         <div class="card h-100 bg-danger text-white">
+            <div class="card-header text-xs font-weight-bold text-uppercase">Member</div>
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1">Member</div>
                         <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo count($user_member); ?></div>
                         <div class="mt-2 mb-0 text-muted text-xs">
                             <a href="<?php echo base_url('admin/member'); ?>" style="color:#fff;text-decoration:none;">
@@ -109,6 +110,12 @@
 
                     </tbody>
                 </table>
+            </div>
+            <div class="card-body">
+                <div class="card shadow-sm">
+                    Test
+                </div>
+
             </div>
             <div class="card-footer"></div>
         </div>

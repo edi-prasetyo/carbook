@@ -1,13 +1,13 @@
-<div class="breadcrumb-default">
+<div class="breadcrumb">
   <div class="container">
-    <ul class="breadcrumb">
+    <ul class="breadcrumb my-3">
       <li class="breadcrumb-item"><a href="<?php echo base_url('') ?>"><i class="ti ti-home"></i> Home</a></li>
       <li class="breadcrumb-item active"><?php echo $title ?></li>
     </ul>
   </div>
 </div>
 
-<div class="container">
+<div class="container mb-3">
   <div class="row">
     <div class="col-md-4">
 
@@ -85,8 +85,8 @@
 
               <div class="col-md-3">
                 <label>Title <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="user_name" placeholder="Nama Lengkap" value="<?php echo $user->user_title; ?>" readonly>
-                <?php echo form_error('user_name', '<span class="text-danger">', '</span>'); ?>
+                <input class="form-control" type="text" name="user_title" placeholder="Nama Lengkap" value="<?php echo $user->user_title; ?>" readonly>
+                <?php echo form_error('user_title', '<span class="text-danger">', '</span>'); ?>
               </div>
 
               <div class="col-md-5">

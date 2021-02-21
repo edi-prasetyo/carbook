@@ -57,7 +57,9 @@ class Galery extends CI_Controller
   public function create()
   {
     $this->form_validation->set_rules(
-      'galery_title','Judul Gambar','required',
+      'galery_title',
+      'Judul Gambar',
+      'required',
       [
         'required'                        => 'Judul Gambar harus di isi',
       ]
@@ -90,14 +92,14 @@ class Galery extends CI_Controller
         // $config['new_image']        = './assets/img/artikel/thumbs/' . $upload_data['uploads']['file_name'];
         $config['create_thumb']           = TRUE;
         $config['maintain_ratio']         = TRUE;
-        $config['width']                  = 5000;
-        $config['height']                 = 5000;
+        $config['width']                  = 1000;
+        $config['height']                 = 1000;
         $config['thumb_marker']           = '';
         $this->load->library('image_lib', $config);
         $this->image_lib->resize();
         $slugcode = random_string('numeric', 5);
         $galery_slug  = url_title($this->input->post('galery_title'), 'dash', TRUE);
-    
+
         $data  = [
           'user_id'                             => $this->session->userdata('id'),
           'galery_slug'                         => $slugcode . '-' . $galery_slug,
@@ -127,7 +129,9 @@ class Galery extends CI_Controller
     //Validasi
     $valid = $this->form_validation;
     $valid->set_rules(
-      'galery_title','Nama Gambar','required',
+      'galery_title',
+      'Nama Gambar',
+      'required',
       ['required'                         => '%s harus diisi']
     );
     if ($valid->run()) {
@@ -160,8 +164,8 @@ class Galery extends CI_Controller
           // $config['new_image']        = './assets/img/artikel/thumbs/' . $upload_data['uploads']['file_name'];
           $config['create_thumb']         = TRUE;
           $config['maintain_ratio']       = TRUE;
-          $config['width']                = 5000;
-          $config['height']               = 5000;
+          $config['width']                = 1000;
+          $config['height']               = 1000;
           $config['thumb_marker']         = '';
           $this->load->library('image_lib', $config);
           $this->image_lib->resize();
@@ -171,16 +175,16 @@ class Galery extends CI_Controller
             // unlink('./assets/img/artikel/thumbs/' . $berita->berita_gambar);
           }
           //End Hapus Gambar
-        
+
           $data  = [
             'id'                                => $id,
             'user_id'                           => $this->session->userdata('id'),
-          'galery_title'                        => $this->input->post('galery_title'),
-          'galery_desc'                         => $this->input->post('galery_desc'),
-          'galery_url'                          => $this->input->post('galery_url'),
-          'galery_img'                          => $upload_data['uploads']['file_name'],
-          'galery_type'                         => $this->input->post('galery_type'),
-          'date_updated'                        => time()
+            'galery_title'                        => $this->input->post('galery_title'),
+            'galery_desc'                         => $this->input->post('galery_desc'),
+            'galery_url'                          => $this->input->post('galery_url'),
+            'galery_img'                          => $upload_data['uploads']['file_name'],
+            'galery_type'                         => $this->input->post('galery_type'),
+            'date_updated'                        => time()
           ];
           $this->galery_model->update($data);
           $this->session->set_flashdata('message', 'Data telah di Update');
@@ -189,15 +193,15 @@ class Galery extends CI_Controller
       } else {
         //Update Berita Tanpa Ganti Gambar
         if ($galery->galery_img != "")
-        $data  = [
-          'id'                              => $id,
-          'user_id'                         => $this->session->userdata('id'),
-          'galery_title'                        => $this->input->post('galery_title'),
-          'galery_desc'                         => $this->input->post('galery_desc'),
-          'galery_url'                          => $this->input->post('galery_url'),
-          'galery_type'                         => $this->input->post('galery_type'),
-          'date_updated'                    => time()
-        ];
+          $data  = [
+            'id'                              => $id,
+            'user_id'                         => $this->session->userdata('id'),
+            'galery_title'                        => $this->input->post('galery_title'),
+            'galery_desc'                         => $this->input->post('galery_desc'),
+            'galery_url'                          => $this->input->post('galery_url'),
+            'galery_type'                         => $this->input->post('galery_type'),
+            'date_updated'                    => time()
+          ];
         $this->galery_model->update($data);
         $this->session->set_flashdata('message', 'Data telah di Update');
         redirect(base_url('admin/galery'), 'refresh');

@@ -1,6 +1,6 @@
-<div class="breadcrumb-default">
+<div class="breadcrumb">
   <div class="container">
-    <ul class="breadcrumb">
+    <ul class="breadcrumb my-3">
       <li class="breadcrumb-item"><a href="<?php echo base_url('') ?>"><i class="ti ti-home"></i> Home</a></li>
       <li class="breadcrumb-item active"><?php echo $title ?></li>
     </ul>

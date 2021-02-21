@@ -1,54 +1,54 @@
 <?php
 $meta      = $this->meta_model->get_meta();
+$link      = $this->link_model->get_link();
+$page      = $this->page_model->get_page();
 
 ?>
 
-<section class="bg-info py-md-3 mt-md-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 text-light"><span style="font-size:35px;font-weight:700;">Butuh Bantuan ? Hubungi Kami</span></div>
-            <div class="col-md-4 text-light"><span style="font-size:30px;font-weight:700;"><i class="ri-whatsapp-line"></i> <?php echo $meta->telepon; ?></span></div>
+
+<footer class="bg-white mt-auto">
+    <div class="bg-info py-md-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-light"><span style="font-size:35px;font-weight:700;">Butuh Bantuan ? Hubungi Kami</span></div>
+                <div class="col-md-4 text-light"><span style="font-size:30px;font-weight:700;"><i class="ri-whatsapp-line"></i> <?php echo $meta->telepon; ?></span></div>
+            </div>
         </div>
     </div>
-</section>
-<footer class="pt-4 pt-md-5 pb-md-5 border-top bg-white">
-    <div class="container">
+    <div class="container pt-4 pt-md-5 pb-md-5 border-top">
         <div class="row">
-            <div class="col-12 col-md">
+            <div class="col-12 col-md-3">
                 <a href="<?php echo base_url(); ?>"><img class="mb-2" src="<?php echo base_url('assets/img/logo/' . $meta->logo) ?>" alt="" width="250"></a>
                 <span style="font-size:18px;"><br>
                     <i class="ri-phone-line"></i> <?php echo $meta->telepon ?><br>
                     <i class="ri-mail-send-line"></i> <?php echo $meta->email ?>
                 </span>
             </div>
-            <div class="col-6 col-md ml-md-5">
-                <h5>Produk Utama</h5>
+            <div class="col-6 col-md-2">
+                <h5>Halaman</h5>
                 <ul class="list-unstyled text-small">
+                    <?php foreach ($page as $page) : ?>
+                        <li> <a class="text-muted" href="<?php echo base_url('page/detail/' . $page->page_slug); ?>"><?php echo $page->page_title; ?> </a></li>
+                    <?php endforeach; ?>
 
-                    <li> <a class="text-muted" href="#">Rental Mobil Jakarta</a></li>
-                    <li> <a class="text-muted" href="#">Rental Mobil Jakarta</a></li>
-                    <li> <a class="text-muted" href="#">Rental Mobil Jakarta</a></li>
 
                 </ul>
             </div>
-            <div class="col-5 col-md">
-                <h5>Halaman</h5>
+            <div class="col-6 col-md-2">
+                <h5><?php echo $meta->title; ?></h5>
                 <ul class="list-unstyled text-small">
-                    <li> <a class="text-muted" href="<?php echo base_url('about') ?>">About Us</a></li>
                     <li> <a class="text-muted" href="<?php echo base_url('contact') ?>">Contact Us</a></li>
-                    <li> <a class="text-muted" href="<?php echo base_url('blog') ?>">Blog</a></li>
+
+                    <li> <a class="text-muted" href="<?php echo base_url('berita') ?>">Berita</a></li>
                     <li> <a class="text-muted" href="<?php echo base_url('transaksi') ?>">Cek Order</a></li>
                 </ul>
             </div>
-            <div class="col-6 col-md">
+            <div class="col-10 col-md footer">
                 <h5>Layanan</h5>
                 <ul class="list-unstyled text-small">
-
-                    <li> <a class="text-muted" href="#">Rental Mobil Jakarta</a></li>
-                    <li> <a class="text-muted" href="#">Rental Mobil Jakarta</a></li>
-                    <li> <a class="text-muted" href="#">Rental Mobil Jakarta</a></li>
-                    <li> <a class="text-muted" href="#">Rental Mobil Jakarta</a></li>
-
+                    <?php foreach ($link as $link) : ?>
+                        <li> <a class="text-muted" href="<?php echo $link->link_url; ?>"><?php echo $link->link_name; ?> </a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>

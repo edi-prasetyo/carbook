@@ -98,3 +98,69 @@ $meta = $this->meta_model->get_meta(); ?>
         </div>
     </div>
 </section>
+
+
+<section class="py-5 bg-info">
+    <div class="container">
+        <div class="header-title mb-5 text-white">
+            <h2 class="text-center"><span style="font-weight:400;">Mobil</span><span style="font-weight:700;"> Terpopuler</span></h2>
+        </div>
+        <div class="row">
+            <?php foreach ($mobil_populer as $mobil_populer) : ?>
+                <div class="col-md-4">
+
+                    <div class="card border-0">
+                        <div class="img-frame">
+                            <img src="<?php echo base_url('assets/img/mobil/' . $mobil_populer->mobil_gambar); ?>" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="badge badge-info"><?php echo $mobil_populer->merek_name; ?></div>
+                            <h2 class="card-title"><?php echo $mobil_populer->mobil_name; ?></h2>
+                            <a href="<?php echo base_url('rental-mobil/order/' . $mobil_populer->id); ?>" class="btn btn-outline-info btn-pill">Booking</a>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="row text-center">
+                                <div class="col-md-6">
+                                    <span class="text-muted mr-3"><i class="bi-people"></i> <?php echo $mobil_populer->mobil_penumpang; ?></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-muted"><i class="bi-briefcase"></i> <?php echo $mobil_populer->mobil_bagasi; ?></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="header-title mb-5">
+            <h2 class="text-center"><span style="font-weight:400;">Berita</span><span style="font-weight:700;"> Terbaru</span></h2>
+        </div>
+        <div class="row">
+            <?php foreach ($berita as $berita) : ?>
+                <div class="col-md-4">
+                    <div class="card mb-2">
+                        <div class="img-frame">
+                            <img src="<?php echo base_url('assets/img/artikel/' . $berita->berita_gambar); ?>" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title lh-lg"><?php echo substr($berita->berita_title, 0, 35); ?>..</h5>
+
+                        </div>
+                        <div class="card-footer bg-white">
+                            <a href="<?php echo base_url('berita/detail/' . $berita->berita_slug); ?>" class="btn btn-outline-info">Read More</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+</section>

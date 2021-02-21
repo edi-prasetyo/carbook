@@ -7,8 +7,8 @@ $meta = $this->meta_model->get_meta();
 <div id="page-content-wrapper">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-        <button class="btn btn-outline-secondary ml-3" id="menu-toggle"><i class="fa fa-bars"></i>
-        </button>
+        <a href="" class="ml-3 text-muted" id="menu-toggle"><i class="fa fa-bars fa-2x"></i>
+        </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
