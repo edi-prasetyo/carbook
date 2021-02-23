@@ -231,6 +231,7 @@ class Rental_mobil extends CI_Controller
   {
 
     $email_order = $this->pengaturan_model->email_order();
+    $transaksi  = $this->transaksi_model->detail_transaksi($insert_id);
 
     $config = [
 
@@ -255,7 +256,13 @@ class Rental_mobil extends CI_Controller
 
 
     $this->email->subject('Order');
-    $this->email->message('Terima Kasih Atas Order Anda ' . $insert_id->kode_transaksi . ' ');
+    $this->email->message('Terima Kasih Atas Order Anda <br> 
+                          Kode Transaksi : ' . $transaksi->kode_transaksi . '<br> 
+                          Email          : ' . $transaksi->user_email . '<br>
+                          Jumlah Tagihan : ' . $transaksi->total_harga . '<br>
+                          Tanggal Jemput : ' . $transaksi->tanggal_jemput . '<br>
+                          Jam Jemput     : ' . $transaksi->jam_jemput . '<br>
+                           ');
 
 
 
