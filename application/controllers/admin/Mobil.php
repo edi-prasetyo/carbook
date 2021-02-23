@@ -200,7 +200,7 @@ class Mobil extends CI_Controller
           $i     = $this->input;
 
           // Hapus Gambar Lama Jika Ada upload gambar baru
-          if ($mobil->gambar != "") {
+          if ($mobil->mobil_gambar != "") {
             unlink('./assets/img/mobil/' . $mobil->mobil_gambar);
           }
           //End Hapus Gambar

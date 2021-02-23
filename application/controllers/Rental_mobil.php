@@ -255,7 +255,7 @@ class Rental_mobil extends CI_Controller
 
 
     $this->email->subject('Order');
-    $this->email->message("Terima Kasih Atas Order Anda ' . $insert_id->kode_transaksi . ' ");
+    $this->email->message('Terima Kasih Atas Order Anda ' . $insert_id->kode_transaksi . ' ');
 
 
 
