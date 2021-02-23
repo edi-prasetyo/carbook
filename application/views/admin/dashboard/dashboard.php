@@ -68,7 +68,7 @@
         </div>
     </div>
     <!-- Invoice Example -->
-    <div class="col-xl-8 col-lg-7 mb-4">
+    <div class="col-md-12 mb-4">
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Transaksi Terbaru</h6>
@@ -111,40 +111,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-body">
-                <div class="card shadow-sm">
-                    Test
-                </div>
 
-            </div>
             <div class="card-footer"></div>
         </div>
     </div>
     <!-- Message From Customer-->
-    <div class="col-xl-4 col-lg-5 ">
-        <div class="card">
-            <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-light">Reseller Terbaru</h6>
-            </div>
-            <div>
-                <?php foreach ($user_member as $user_member) : ?>
-                    <div class="customer-message align-items-center">
-                        <a class="font-weight-bold" href="<?php echo base_url('admin/user/detail/' . $user_member->id); ?> ">
-                            <div class="text-truncate message-title"><?php echo $user_member->user_name; ?></div>
-                            <div class="small text-gray-500 message-time font-weight-bold">
-                                No Hp : <?php echo $user_member->user_phone; ?> · Aktif Sejak : <?php echo date('d F Y', $user_member->date_created); ?>
-                                <br>Status : <?php if ($user_member->is_active == 1) : ?>
-                                    <span class="badge badge-success">Aktif</span>
-                                <?php else : ?>
-                                    <span class="badge badge-danger">Nonaktif</span>
-                                <?php endif; ?>
-                            </div>
 
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
 </div>
 <!--Row-->

@@ -75,6 +75,7 @@
                 <a href="<?php echo base_url('admin/transaksi/cancel/' . $transaksi->id); ?>" class="btn btn-danger pull-right"><i class="fa fa-times"></i> Batalkan Pesanan</a>
             <?php elseif ($transaksi->tipe_pembayaran == "Cash" && $transaksi->status_bayar == "Process") : ?>
                 <a href="<?php echo base_url('admin/transaksi/cancel/' . $transaksi->id); ?>" class="btn btn-danger pull-right"><i class="fa fa-times"></i> Batalkan Pesanan</a>
+                <a href="<?php echo base_url('admin/transaksi/confirm/' . $transaksi->id); ?>" class="btn btn-success pull-right"><i class="fa fa-times"></i> Selesai</a>
             <?php elseif ($transaksi->tipe_pembayaran == "Cash" && $transaksi->status_bayar == "Cancel") : ?>
             <?php else : ?>
                 <div class="col-md-4">

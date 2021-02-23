@@ -179,6 +179,18 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
+  public function mytransaksi($id)
+  {
+    $this->db->select('transaksi.*, user.user_name');
+    $this->db->from('transaksi');
+    // Join
+    $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
+    //End Join
+    $this->db->where('user_id', $id);
+    $this->db->order_by('transaksi.id', 'DESC');
+    $query = $this->db->get();
+    return $query->result();
+  }
   public function total_transaksi_user()
   {
     $this->db->select('transaksi.*,user.user_name');
@@ -203,7 +215,6 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->row();
   }
-
   //Cek transaksi
   public function cek_transaksi($kode_transaksi, $email)
   {
@@ -214,9 +225,7 @@ class Transaksi_model extends CI_Model
     //End Join
     $this->db->like('kode_transaksi', $kode_transaksi);
     $this->db->like('user_email', $email);
-
     // $this->db->where('kode_transaksi',$kode_transaksi);
-
     $query = $this->db->get();
     return $query->row();
   }

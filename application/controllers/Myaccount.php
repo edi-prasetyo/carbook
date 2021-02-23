@@ -18,6 +18,7 @@ class Myaccount extends CI_Controller
     $id = $this->session->userdata('id');
     $user = $this->user_model->user_detail($id);
     $meta = $this->meta_model->get_meta();
+    $transaksi = $this->transaksi_model->mytransaksi($id);
     // End Listing Berita dengan paginasi
     $data = array(
       'title'                           => 'Akun Saya',
@@ -25,6 +26,7 @@ class Myaccount extends CI_Controller
       'keywords'                        => 'Berita - ' . $meta->keywords,
       'user'                            => $user,
       'meta'                            => $meta,
+      'transaksi'                       => $transaksi,
       'content'                         => 'front/myaccount/index_account'
     );
     $this->load->view('front/layout/wrapp', $data, FALSE);

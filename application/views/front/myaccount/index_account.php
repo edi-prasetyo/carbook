@@ -1,15 +1,15 @@
 <?php if ($this->session->userdata('id')) : ?>
 
-    <div class="breadcrumb-default">
+    <div class="breadcrumb">
         <div class="container">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_url('') ?>"><i class="ti ti-home"></i> Home</a></li>
+            <ul class="breadcrumb my-3">
+                <li class="breadcrumb-item"><a href="<?php echo base_url('myaccount') ?>"><i class="ti ti-user"></i> Account</a></li>
                 <li class="breadcrumb-item active"><?php echo $title ?></li>
             </ul>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container mb-3">
 
 
         <?php
@@ -45,7 +45,7 @@
             <div class="col-md-8">
 
                 <div class="row">
-                    <div class="col-sm-6 col-md-6 mb-2">
+                    <div class="col-sm-6 col-md-12 mb-2">
                         <div class="card card-stats bg-primary card-round text-white">
                             <div class="card-header">
                                 Transaksi
@@ -58,40 +58,13 @@
                                         </div>
                                     </div>
                                     <div class="col col-stats my-auto">
-
-
-                                        <h4 class="card-title">9</h4>
+                                        <h4 class="card-title"><?php echo count($transaksi); ?></h4>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 mb-2">
-                        <div class="card card-stats bg-success card-round text-white">
-                            <div class="card-header">
-                                Info
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="display-4 text-center text-white">
-                                            <i class="bi-chat-left-text"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col col-stats">
-                                        <div class="numbers">
-
-                                            <h4 class="card-title">9</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
 
                 </div>
 
