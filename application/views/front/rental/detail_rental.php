@@ -32,8 +32,8 @@
             <div class="img-wrap"><img class="img-fluid" src="<?php echo base_url('assets/img/mobil/') . $mobil->mobil_gambar; ?>"></div>
             <div class="badge badge-success"><?php echo $mobil->merek_name; ?></div>
             <h2><?php echo $mobil->mobil_name; ?></h2>
-            <span class="mr-5"><i class="fa fa-user"></i> <?php echo $mobil->mobil_penumpang; ?> Penumpang</span>
-            <i class="fa fa-briefcase"></i> <?php echo $mobil->mobil_bagasi; ?> Bagasi
+            <span class="mr-5"><i class="bi-people"></i> <?php echo $mobil->mobil_penumpang; ?> Penumpang</span>
+            <i class="bi-briefcase"></i> <?php echo $mobil->mobil_bagasi; ?> Bagasi
 
             <div class="col-md-12">
 
@@ -57,7 +57,7 @@
                   <h3>IDR. <strong><?php echo number_format($listpaket->paket_price, '0', ',', '.'); ?></strong></h3>
                 </div>
                 <div class="col-md-4 text-center my-auto">
-                  <a href="<?php echo base_url('rental-mobil/booking/' . $listpaket->id); ?>" class="btn btn-info btn-block ">Booking Sekarang</a>
+                  <a href="<?php echo base_url('rental-mobil/booking/' . md5($listpaket->id)); ?>" class="btn btn-info btn-block ">Booking Sekarang</a>
                 </div>
 
               </div>

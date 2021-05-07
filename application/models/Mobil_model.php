@@ -56,7 +56,7 @@ class Mobil_model extends CI_Model
     //End Join
     $this->db->where(['mobil_status' => 'Aktif']);
     $this->db->order_by('mobil.mobil_views', 'DESC');
-    $this->db->limit(3);
+    $this->db->limit(4);
     $query = $this->db->get();
     return $query->result();
   }
@@ -201,7 +201,7 @@ class Mobil_model extends CI_Model
   }
 
   //Read Mobil
-  public function read($id)
+  public function read($mobil_slug)
   {
     $this->db->select('mobil.*,
                       merek.merek_name,
@@ -216,13 +216,23 @@ class Mobil_model extends CI_Model
     //End Join
     $this->db->where(array(
       'mobil_status'           =>  'Aktif',
-      'mobil.id'        =>  $id
+      'mobil.mobil_slug'        =>  $mobil_slug
     ));
     $query = $this->db->get();
     return $query->row();
   }
   //Paket
   public function listpaket($id)
+  {
+    $this->db->select('*');
+    $this->db->from('paket');
+    $this->db->where('mobil_id', $id);
+    $this->db->order_by('paket.paket_price', 'ASC');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  //Paket
+  public function listpaket_front($id)
   {
     $this->db->select('*');
     $this->db->from('paket');
@@ -251,7 +261,7 @@ class Mobil_model extends CI_Model
     $this->db->from('paket');
     $this->db->join('ketentuan', 'ketentuan.id = paket.ketentuan_id', 'LEFT');
     $this->db->join('mobil', 'mobil.id = paket.mobil_id', 'LEFT');
-    $this->db->where('paket.id', $id);
+    $this->db->where('md5(paket.id)', $id);
     $query = $this->db->get();
     return $query->row();
   }
@@ -311,14 +321,14 @@ class Mobil_model extends CI_Model
   //Delete Data Paket
 
   // Update Counter Mobil Views
-  function update_counter($id)
+  function update_counter($mobil_slug)
   {
     // return current article views
-    $this->db->where('id', urldecode($id));
+    $this->db->where('mobil_slug', urldecode($mobil_slug));
     $this->db->select('mobil_views');
     $count = $this->db->get('mobil')->row();
     // then increase by one
-    $this->db->where('id', urldecode($id));
+    $this->db->where('mobil_slug', urldecode($mobil_slug));
     $this->db->set('mobil_views', ($count->mobil_views + 1));
     $this->db->update('mobil');
   }

@@ -10,12 +10,12 @@
                         <?php echo $this->session->flashdata('message'); ?>
                     </div>
                     <?php
-                    $attributes = array('class' => 'user');
-                    echo form_open('auth/forgotpassword', $attributes)
+
+                    echo form_open_multipart('auth/forgotpassword',  array('class' => 'needs-validation', 'novalidate' => 'novalidate'))
                     ?>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" name="email" id="email" placeholder="Masukan Email Terdaftar..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase">
-                        <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="text" class="form-control form-control-user" name="email" id="email" placeholder="Masukan Email Terdaftar..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase" required>
+                        <div class="invalid-feedback">Silahkan masukan Email</div>
                     </div>
 
 

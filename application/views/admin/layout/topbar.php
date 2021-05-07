@@ -6,7 +6,7 @@ $meta = $this->meta_model->get_meta();
 
 <div id="page-content-wrapper">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <a href="" class="ml-3 text-muted" id="menu-toggle"><i class="fa fa-bars fa-2x"></i>
         </a>
 
@@ -53,6 +53,10 @@ $meta = $this->meta_model->get_meta();
             </ul>
         </div>
     </nav>
+
+
+
+
 
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4 p-2 border-bottom">

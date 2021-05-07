@@ -34,7 +34,7 @@ $meta = $this->meta_model->get_meta(); ?>
 
 
 
-<section class="bg-white py-3">
+<section class="bg-light py-3">
     <div class="container pb-5">
         <div class="header-title my-5">
             <h2 class="text-center"><span style="font-weight:400;">Keunggulan</span><span style="font-weight:700;"> Layanan</span></h2>
@@ -100,23 +100,23 @@ $meta = $this->meta_model->get_meta(); ?>
 </section>
 
 
-<section class="py-5 bg-info">
+<section class="py-5 bg-white">
     <div class="container">
-        <div class="header-title mb-5 text-white">
+        <div class="header-title mb-5">
             <h2 class="text-center"><span style="font-weight:400;">Mobil</span><span style="font-weight:700;"> Terpopuler</span></h2>
         </div>
         <div class="row">
             <?php foreach ($mobil_populer as $mobil_populer) : ?>
-                <div class="col-md-4">
+                <div class="col-md-3 col-6">
 
-                    <div class="card border-0">
-                        <div class="img-frame">
-                            <img src="<?php echo base_url('assets/img/mobil/' . $mobil_populer->mobil_gambar); ?>" class="card-img-top" alt="...">
-                        </div>
+                    <div class="card">
+                        <!-- <div class="img-frame"> -->
+                        <img src="<?php echo base_url('assets/img/mobil/' . $mobil_populer->mobil_gambar); ?>" class="card-img-top" alt="...">
+                        <!-- </div> -->
                         <div class="card-body text-center">
                             <div class="badge badge-info"><?php echo $mobil_populer->merek_name; ?></div>
-                            <h2 class="card-title"><?php echo $mobil_populer->mobil_name; ?></h2>
-                            <a href="<?php echo base_url('rental-mobil/order/' . $mobil_populer->id); ?>" class="btn btn-outline-info btn-pill">Booking</a>
+                            <h4 class="card-title"><?php echo $mobil_populer->mobil_name; ?></h4>
+                            <a href="<?php echo base_url('rental-mobil/order/' . $mobil_populer->mobil_slug); ?>" class="btn btn-outline-info btn-pill">Booking</a>
                         </div>
                         <div class="card-footer bg-white">
                             <div class="row text-center">

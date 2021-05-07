@@ -19,15 +19,15 @@
                             <?php echo $this->session->flashdata('message'); ?>
                         </div>
                         <?php
-                        echo form_open('auth')
+                        echo form_open_multipart('auth',  array('class' => 'needs-validation', 'novalidate' => 'novalidate'))
                         ?>
                         <div class=" form-group">
-                            <input type="text" class="form-control form-control-user" name="email" placeholder="Email..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase">
-                            <?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <input type="text" class="form-control form-control-user" name="email" placeholder="Email..." value="<?php echo set_value('email'); ?>" style="text-transform: lowercase" required>
+                            <div class="invalid-feedback">Silahkan masukan Email</div>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
-                            <?php echo form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <input type="password" class="form-control form-control-user" name="password" placeholder="Password" required>
+                            <div class="invalid-feedback">Silahkan masukan Password</div>
                         </div>
 
                         <button type="submit" class="btn btn-info btn-block">
@@ -48,5 +48,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

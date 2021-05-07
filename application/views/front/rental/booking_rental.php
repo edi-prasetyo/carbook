@@ -60,7 +60,7 @@
         <div class="card-body">
 
           <?php
-          echo form_open(base_url('rental-mobil/booking/' . $listpaket->id));
+          echo form_open_multipart('rental-mobil/booking/' . md5($listpaket->id), array('class' => 'needs-validation', 'novalidate' => 'novalidate'));
           $kode_transaksi = date('dmY') . strtoupper(random_string('alnum', 5));
           ?>
           <input type="hidden" name="kode_transaksi" value="<?php echo $kode_transaksi ?>">
@@ -91,19 +91,21 @@
 
               <div class="col-md-5">
                 <label>Nama Lengkap <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="user_name" placeholder="Nama Lengkap" value="<?php echo $user->user_name; ?>">
-                <?php echo form_error('user_name', '<span class="text-danger">', '</span>'); ?>
+                <input class="form-control" type="text" name="user_name" placeholder="Nama Lengkap" value="<?php echo $user->user_name; ?>" required>
+                <div class="invalid-feedback">Silahkan masukan nama Lengkap.</div>
               </div>
+
+              <input type="hidden" name="email">
 
               <div class="col-md-4">
                 <label>Email <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="user_email" placeholder="Email" value="<?php echo $user->email; ?>">
-                <?php echo form_error('user_email', '<span class="text-danger">', '</span>'); ?>
+                <input class="form-control" type="text" name="user_email" placeholder="Email" value="<?php echo $user->email; ?>" required>
+                <div class="invalid-feedback">Silahkan masukan Alamat Email.</div>
               </div>
               <div class="col-md-12">
                 <label>Nomor Handphone <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="user_phone" placeholder="Nomor Handphone" value="<?php echo $user->user_phone; ?>">
-                <?php echo form_error('user_phone', '<span class="text-danger">', '</span>'); ?>
+                <input class="form-control" type="text" name="user_phone" placeholder="Nomor Handphone" value="<?php echo $user->user_phone; ?>" required>
+                <div class="invalid-feedback">Silahkan masukan Nomor Handphone.</div>
               </div>
 
 
@@ -117,32 +119,32 @@
               <div class="col-md-3">
                 <label>Title <span class="text-danger">*</span></label>
                 <div class="form-group">
-                  <select class="form-control form-control-chosen" name="user_title" value="<?php echo set_value('user_title'); ?>">
-                    <option></option>
+                  <select class="form-control form-control-chosen" name="user_title" value="<?php echo set_value('user_title'); ?>" required>
+                    <option value="">-- Pilih Title --</option>
                     <option value="Bapak">Bapak</option>
                     <option value="Ibu">Ibu</option>
                     <option value="Saudara">Saudara</option>
                     <option value="Saudari">Saudari</option>
                   </select>
-                  <?php echo form_error('user_title', '<span class="text-danger">', '</span>'); ?>
+                  <div class="invalid-feedback">Silahkan Pilih title.</div>
                 </div>
               </div>
 
 
               <div class="col-md-5">
                 <label>Nama Lengkap <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="user_name" placeholder="Nama Lengkap" value="<?php echo set_value('user_name'); ?>">
-                <?php echo form_error('user_name', '<span class="text-danger">', '</span>'); ?>
+                <input class="form-control" type="text" name="user_name" placeholder="Nama Lengkap" value="<?php echo set_value('user_name'); ?>" required>
+                <div class="invalid-feedback">Silahkan Masukan Nama Lengkap</div>
               </div>
               <div class="col-md-4">
                 <label>Email <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="user_email" placeholder="Email" value="<?php echo set_value('user_email'); ?>">
-                <?php echo form_error('user_email', '<span class="text-danger">', '</span>'); ?>
+                <input class="form-control" type="text" name="user_email" placeholder="Email" value="<?php echo set_value('user_email'); ?>" required>
+                <div class="invalid-feedback">Silahkan Masukan Alamat Email</div>
               </div>
               <div class="col-md-12">
                 <label>Nomor Handphone <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="user_phone" placeholder="Nomor Handphone" value="<?php echo set_value('user_phone'); ?>">
-                <?php echo form_error('user_phone', '<span class="text-danger">', '</span>'); ?>
+                <input class="form-control" type="text" name="user_phone" placeholder="Nomor Handphone" value="<?php echo set_value('user_phone'); ?>" required>
+                <div class="invalid-feedback">Silahkan Masukan Nomor Handphone</div>
               </div>
 
 
@@ -159,13 +161,13 @@
 
             <div class="col-md-4">
               <label>Tanggal Jemput <span class="text-danger">*</span></label>
-              <input type="text" name="tanggal_jemput" class="form-control" placeholder="Tanggal" id="id_tanggal">
+              <input type="text" name="tanggal_jemput" class="form-control" placeholder="Tanggal" id="id_tanggal" required>
             </div>
             <div class="col-md-4">
               <div class='form-group'>
                 <label>Jam Jemput <span class="text-danger">*</span></label>
-                <select class="form-control form-control-chosen" name="jam_jemput" value="<?php echo set_value('jam_jemput'); ?>">
-                  <option></option>
+                <select class="form-control form-control-chosen" name="jam_jemput" value="<?php echo set_value('jam_jemput'); ?>" required>
+                  <option value="">--Pilih Jam Jemput --</option>
                   <option value='08.00'>08.00</option>
                   <option value='08.30'>08.30</option>
                   <option value='09.00'>09.00</option>
@@ -197,26 +199,26 @@
                   <option value='23.00'>23.00</option>
                   <option value='23.30'>23.30</option>
                 </select>
-                <?php echo form_error('jam_jemput', '<span class="text-danger">', '</span>'); ?>
+                <div class="invalid-feedback">Silahkan Jam Penjemputan</div>
               </div>
             </div>
             <div class="col-md-4">
               <label>Lama Sewa <span class="text-danger">*</span></label>
               <div class="form-group">
-                <select class="form-control form-control-chosen" name="lama_sewa" value="<?php echo set_value('lama_sewa'); ?>">
-                  <option></option>
+                <select class="form-control form-control-chosen" name="lama_sewa" value="<?php echo set_value('lama_sewa'); ?>" required>
+                  <option value="">-- Pilih Durasi --</option>
                   <option value="1">1 Hari</option>
                   <option value="2">2 Hari</option>
                   <option value="3">3 Hari</option>
                   <option value="4">4 Hari</option>
                 </select>
-                <?php echo form_error('lama_sewa', '<span class="text-danger">', '</span>'); ?>
+                <div class="invalid-feedback">Silahkan pilih Durasi Sewa</div>
               </div>
             </div>
             <div class="col-md-12">
               <label>Alamat Penjemputan <span class="text-danger">*</span></label>
-              <textarea class="form-control" name="alamat_jemput" value="<?php echo set_value('alamat_jemput'); ?>"></textarea>
-              <?php echo form_error('alamat_jemput', '<span class="text-danger">', '</span>'); ?>
+              <textarea class="form-control" name="alamat_jemput" value="<?php echo set_value('alamat_jemput'); ?>" required></textarea>
+              <div class="invalid-feedback">Silahkan Masukan Alamat Penjemputan</div>
             </div>
             <div class="col-md-12">
               <label>Permintaan Khusus (Optional)</label>
@@ -236,7 +238,10 @@
                         <i class="bi-cash-stack text-warning" style="font-size: 3rem;"></i>
                         <label class="form-check-label">
                           <input type="radio" name="tipe_pembayaran" value="Cash"> Cash
+                          <?php echo form_error('tipe_pembayaran', '<small class="text-danger pl-3">', '</small>'); ?>
                         </label>
+
+                        <div class="invalid-feedback">Pilih Metode Pembayaran</div>
                       </div>
                     </div>
                   </div>
@@ -249,10 +254,15 @@
                         <i class="bi-credit-card text-success" style="font-size: 3rem;"></i>
                         <label class="form-check-label">
                           <input type="radio" name="tipe_pembayaran" value="Transfer"> Transfer
+                          <?php echo form_error('tipe_pembayaran', '<small class="text-danger pl-3">', '</small>'); ?>
                         </label>
+
+                        <div class="invalid-feedback">Pilih Metode Pembayaran</div>
                       </div>
                     </div>
                   </div>
+
+
 
 
                 </div>

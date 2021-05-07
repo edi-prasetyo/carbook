@@ -30,7 +30,7 @@ $meta = $this->meta_model->get_meta();
                     //error warning
                     echo validation_errors('<div class="alert alert-warning">', '</div>');
                     //form open
-                    echo form_open(base_url('transaksi/detail'));
+                    echo form_open('transaksi/detail',  array('class' => 'needs-validation', 'novalidate' => 'novalidate'));
 
                     ?>
 
@@ -41,13 +41,13 @@ $meta = $this->meta_model->get_meta();
 
                     <div class="form-group">
                         <label> Kode Transaksi </label>
-                        <input class="form-control" type="text" name="kode_transaksi" placeholder="Kode Transaksi">
-                        <?php echo form_error('kode_transaksi', '<span class="text-danger">', '</span>'); ?>
+                        <input class="form-control" type="text" name="kode_transaksi" placeholder="Kode Transaksi" required>
+                        <div class="invalid-feedback">Silahkan Masukan Kode Transaksi</div>
                     </div>
                     <div class="form-group">
                         <label> Email </label>
-                        <input class="form-control" type="email" name="email" placeholder="Email">
-                        <?php echo form_error('email', '<span class="text-danger">', '</span>'); ?>
+                        <input class="form-control" type="email" name="email" placeholder="Email" required>
+                        <div class="invalid-feedback">Silahkan Masukan Email</div>
                     </div>
 
                     <div class="form-group btn-container">

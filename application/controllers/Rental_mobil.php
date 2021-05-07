@@ -30,13 +30,15 @@ class Rental_mobil extends CI_Controller
     );
     $this->load->view('front/layout/wrapp', $data, FALSE);
   }
-  public function order($id = NULL)
+  public function order($mobil_slug = NULL)
   {
     //Redirect Jika nggak ada id_mobil nya
-    if (empty($id)) {
+    if (empty($mobil_slug)) {
       redirect(base_url('rental-mobil'));
     } else {
-      $mobil          = $this->mobil_model->read($id);
+      $mobil          = $this->mobil_model->read($mobil_slug);
+      // var_dump($mobil);
+      // die;
       if ($mobil == NULL) {
         $data = array(
           'user_id'     => $this->session->userdata('id'),
@@ -49,7 +51,9 @@ class Rental_mobil extends CI_Controller
 
         $this->load->view('front/layout/wrapp', $data, FALSE);
       } else {
-        $listpaket          = $this->mobil_model->listpaket($id);
+
+        $id = $mobil->id;
+        $listpaket          = $this->mobil_model->listpaket_front($id);
 
         $data = array(
           'user_id'     => $this->session->userdata('id'),
@@ -60,7 +64,7 @@ class Rental_mobil extends CI_Controller
           'listpaket'   => $listpaket,
           'content'         => 'front/rental/detail_rental'
         );
-        $this->add_count($id);
+        $this->add_count($mobil_slug);
         $this->load->view('front/layout/wrapp', $data, FALSE);
       }
     }
@@ -68,12 +72,12 @@ class Rental_mobil extends CI_Controller
 
   // Update Count Mobil Views
 
-  function add_count($id)
+  function add_count($mobil_slug)
   {
     // load cookie helper
     $this->load->helper('cookie');
     // this line will return the cookie which has slug name
-    $check_visitor2 = $this->input->cookie(urldecode($id), FALSE);
+    $check_visitor2 = $this->input->cookie(urldecode($mobil_slug), FALSE);
     // this line will return the visitor ip address
     $ip = $this->input->ip_address();
     // if the visitor visit this article for first time then //
@@ -82,13 +86,13 @@ class Rental_mobil extends CI_Controller
     //address for value to distinguish between articles  views
     if ($check_visitor2 == false) {
       $cookie = array(
-        "name"                      => urldecode($id),
+        "name"                      => urldecode($mobil_slug),
         "value"                     => "$ip",
         "expire"                    =>  time() + 7200,
         "secure"                    => false
       );
       $this->input->set_cookie($cookie);
-      $this->mobil_model->update_counter(urldecode($id));
+      $this->mobil_model->update_counter(urldecode($mobil_slug));
     }
   }
 
@@ -215,64 +219,67 @@ class Rental_mobil extends CI_Controller
       );
       //Proses Masuk Header Transaksi
       // $this->transaksi_model->tambah($data);
-      $insert_id = $this->transaksi_model->create($data);
+      if ($this->input->post('email') == "") //If something is in the 'email' field, it has propbably been filled by a bot, because regular users can't see the field.
+      {
+        $insert_id = $this->transaksi_model->create($data);
+      }
       //Kirim Email
-      $this->_sendEmail($insert_id);
+      // $this->_sendEmail($insert_id);
       //End Masuk tabel transaksi
       $this->session->set_flashdata('sukses', 'Checkout Berhasil');
-      redirect(base_url('rental-mobil/order-success/' . $insert_id), 'refresh');
+      redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
 
       //End Masuk Database
     }
   }
 
-  private function _sendEmail($insert_id)
+  // private function _sendEmail($insert_id)
 
-  {
+  // {
 
-    $email_order = $this->pengaturan_model->email_order();
-    $transaksi  = $this->transaksi_model->detail_transaksi($insert_id);
+  //   $email_order = $this->pengaturan_model->email_order();
+  //   $transaksi  = $this->transaksi_model->detail_transaksi($insert_id);
 
-    $config = [
+  //   $config = [
 
-      'protocol'     => "$email_order->protocol",
-      'smtp_host'   => "$email_order->smtp_host",
-      'smtp_port'   => $email_order->smtp_port,
-      'smtp_user'   => "$email_order->smtp_user",
-      'smtp_pass'   => "$email_order->smtp_pass",
-      'mailtype'     => 'html',
-      'charset'     => 'utf-8',
-
-
-    ];
-
-    $this->load->library('email', $config);
-    $this->email->initialize($config);
-
-    $this->email->set_newline("\r\n");
-
-    $this->email->from("$email_order->smtp_user", 'Order');
-    $this->email->to($this->input->post('user_email'));
+  //     'protocol'     => "$email_order->protocol",
+  //     'smtp_host'   => "$email_order->smtp_host",
+  //     'smtp_port'   => $email_order->smtp_port,
+  //     'smtp_user'   => "$email_order->smtp_user",
+  //     'smtp_pass'   => "$email_order->smtp_pass",
+  //     'mailtype'     => 'html',
+  //     'charset'     => 'utf-8',
 
 
-    $this->email->subject('Order ' . $transaksi->kode_transaksi . '');
-    $this->email->message('Terima Kasih Atas Order Anda <br> 
-                          Kode Transaksi : ' . $transaksi->kode_transaksi . '<br> 
-                          Email          : ' . $transaksi->user_email . '<br>
-                          Jumlah Tagihan : ' . $transaksi->total_harga . '<br>
-                          Tanggal Jemput : ' . $transaksi->tanggal_jemput . '<br>
-                          Jam Jemput     : ' . $transaksi->jam_jemput . '<br>
-                           ');
+  //   ];
+
+  //   $this->load->library('email', $config);
+  //   $this->email->initialize($config);
+
+  //   $this->email->set_newline("\r\n");
+
+  //   $this->email->from("$email_order->smtp_user", 'Order');
+  //   $this->email->to($this->input->post('user_email'));
+
+
+  //   $this->email->subject('Order ' . $transaksi->kode_transaksi . '');
+  //   $this->email->message('Terima Kasih Atas Order Anda <br> 
+  //                         Kode Transaksi : ' . $transaksi->kode_transaksi . '<br> 
+  //                         Email          : ' . $transaksi->user_email . '<br>
+  //                         Jumlah Tagihan : ' . $transaksi->total_harga . '<br>
+  //                         Tanggal Jemput : ' . $transaksi->tanggal_jemput . '<br>
+  //                         Jam Jemput     : ' . $transaksi->jam_jemput . '<br>
+  //                          ');
 
 
 
-    if ($this->email->send()) {
-      return true;
-    } else {
-      echo $this->email->print_debugger();
-      die;
-    }
-  }
+  //   if ($this->email->send()) {
+  //     return true;
+  //   } else {
+  //     echo $this->email->print_debugger();
+  //     die;
+  //   }
+  // }
 
   public function order_success($insert_id)
   {

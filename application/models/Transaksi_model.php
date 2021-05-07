@@ -109,7 +109,7 @@ class Transaksi_model extends CI_Model
     //join
     // $this->db->join('mobil', 'mobil.id_mobil = transaksi.id_mobil', 'left');
     //End Join
-    $this->db->where('id', $id);
+    $this->db->where('md5(id)', $id);
     $this->db->order_by('id');
     $query = $this->db->get();
     return $query->row();

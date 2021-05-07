@@ -11,17 +11,17 @@
                         <?php echo $this->session->flashdata('message'); ?>
                     </div>
                     <?php
-                    $attributes = array('class' => 'user');
-                    echo form_open('auth/changepassword', $attributes)
+
+                    echo form_open_multipart('auth/changepassword',  array('class' => 'needs-validation', 'novalidate' => 'novalidate'))
                     ?>
                     <div class="form-group">
-                        <input type="password" class="form-control form-control-user" name="password1" id="password1" placeholder="Enter new Password...">
-                        <?php echo form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="password" class="form-control form-control-user" name="password1" id="password1" placeholder="Enter new Password..." required>
+                        <div class="invalid-feedback">Silahkan Buat passwprd Baru</div>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control form-control-user" name="password2" id="password2" placeholder="Repeat new Password...">
-                        <?php echo form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="password" class="form-control form-control-user" name="password2" id="password2" placeholder="Repeat new Password..." required>
+                        <div class="invalid-feedback">Silahkan Ulangi passwprd Baru</div>
                     </div>
 
 
