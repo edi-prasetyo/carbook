@@ -168,9 +168,13 @@ class Myaccount extends CI_Controller
   // Fungsi Produk
   public function transaksi()
   {
+    $id = $this->session->userdata('id');
+    $user = $this->user_model->user_detail($id);
+    $meta = $this->meta_model->get_meta();
+
     $config['base_url']                 = base_url('myaccount/transaksi/index/');
-    $config['total_rows']               = count($this->transaksi_model->total_transaksi_user());
-    $config['per_page']                 = 5;
+    $config['total_rows']               = count($this->transaksi_model->total_transaksi_user($id));
+    $config['per_page']                 = 2;
     $config['uri_segment']              = 4;
     // $config['use_page_numbers'] = TRUE;
     // $config['page_query_string'] = true;
@@ -199,9 +203,7 @@ class Myaccount extends CI_Controller
     $start                              = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
     //End Limit Start
     $this->pagination->initialize($config);
-    $id = $this->session->userdata('id');
-    $user = $this->user_model->user_detail($id);
-    $meta = $this->meta_model->get_meta();
+
     $transaksi = $this->transaksi_model->get_transaksi_user($id, $limit, $start);
     $data = [
       'title'                           => 'Data Transaksi',

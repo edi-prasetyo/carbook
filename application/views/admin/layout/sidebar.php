@@ -110,6 +110,13 @@ $meta = $this->meta_model->get_meta();
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a href="<?php echo base_url('admin/layanan'); ?>" class="nav-link  ">
+                    <i class="bi bi-chat-text mr-3  fa-fw"></i>
+                    Layanan
+                </a>
+            </li>
+
 
             <li class="nav-item" data-toggle="collapse" href="#collapseUser" role="button" aria-expanded="false" aria-controls="collapseUser">
                 <a href="#" class="nav-link  d-flex w-100 justify-content-between ">

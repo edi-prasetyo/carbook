@@ -26,7 +26,7 @@
 
                     ?>
 
-                    <div class="card-header">
+                    <div class="card-header bg-white">
                         <?php echo $title; ?>
 
 
@@ -46,6 +46,7 @@
                                     <th width="col">QTY</th>
                                     <th width="col">Harga</th>
                                     <th width="col">Status</th>
+                                    <th width="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,7 +55,7 @@
 
                                     <tr>
 
-                                        <td><?php echo date('d F Y', $transaksi->date_created); ?></td>
+                                        <td><?php echo date('d/m/Y', strtotime($transaksi->date_created)); ?></td>
                                         <td><?php echo $transaksi->nama_mobil; ?></td>
                                         <td><?php echo $transaksi->nama_paket; ?> </td>
                                         <td><?php echo $transaksi->lama_sewa; ?> Hari</td>
@@ -85,15 +86,17 @@
 
 
 
-
-
-
-
-                    <div class="pagination col-md-12 text-center">
-                        <?php if (isset($pagination)) {
-                            echo $pagination;
-                        } ?>
+                    <div class="card-footer bg-white">
+                        <div class="pagination col-md-12 text-center">
+                            <?php if (isset($pagination)) {
+                                echo $pagination;
+                            } ?>
+                        </div>
                     </div>
+
+
+
+
 
 
                 </div>

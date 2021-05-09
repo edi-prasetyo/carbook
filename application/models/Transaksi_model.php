@@ -191,13 +191,14 @@ class Transaksi_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function total_transaksi_user()
+  public function total_transaksi_user($id)
   {
     $this->db->select('transaksi.*,user.user_name');
     $this->db->from('transaksi');
     // Join
     $this->db->join('user', 'user.id = transaksi.user_id', 'LEFT');
     //End Join
+    $this->db->where('user_id', $id);
     $this->db->order_by('id', 'DESC');
     $query = $this->db->get();
     return $query->result();

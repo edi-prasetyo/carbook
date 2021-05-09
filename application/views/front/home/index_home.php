@@ -41,58 +41,28 @@ $meta = $this->meta_model->get_meta(); ?>
         </div>
         <div class="row">
 
-            <div class="col-md-4">
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3">
-                                <div style="font-size:50px;color:#00a2e9;">
-                                    <i class="ri-vip-crown-line"></i>
-                                </div>
-                            </div>
-                            <div class="col-9">
-                                <h4>Harga Sewa Murah</h4>
-                                Kami memberikan harga sewa yang terjangkau.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3">
-                                <div style="font-size:50px;color:#00a2e9;">
-                                    <i class="ri-customer-service-2-fill"></i>
-                                </div>
-                            </div>
-                            <div class="col-9">
-                                <h4>Support 24 Jam</h4>
-                                Kami memberikan pelayanan 1x24 Jam.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3">
-                                <div style="font-size:50px;color:#00a2e9;">
-                                    <i class="ri-calendar-todo-line"></i>
-                                </div>
-                            </div>
-                            <div class="col-9">
-                                <h4>Booking Terjadwal</h4>
-                                Anda dapat mengatur booking sewa mobil anda.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+            <?php foreach ($layanan as $layanan) : ?>
+
+                <div class="col-md-4">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div style="font-size:50px;color: <?php echo $layanan->layanan_color; ?>;">
+                                        <?php echo $layanan->layanan_icon; ?>
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <h4><?php echo $layanan->layanan_name; ?></h4>
+                                    <?php echo $layanan->layanan_desc; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
 
 
         </div>

@@ -34,8 +34,6 @@ $meta = $this->meta_model->get_meta();
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/front/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/front/css/style.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/front/vendor/offcanvas/offcanvas.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/fontawesome5/css/all.min.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/themify-icons/themify-icons.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/remixicon/remixicon.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/bootstrap-icons/font/bootstrap-icons.css">
   <link rel="stylesheet" href="<?php echo base_url(''); ?>assets/template/css/component-chosen.css">
@@ -43,9 +41,7 @@ $meta = $this->meta_model->get_meta();
 
   <!-- Font CSS File -->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/fonts/open-sans/styles.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/fonts/raleway/styles.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/fonts/niramit/styles.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/fonts/oxygen/styles.css">
+
 
 
 

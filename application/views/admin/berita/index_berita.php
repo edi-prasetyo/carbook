@@ -37,7 +37,7 @@
                     <td><?php echo $berita->berita_title; ?></td>
                     <td><?php echo $berita->category_name; ?></td>
                     <td><?php echo $berita->user_name; ?></td>
-                    <td><?php echo date('D, d F Y', $berita->date_created); ?> <?php echo date('H:i', $berita->date_created); ?></td>
+                    <td><?php echo date('d/m/Y', strtotime($berita->date_created)); ?> <?php echo date('H:i:s', strtotime($berita->date_created)); ?> WIB</td>
                     <td><?php echo $berita->berita_views; ?></td>
                     <td>
                         <a href="<?php echo base_url('berita/detail/' . $berita->berita_slug); ?>" class="btn btn-primary btn-sm"><i class="ti-eye"></i> Lihat</a>

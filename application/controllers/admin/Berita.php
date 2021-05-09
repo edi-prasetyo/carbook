@@ -69,7 +69,9 @@ class Berita extends CI_Controller
       ]
     );
     $this->form_validation->set_rules(
-      'berita_desc', 'Deskripsi Berita','required',
+      'berita_desc',
+      'Deskripsi Berita',
+      'required',
       [
         'required'              => 'Deskripsi Berita harus di isi',
       ]
@@ -119,7 +121,7 @@ class Berita extends CI_Controller
           'berita_gambar'           => $upload_data['uploads']['file_name'],
           'berita_status'           => $this->input->post('berita_status'),
           'berita_keywords'         => $this->input->post('berita_keywords'),
-          'date_created'            => time()
+          'date_created'            => date('Y-m-d H:i:s')
         ];
         $this->berita_model->create($data);
         $this->session->set_flashdata('message', 'Data Berita telah ditambahkan');
@@ -143,7 +145,9 @@ class Berita extends CI_Controller
     //Validasi
     $valid = $this->form_validation;
     $valid->set_rules(
-      'berita_title','Judul Berita','required',
+      'berita_title',
+      'Judul Berita',
+      'required',
       ['required'                   => '%s harus diisi']
     );
     $valid->set_rules(
@@ -205,7 +209,7 @@ class Berita extends CI_Controller
             'berita_gambar'           => $upload_data['uploads']['file_name'],
             'berita_status'           => $this->input->post('berita_status'),
             'berita_keywords'         => $this->input->post('berita_keywords'),
-            'date_updated'            => time()
+            'date_updated'            => date('Y-m-d H:i:s')
           ];
           $this->berita_model->update($data);
           $this->session->set_flashdata('message', 'Data telah di Update');
@@ -215,18 +219,18 @@ class Berita extends CI_Controller
         //Update Berita Tanpa Ganti Gambar
         // Hapus Gambar Lama Jika ada upload gambar baru
         if ($berita->berita_gambar != "")
-        $data  = [
-          'id'                        => $id,
-          'user_id'                   => $this->session->userdata('id'),
-          'category_id'               => $this->input->post('category_id'),
-          // 'berita_slug'            => url_title($this->input->post('berita_title'), 'dash', TRUE),
-          'berita_title'              => $this->input->post('berita_title'),
-          'berita_desc'               => $this->input->post('berita_desc'),
-          //'gambar'                  => $upload_data['uploads']['file_name'],
-          'berita_status'             => $this->input->post('berita_status'),
-          'berita_keywords'           => $this->input->post('berita_keywords'),
-          'date_updated'              => time()
-        ];
+          $data  = [
+            'id'                        => $id,
+            'user_id'                   => $this->session->userdata('id'),
+            'category_id'               => $this->input->post('category_id'),
+            // 'berita_slug'            => url_title($this->input->post('berita_title'), 'dash', TRUE),
+            'berita_title'              => $this->input->post('berita_title'),
+            'berita_desc'               => $this->input->post('berita_desc'),
+            //'gambar'                  => $upload_data['uploads']['file_name'],
+            'berita_status'             => $this->input->post('berita_status'),
+            'berita_keywords'           => $this->input->post('berita_keywords'),
+            'date_updated'              => date('Y-m-d H:i:s')
+          ];
         $this->berita_model->update($data);
         $this->session->set_flashdata('message', 'Data telah di Update');
         redirect(base_url('admin/berita'), 'refresh');

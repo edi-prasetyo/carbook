@@ -2,8 +2,8 @@
     <?php redirect(base_url('transaksi'), 'refresh'); ?>
 <?php else : ?>
     <div class="container my-5">
-        <div class="card shadow-sm">
-            <div class="card-header">Detail Order</div>
+        <div class="card">
+            <div class="card-header bg-white">Detail Order</div>
             <div class="card-body">
                 <!-- title row -->
 

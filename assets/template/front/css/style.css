@@ -1,23 +1,3 @@
-/* FONT STYLES */
-
-@font-face {
-  font-family: "Nunito";
-  src: url("../fonts/Nunito-Regular.ttf");
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("../fonts/Poppins-Regular.ttf");
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/Roboto-Regular.ttf");
-}
-@font-face {
-  font-family: "Open Sans";
-  src: url("../fonts/OpenSans-Regular.ttf");
-}
-
 /* GLOBAL STYLES */
 h1 a:link {
   color: #222;

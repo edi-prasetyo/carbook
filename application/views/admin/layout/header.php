@@ -22,6 +22,10 @@ $meta = $this->meta_model->get_meta();
     <link href="<?php echo base_url('assets/template/admin/vendor/fontawesome/css/all.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/template/admin/vendor/themify-icons/themify-icons.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/template/admin/vendor/bootstrap-icons/font/bootstrap-icons.css'); ?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/template/front/icon/remixicon/remixicon.css">
+
+    <!-- Color Picker -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/template/admin/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
 
 
 </head>

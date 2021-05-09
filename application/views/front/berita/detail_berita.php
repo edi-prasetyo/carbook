@@ -22,7 +22,7 @@
                 <div class="card-footer bg-white d-flex justify-content-between align-items-center">
                     <span><i class="bi-person"></i> <?php echo $berita->user_name; ?></span>
                     <span><i class="bi-eye"></i> <?php echo $berita->berita_views; ?></span>
-                    <span><i class="bi-calendar"></i><?php echo date('d/m/Y', $berita->date_created); ?>
+                    <span><i class="bi-calendar"></i><?php echo date('d/m/Y', strtotime($berita->date_created)); ?>
                 </div>
             </div>
         </div>

@@ -151,7 +151,7 @@ class Transaksi extends CI_Controller
                 'id'                    => $id,
                 'bukti_bayar'           => $upload_data['uploads']['file_name'],
                 'status_bayar'          => 'Process',
-                'date_updated'          => time()
+                'date_updated'          => date('Y-m-d H:i:s')
             );
             $this->transaksi_model->update($data);
             $this->session->set_flashdata('sukses', 'Terima Kasih Atas konfirmasi anda pesanan anda akan segera kami proses');

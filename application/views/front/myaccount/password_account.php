@@ -1,25 +1,25 @@
 <?php if ($this->session->userdata('id')) : ?>
 
-    <div class="breadcrumb">
+    <!-- <div class="breadcrumb">
         <div class="container">
             <ul class="breadcrumb my-3">
                 <li class="breadcrumb-item"><a href="<?php echo base_url('myaccount') ?>"><i class="ti ti-user"></i> Account</a></li>
                 <li class="breadcrumb-item active"><?php echo $title ?></li>
             </ul>
         </div>
-    </div>
+    </div> -->
 
-    <div class="container mb-3">
+    <div class="container mb-3 my-5">
         <div class="row">
 
 
-            <div class="col-md-9">
+            <div class="col-md-6 mx-auto">
                 <div class="card">
 
                     <?php
                     echo form_open_multipart('myaccount/ubah_password');
                     ?>
-                    <div class="card-header">Ubah Password, <?php echo $user->user_name; ?></div>
+                    <div class="card-header bg-white">Ubah Password, <?php echo $user->user_name; ?></div>
                     <div class="card-body">
 
 

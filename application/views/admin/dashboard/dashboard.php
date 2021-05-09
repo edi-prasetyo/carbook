@@ -88,7 +88,7 @@
                     <tbody>
                         <?php foreach ($new_transaksi as $new_transaksi) : ?>
                             <tr>
-                                <td><?php echo date('d F Y', $new_transaksi->date_created); ?></td>
+                                <td><?php echo date('d/m/Y', strtotime($new_transaksi->date_created)); ?></td>
                                 <td><?php echo $new_transaksi->user_name; ?></td>
                                 <td><?php echo $new_transaksi->user_phone; ?></td>
                                 <td>

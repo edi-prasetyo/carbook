@@ -1,15 +1,8 @@
 <?php if ($this->session->userdata('id')) : ?>
 
-    <div class="breadcrumb">
-        <div class="container">
-            <ul class="breadcrumb my-3">
-                <li class="breadcrumb-item"><a href="<?php echo base_url('myaccount') ?>"><i class="ti ti-user"></i> Account</a></li>
-                <li class="breadcrumb-item active"><?php echo $title ?></li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="container mb-3">
+
+    <div class="container mb-3 my-5">
 
 
         <?php
