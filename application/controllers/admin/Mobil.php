@@ -51,9 +51,9 @@ class Mobil extends CI_Controller
 
       $config['upload_path']          = './assets/img/mobil/';
       $config['allowed_types']        = 'gif|jpg|png|jpeg|webp';
-      $config['max_size']             = 5000; //Dalam Kilobyte
-      $config['max_width']            = 5000; //Lebar (pixel)
-      $config['max_height']           = 5000; //tinggi (pixel)
+      $config['max_size']             = 5000000000000; //Dalam Kilobyte
+      $config['max_width']            = 5000000000000; //Lebar (pixel)
+      $config['max_height']           = 5000000000000; //tinggi (pixel)
       $this->load->library('upload', $config);
       if (!$this->upload->do_upload('mobil_gambar')) {
 
@@ -80,8 +80,8 @@ class Mobil extends CI_Controller
         // $config['new_image']        = './assets/upload/car/thumbs/'.$upload_data['uploads']['file_name'];
         $config['create_thumb']     = TRUE;
         $config['maintain_ratio']   = TRUE;
-        $config['width']            = 500;
-        $config['height']           = 500;
+        $config['width']            = 300;
+        $config['height']           = 300;
         $config['thumb_marker']     = '';
 
         $this->load->library('image_lib', $config);
@@ -156,9 +156,9 @@ class Mobil extends CI_Controller
 
         $config['upload_path']          = './assets/img/mobil/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg|webp';
-        $config['max_size']             = 5000; //Dalam Kilobyte
-        $config['max_width']            = 5000; //Lebar (pixel)
-        $config['max_height']           = 5000; //tinggi (pixel)
+        $config['max_size']             = 500000000000; //Dalam Kilobyte
+        $config['max_width']            = 500000000000; //Lebar (pixel)
+        $config['max_height']           = 500000000000; //tinggi (pixel)
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('mobil_gambar')) {
 
@@ -188,8 +188,8 @@ class Mobil extends CI_Controller
           // $config['new_image']        = './assets/upload/car/thumbs/'.$upload_data['uploads']['file_name'];
           $config['create_thumb']     = TRUE;
           $config['maintain_ratio']   = TRUE;
-          $config['width']            = 500;
-          $config['height']           = 500;
+          $config['width']            = 300;
+          $config['height']           = 300;
           $config['thumb_marker']     = '';
 
           $this->load->library('image_lib', $config);

@@ -60,9 +60,7 @@ $page      = $this->page_model->get_page();
 <script src="<?php echo base_url() ?>assets/template/front/vendor/popper/popper.min.js"></script>
 <script src="<?php echo base_url() ?>assets/template/front/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url() ?>assets/template/front/vendor/date-time-picker-bootstrap-4/js/moment.min.js" type="text/javascript"></script>
-<!-- <script src="<?php echo base_url() ?>assets/template/front/js/moment-with-locales.js"></script> -->
 <script src="<?php echo base_url() ?>assets/template/front/vendor/offcanvas/offcanvas.js" type="text/javascript"></script>
-<!-- <script src="<?php echo base_url() ?>assets/template/front/vendor/jquery/jquery.js" type="text/javascript"></script> -->
 
 <!-- Color Picker JS -->
 
@@ -96,29 +94,6 @@ $page      = $this->page_model->get_page();
 <!-- Google Analitycs -->
 <?php echo $meta->google_analytics; ?>
 <!-- End Google Analitycs -->
-
-
-<!-- SUMMERNOTE -->
-<link href="<?php echo base_url('assets/admin/js/summernote/summernote-lite.min.css'); ?>" rel="stylesheet">
-<script src="<?php echo base_url('assets/admin/js/summernote/summernote-lite.min.js'); ?>"></script>
-
-<script>
-    $('#summernote').summernote({
-        placeholder: 'Deskripsi Produk ..',
-        tabsize: 2,
-        height: 130,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-    });
-</script>
-
 
 
 <!-- Gambar -->

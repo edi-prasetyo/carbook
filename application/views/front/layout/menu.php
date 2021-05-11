@@ -6,10 +6,6 @@ $meta           = $this->meta_model->get_meta();
 ?>
 
 
-
-
-
-
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm" id="top">
   <div class="container">
     <a class="navbar-brand" href="<?php echo base_url() ?>"><img class="img-fluid" src="<?php echo base_url('assets/img/logo/' . $meta->logo) ?>"></a>
@@ -32,16 +28,16 @@ $meta           = $this->meta_model->get_meta();
               <i class="ti-user"></i> <?php echo $user->user_name; ?>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="<?php echo base_url('myaccount') ?>">Profile</a>
-              <a class="dropdown-item" href="<?php echo base_url('myaccount/update') ?>">Ubah Profile</a>
-              <a class="dropdown-item" href="<?php echo base_url('myaccount/ubah_password') ?>">Ubah Password</a>
-              <a class="dropdown-item" href="<?php echo base_url('myaccount/transaksi') ?>"> Transaksi</a>
+              <a class="dropdown-item" href="<?php echo base_url('myaccount') ?>"> <i class="ri-user-line"></i> Profile</a>
+              <a class="dropdown-item" href="<?php echo base_url('myaccount/update') ?>"> <i class="ri-draft-line"></i> Ubah Profile</a>
+              <a class="dropdown-item" href="<?php echo base_url('myaccount/ubah_password') ?>"> <i class="ri-lock-password-line"></i> Ubah Password</a>
+              <a class="dropdown-item" href="<?php echo base_url('myaccount/transaksi') ?>"> <i class="ri-file-list-3-line"></i> Transaksi</a>
 
               <div class="dropdown-divider"></div>
               <?php if ($user->role_id == 1) : ?>
-                <a class="dropdown-item" href="<?php echo base_url('admin/dashboard'); ?>">Panel Admin</a>
+                <a class="dropdown-item" href="<?php echo base_url('admin/dashboard'); ?>"> <i class="ri-dashboard-3-line"></i> Panel Admin</a>
               <?php endif; ?>
-              <a class="dropdown-item" href="<?php echo base_url('auth/logout'); ?>"><i class="ti-power-off"></i> Logout</a>
+              <a class="dropdown-item" href="<?php echo base_url('auth/logout'); ?>"> <i class="ri-shut-down-line"></i> Logout</a>
             </div>
           </li>
         <?php } else { ?>
