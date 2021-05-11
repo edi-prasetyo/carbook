@@ -34,10 +34,10 @@
           </div>
           <div class="card-footer bg-white">
             <div class="row text-center">
-              <div class="col-md-6">
+              <div class="col-6">
                 <span class="text-muted mr-3"><i class="bi-people"></i> <?php echo $mobil->mobil_penumpang; ?></span>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <span class="text-muted"><i class="bi-briefcase"></i> <?php echo $mobil->mobil_bagasi; ?></span>
               </div>
             </div>

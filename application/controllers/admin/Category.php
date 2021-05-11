@@ -21,7 +21,7 @@ class Category extends CI_Controller
       array(
         'required'                        => '%s Harus Diisi',
         'is_unque'                        => '%s <strong>' . $this->input->post('category_name') .
-        '</strong>Nama Kategori Sudah Ada. Buat Nama yang lain!'
+          '</strong>Nama Kategori Sudah Ada. Buat Nama yang lain!'
       )
     );
     if ($this->form_validation->run() === FALSE) {
@@ -32,9 +32,10 @@ class Category extends CI_Controller
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
     } else {
+      $slugcode = random_string('numeric', 5);
       $category_slug  = url_title($this->input->post('category_name'), 'dash', TRUE);
       $data  = [
-        'category_slug'                   => $category_slug,
+        'category_slug'                   => $slugcode . '-' . $category_slug,
         'category_name'                   => $this->input->post('category_name'),
         'date_created'                    => time()
       ];

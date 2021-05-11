@@ -23,13 +23,10 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Tanggal Pakai</th>
+                    <th>Tanggal Sewa</th>
+                    <th>Kode Transaksi</th>
                     <th>Nama Mobil</th>
                     <th>Customer</th>
-                    <th>Paket</th>
-                    <th>Lama Sewa</th>
-                    <th>Ststus</th>
-                    <th>Payment</th>
                     <th>Harga</th>
                     <th width="10%">Action</th>
                 </tr>
@@ -38,12 +35,12 @@
             foreach ($transaksi as $transaksi) { ?>
                 <tr>
                     <td><?php echo $no; ?></td>
-                    <td><?php echo $transaksi->tanggal_jemput; ?></td>
-                    <td><?php echo $transaksi->nama_mobil; ?></td>
-                    <td><?php echo $transaksi->user_name; ?></td>
-                    <td><?php echo $transaksi->nama_paket; ?> </td>
-                    <td><?php echo $transaksi->lama_sewa; ?> Hari</td>
                     <td>
+                        <b><?php echo $transaksi->tanggal_jemput; ?></b> <br>
+                        <?php echo $transaksi->jam_jemput; ?> WIB
+                    </td>
+                    <td>
+                        <b><?php echo $transaksi->kode_transaksi; ?></b><br>
                         <?php if ($transaksi->status_bayar == "Pending") : ?>
                             <div class="badge badge-warning badge-pill"> <?php echo $transaksi->status_bayar; ?></div>
                         <?php elseif ($transaksi->status_bayar == "Process") : ?>
@@ -55,14 +52,25 @@
                         <?php endif; ?>
                     </td>
                     <td>
+                        <b><?php echo $transaksi->nama_mobil; ?></b><br>
+                        <?php echo $transaksi->nama_paket; ?>
+
+                    </td>
+                    <td>
+                        <?php echo $transaksi->user_name; ?><br>
+                        <?php echo $transaksi->lama_sewa; ?> Hari
+                    </td>
+
+
+
+                    <td>
+                        <b> Rp. <?php echo number_format($transaksi->total_harga, '0', ',', '.'); ?></b><br>
                         <?php if ($transaksi->tipe_pembayaran == "Cash") : ?>
                             <div class="text-danger"> <?php echo $transaksi->tipe_pembayaran; ?></div>
                         <?php else : ?>
                             <div class="text-info"> <?php echo $transaksi->tipe_pembayaran; ?></div>
                         <?php endif; ?>
                     </td>
-                    <td>Rp. <?php
-                            echo number_format($transaksi->total_harga, '0', ',', '.'); ?></td>
                     <td>
                         <a href="<?php echo base_url('admin/transaksi/detail/' . $transaksi->id); ?>" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Lihat</a>
                     </td>
@@ -70,8 +78,12 @@
             <?php $no++;
             }; ?>
         </table>
-        <hr>
-        <div class="pagination col-md-12 text-center">
+
+
+    </div>
+
+    <div class="card-footer bg-white">
+        <div class="pagination col-md-12">
             <?php if (isset($pagination)) {
                 echo $pagination;
             } ?>

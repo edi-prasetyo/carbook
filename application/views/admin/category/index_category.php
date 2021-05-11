@@ -22,8 +22,7 @@
             <thead>
                 <tr>
                     <th>Nama Kategori</th>
-                    <th>Tanggal Buat</th>
-                    <th>Tanggal Update</th>
+                    <th>Date Created</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -32,7 +31,6 @@
                     <tr>
                         <td><?php echo $category->category_name; ?></td>
                         <td><?php echo date('D, d F Y', $category->date_created); ?> <?php echo date('H:i', $category->date_created); ?></td>
-                        <td><?php echo date('D, d F Y', $category->date_updated); ?> <?php echo date('H:i', $category->date_updated); ?></td>
                         <td>
                             <?php include "update_category.php"; ?>
                             <?php include "delete_category.php"; ?>

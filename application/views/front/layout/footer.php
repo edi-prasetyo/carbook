@@ -18,7 +18,7 @@ $page      = $this->page_model->get_page();
     <div class="container pt-4 pt-md-5 pb-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md-3">
-                <a href="<?php echo base_url(); ?>"><img class="mb-2" src="<?php echo base_url('assets/img/logo/' . $meta->logo) ?>" alt="" width="250"></a>
+                <a href="<?php echo base_url(); ?>"><img class="mb-2 img-fluid" src="<?php echo base_url('assets/img/logo/' . $meta->logo) ?>" alt="" width="250"></a>
                 <span style="font-size:18px;"><br>
                     <i class="ri-phone-line"></i> <?php echo $meta->telepon ?><br>
                     <i class="ri-mail-send-line"></i> <?php echo $meta->email ?>

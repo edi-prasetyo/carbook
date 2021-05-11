@@ -77,28 +77,29 @@ $meta = $this->meta_model->get_meta(); ?>
         </div>
         <div class="row">
             <?php foreach ($mobil_populer as $mobil_populer) : ?>
-                <div class="col-md-3 col-6">
+                <div class="col-md-3 col-6 my-3">
+                    <a class="text-decoration-none text-muted" href="<?php echo base_url('rental-mobil/order/' . $mobil_populer->mobil_slug); ?>">
+                        <div class="card">
+                            <!-- <div class="img-frame"> -->
+                            <img src="<?php echo base_url('assets/img/mobil/' . $mobil_populer->mobil_gambar); ?>" class="card-img-top" alt="...">
+                            <!-- </div> -->
+                            <div class="card-body text-center">
+                                <div class="badge badge-info"><?php echo $mobil_populer->merek_name; ?></div>
+                                <h4 class="card-title"><?php echo $mobil_populer->mobil_name; ?></h4>
 
-                    <div class="card">
-                        <!-- <div class="img-frame"> -->
-                        <img src="<?php echo base_url('assets/img/mobil/' . $mobil_populer->mobil_gambar); ?>" class="card-img-top" alt="...">
-                        <!-- </div> -->
-                        <div class="card-body text-center">
-                            <div class="badge badge-info"><?php echo $mobil_populer->merek_name; ?></div>
-                            <h4 class="card-title"><?php echo $mobil_populer->mobil_name; ?></h4>
-                            <a href="<?php echo base_url('rental-mobil/order/' . $mobil_populer->mobil_slug); ?>" class="btn btn-outline-info btn-pill">Booking</a>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <div class="row text-center">
-                                <div class="col-md-6">
-                                    <span class="text-muted mr-3"><i class="bi-people"></i> <?php echo $mobil_populer->mobil_penumpang; ?></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <span class="text-muted"><i class="bi-briefcase"></i> <?php echo $mobil_populer->mobil_bagasi; ?></span>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <span class="text-muted mr-3"><i class="bi-people"></i> <?php echo $mobil_populer->mobil_penumpang; ?></span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="text-muted"><i class="bi-briefcase"></i> <?php echo $mobil_populer->mobil_bagasi; ?></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                 </div>
             <?php endforeach; ?>
@@ -113,22 +114,20 @@ $meta = $this->meta_model->get_meta(); ?>
         </div>
         <div class="row">
             <?php foreach ($berita as $berita) : ?>
-                <div class="col-md-4">
-                    <div class="card mb-2">
+
+                <div class="col-md-3 col-6">
+                    <a href="<?php echo base_url('berita/detail/' . $berita->berita_slug); ?>" class="card bg-dark text-white shadow-sm border-0">
                         <div class="img-frame">
-                            <img src="<?php echo base_url('assets/img/artikel/' . $berita->berita_gambar); ?>" class="card-img-top" alt="...">
+                            <img class="card-img" style="opacity: .25" src="<?php echo base_url('assets/img/artikel/' . $berita->berita_gambar); ?>" alt="Card image">
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title lh-lg"><?php echo substr($berita->berita_title, 0, 35); ?>..</h5>
-
+                        <div class="card-img-overlay d-flex flex-column align-items-start overflow-hidden">
+                            <h5 class="card-title"><?php echo substr($berita->berita_title, 0, 35); ?>..</h5>
+                            <p class="card-text mt-auto"><?php echo date('F j, Y', strtotime($berita->date_created)); ?></p>
+                            <span class="badge badge-danger font-weight-normal mr-2"><?php echo $berita->category_name; ?></span>
                         </div>
-                        <div class="card-footer bg-white">
-                            <a href="<?php echo base_url('berita/detail/' . $berita->berita_slug); ?>" class="btn btn-outline-info">Read More</a>
-
-                        </div>
-                    </div>
-
+                    </a>
                 </div>
+
             <?php endforeach; ?>
         </div>
     </div>

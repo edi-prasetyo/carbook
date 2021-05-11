@@ -8,7 +8,7 @@ if (isset($error_upload)) {
 
 
 // Form Open
-echo form_open_multipart(base_url('admin/mobil/create'));
+echo form_open_multipart('admin/mobil/create', array('class' => 'needs-validation', 'novalidate' => 'novalidate'));
 ?>
 
 <div class="row">
@@ -24,7 +24,8 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group form-group-lg">
-              <input type="text" name="mobil_name" class="form-control" placeholder="Nama Mobil" value="<?php echo set_value('mobil_name') ?>">
+              <input type="text" name="mobil_name" class="form-control" placeholder="Nama Mobil" value="<?php echo set_value('mobil_name') ?>" required>
+              <div class="invalid-feedback">Silahkan masukan nama Mobil.</div>
             </div>
           </div>
 
@@ -33,14 +34,15 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group">
-              <select name="merek_id" class="form-control custom-select">
-                <option>Pilih Merek</option>
+              <select name="merek_id" class="form-control custom-select" required>
+                <option value="">-- Pilih Merek --</option>
                 <?php foreach ($merek as $merek) { ?>
                   <option value="<?php echo $merek->id ?>">
                     <?php echo $merek->merek_name ?>
                   </option>
                 <?php } ?>
               </select>
+              <div class="invalid-feedback">Silahkan Pilih Merek Mobil.</div>
             </div>
           </div>
 
@@ -49,14 +51,15 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group">
-              <select name="jenismobil_id" class="form-control custom-select">
-                <option value="">Pilih Jenis Mobil</option>
+              <select name="jenismobil_id" class="form-control custom-select" required>
+                <option value="">-- Pilih Jenis Mobil --</option>
                 <?php foreach ($jenismobil as $jenismobil) { ?>
                   <option value="<?php echo $jenismobil->id ?>">
                     <?php echo $jenismobil->jenismobil_name ?>
                   </option>
                 <?php } ?>
               </select>
+              <div class="invalid-feedback">Silahkan Pilih Type Mobil.</div>
             </div>
           </div>
 
@@ -65,7 +68,8 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group form-group-lg">
-              <input type="text" name="mobil_penumpang" class="form-control" placeholder="Kapasitas Penumpang" value="<?php echo set_value('mobil_penumpang') ?>">
+              <input type="text" name="mobil_penumpang" class="form-control" placeholder="Kapasitas Penumpang" value="<?php echo set_value('mobil_penumpang') ?>" required>
+              <div class="invalid-feedback">Silahkan masukan Kapasitas Penumpang.</div>
             </div>
           </div>
 
@@ -74,7 +78,8 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group form-group-lg">
-              <input type="text" name="mobil_bagasi" class="form-control" placeholder="Kapasitas Bagasi" value="<?php echo set_value('mobil_bagasi') ?>">
+              <input type="text" name="mobil_bagasi" class="form-control" placeholder="Kapasitas Bagasi" value="<?php echo set_value('mobil_bagasi') ?>" required>
+              <div class="invalid-feedback">Silahkan masukan Kapasitas Bagasi.</div>
             </div>
           </div>
 
@@ -83,7 +88,8 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group form-group-lg">
-              <input type="text" name="mobil_harga" class="form-control" placeholder="Rp. .." value="<?php echo set_value('mobil_harga') ?>">
+              <input type="text" name="mobil_harga" class="form-control" placeholder="Rp. .." value="<?php echo set_value('mobil_harga') ?>" required>
+              <div class="invalid-feedback">Silahkan masukan Harga Awal.</div>
             </div>
           </div>
 
@@ -92,11 +98,12 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group">
-              <select name="mobil_status" class="form-control custom-select">
-                <option value="">Status Mobil</option>
+              <select name="mobil_status" class="form-control custom-select" required>
+                <option value="">--Status Mobil--</option>
                 <option value="Aktif">Aktif</option>
                 <option value="Nonaktif">Nonaktif</option>
               </select>
+              <div class="invalid-feedback">Silahkan Pilih Status Mobil.</div>
             </div>
           </div>
 
@@ -105,11 +112,12 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group">
-              <select name="mobil_transmisi" class="form-control custom-select">
-                <option value="">Transmisi Mobil</option>
+              <select name="mobil_transmisi" class="form-control custom-select" required>
+                <option value="">--Transmisi Mobil--</option>
                 <option value="Manual">Manual</option>
                 <option value="Automatic">Automatic</option>
               </select>
+              <div class="invalid-feedback">Silahkan pilih Transmisi.</div>
             </div>
           </div>
 
@@ -118,7 +126,7 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group">
-              <select name="mobil_bbm" class="form-control custom-select">
+              <select name="mobil_bbm" class="form-control custom-select" required>
                 <option value="">Pilih Jenis BBM</option>
                 <option value="Bensin">Bensin</option>
                 <option value="Solar">Solar</option>
@@ -128,6 +136,7 @@ echo form_open_multipart(base_url('admin/mobil/create'));
                 <option value="Pertamax">Pertamax</option>
                 <option value="Pertamax Plus">Pertamax Plus</option>
               </select>
+              <div class="invalid-feedback">Silahkan Pilih Jenis BBM.</div>
             </div>
           </div>
 
@@ -136,7 +145,8 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group form-group-lg">
-              <input type="text" name="mobil_tahun" class="form-control" placeholder="Tahun Kendaraan.." value="<?php echo set_value('mobil_tahun') ?>">
+              <input type="text" name="mobil_tahun" class="form-control" placeholder="Tahun Kendaraan.." value="<?php echo set_value('mobil_tahun') ?>" required>
+              <div class="invalid-feedback">Pilih Tahun Kendaraan.</div>
             </div>
           </div>
 
@@ -145,7 +155,8 @@ echo form_open_multipart(base_url('admin/mobil/create'));
           </div>
           <div class="col-md-9">
             <div class="form-group">
-              <textarea name="mobil_desc" class="form-control" id="summernote" placeholder="Deskripsi Mobil"><?php echo set_value('mobil_desc') ?></textarea>
+              <textarea name="mobil_desc" class="form-control" id="summernote" placeholder="Deskripsi Mobil" required><?php echo set_value('mobil_desc') ?></textarea>
+              <div class="invalid-feedback">Silahkan masukan Deskripsi Kendaraan.</div>
             </div>
           </div>
 
@@ -169,7 +180,8 @@ echo form_open_multipart(base_url('admin/mobil/create'));
       <div class="card-body">
         <div class="form-group">
           <label>Upload Gambar</label><br>
-          <input type="file" name="mobil_gambar">
+          <input type="file" name="mobil_gambar" required>
+          <div class="invalid-feedback">Silahkan Pilih Gambar.</div>
         </div>
 
 

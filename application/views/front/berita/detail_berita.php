@@ -11,7 +11,7 @@
 <div class="container mb-3">
     <div class="row">
         <div class="col-md-9">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-body">
                     <h2><?php echo $berita->berita_title; ?></h2>
                 </div>
@@ -25,6 +25,10 @@
                     <span><i class="bi-calendar"></i><?php echo date('d/m/Y', strtotime($berita->date_created)); ?>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-3">
+            <?php include "sidebar.php"; ?>
         </div>
 
     </div>

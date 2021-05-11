@@ -1,6 +1,6 @@
 <div class="container my-5">
     <div class="col-md-8 mx-auto">
-        <?php if ($transaksi->status_bayar == 'Success') : ?>
+        <?php if ($transaksi->status_bayar == 'Done') : ?>
             <div class="card alert alert-success">
                 <div class="card-body text-center">
                     Order Anda sudah di konfirmasi<br>
@@ -16,7 +16,7 @@
             </div>
         <?php else : ?>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-white">
                     Detail Pembayaran
                 </div>
                 <div class="card-body">

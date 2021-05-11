@@ -57,5 +57,6 @@ $route['rental-mobil/booking']                  = 'rental_mobil/booking';
 $route['rental-mobil/booking/(:any)']           = 'rental_mobil/booking/$1';
 $route['rental-mobil/order-success/(:any)']     = 'rental_mobil/order_success/$1';
 $route['rental-mobil/payment/(:any)']           = 'rental_mobil/payment/$1';
+// $route['category/(:any)']                       = 'category/index/$1';
 $route['404_override'] = 'oops';
 $route['translate_uri_dashes'] = FALSE;

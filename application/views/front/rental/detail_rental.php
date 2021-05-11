@@ -67,7 +67,7 @@
         <?php endforeach; ?>
 
         <div class="card">
-          <div class="card-header">
+          <div class="card-header bg-white">
             Deskripsi Mobil
           </div>
           <div class="card-body">

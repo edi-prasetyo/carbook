@@ -12,7 +12,7 @@
     <div class="col-md-4">
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-white">
           Detail Pesanan
         </div>
         <div class="card-body">
@@ -54,7 +54,7 @@
     <div class="col-md-8">
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-white">
           Detail Penumpang
         </div>
         <div class="card-body">
@@ -66,11 +66,6 @@
           <input type="hidden" name="kode_transaksi" value="<?php echo $kode_transaksi ?>">
           <input type="hidden" name="mobil_id" value="<?php echo $listpaket->mobil_id ?>">
           <input type="hidden" name="nama_mobil" value="<?php echo $listpaket->mobil_name ?>">
-
-
-
-
-
 
           <input type="hidden" name="harga_satuan" value="<?php echo $listpaket->paket_price; ?>">
           <input type="hidden" name="nama_paket" value="<?php echo $listpaket->paket_name; ?>">

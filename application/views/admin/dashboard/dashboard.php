@@ -70,13 +70,13 @@
     <!-- Invoice Example -->
     <div class="col-md-12 mb-4">
         <div class="card">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <div class="card-header bg-white py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Transaksi Terbaru</h6>
                 <a class="m-0 float-right btn btn-danger btn-sm" href="<?php echo base_url('admin/transaksi'); ?>">Lihat Semua <i class="fas fa-chevron-right"></i></a>
             </div>
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
+                    <thead class="thead">
                         <tr>
                             <th>Tanggal</th>
                             <th>Customer</th>

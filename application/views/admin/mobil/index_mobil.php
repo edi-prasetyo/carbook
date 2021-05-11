@@ -9,7 +9,7 @@ if ($this->session->flashdata('sukses')) {
 ?>
 
 <div class="card">
-  <div class="card-header d-flex flex-row align-items-center justify-content-between">
+  <div class="card-header bg-white d-flex flex-row align-items-center justify-content-between">
     <h5><?php echo $title; ?></h5>
 
     <a href="<?php echo base_url('admin/mobil/create') ?>" title="Tambah Mobil baru" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Baru</a>
