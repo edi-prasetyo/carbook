@@ -139,7 +139,7 @@ class Berita_model extends CI_Model
   }
 
   // Category
-  public function category($category_id, $limit, $start,)
+  public function category($category_id, $limit, $start)
   {
     $this->db->select('berita.*,category.category_name, category.category_slug, user.user_name');
     $this->db->from('berita');
