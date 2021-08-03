@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mobil extends CI_Controller
 {
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   //load data
   public function __construct()
   {
@@ -13,7 +20,7 @@ class Mobil extends CI_Controller
     $this->load->model('ketentuan_model');
     $this->load->model('paket_model');
   }
-  //listing data mobil
+
   public function index()
   {
     $mobil = $this->mobil_model->get_all();
@@ -25,15 +32,12 @@ class Mobil extends CI_Controller
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
 
-
-  //Tambah mobil
   public function create()
   {
     $merek = $this->merek_model->get_merek();
     $jenismobil = $this->jenismobil_model->get_jenismobil();
-    //Validasi
-    $valid = $this->form_validation;
 
+    $valid = $this->form_validation;
     $valid->set_rules(
       'mobil_name',
       'Nama mobil',
@@ -51,13 +55,14 @@ class Mobil extends CI_Controller
 
       $config['upload_path']          = './assets/img/mobil/';
       $config['allowed_types']        = 'gif|jpg|png|jpeg|webp';
-      $config['max_size']             = 5000000000000; //Dalam Kilobyte
-      $config['max_width']            = 5000000000000; //Lebar (pixel)
-      $config['max_height']           = 5000000000000; //tinggi (pixel)
+      $config['max_size']             = 5000000000000;
+      $config['max_width']            = 5000000000000;
+      $config['max_height']           = 5000000000000;
+      $config['remove_spaces']        = TRUE;
+      $config['encrypt_name']         = TRUE;
       $this->load->library('upload', $config);
       if (!$this->upload->do_upload('mobil_gambar')) {
 
-        //End Validasi
         $data = array(
           'title'         => 'Tambah mobil',
           'merek'         => $merek,
@@ -65,19 +70,10 @@ class Mobil extends CI_Controller
           'content'           => 'admin/mobil/create_mobil'
         );
         $this->load->view('admin/layout/wrapp', $data, FALSE);
-        //Masuk Database
-
       } else {
-
-        //Proses Manipulasi Gambar
-        $upload_data    = array('uploads'  => $this->upload->data());
-        //Gambar Asli dcontentmpan di folder assets/upload/car
-        //lalu gambara Asli di copy untuk versi mini size ke folder assets/upload/car/thumbs
-
+        $upload_data                = array('uploads'  => $this->upload->data());
         $config['image_library']    = 'gd2';
         $config['source_image']     = './assets/img/mobil/' . $upload_data['uploads']['file_name'];
-        //Gambar Versi Kecil dipindahkan
-        // $config['new_image']        = './assets/upload/car/thumbs/'.$upload_data['uploads']['file_name'];
         $config['create_thumb']     = TRUE;
         $config['maintain_ratio']   = TRUE;
         $config['width']            = 300;
@@ -110,11 +106,11 @@ class Mobil extends CI_Controller
           'date_created'        => time()
         );
         $this->mobil_model->create($data);
-        $this->session->set_flashdata('sukses', 'Data telah ditambahkan');
+        $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah ditambahkan</div>');
         redirect(base_url('admin/mobil'), 'refresh');
       }
     }
-    //End Masuk Database
+
     $data = array(
       'title'             => 'Tambah mobil',
       'merek'             => $merek,
@@ -124,15 +120,12 @@ class Mobil extends CI_Controller
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
 
-  //Edit mobil
   public function update($id)
   {
     $merek        = $this->merek_model->get_merek();
     $jenismobil   = $this->jenismobil_model->get_jenismobil();
     $mobil        = $this->mobil_model->detail_mobil($id);
 
-
-    //Validasi
     $valid = $this->form_validation;
 
     $valid->set_rules(
@@ -151,18 +144,18 @@ class Mobil extends CI_Controller
 
 
     if ($valid->run()) {
-      //Kalau nggak Ganti gambar
       if (!empty($_FILES['mobil_gambar']['name'])) {
 
         $config['upload_path']          = './assets/img/mobil/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg|webp';
-        $config['max_size']             = 500000000000; //Dalam Kilobyte
-        $config['max_width']            = 500000000000; //Lebar (pixel)
-        $config['max_height']           = 500000000000; //tinggi (pixel)
+        $config['max_size']             = 500000000000;
+        $config['max_width']            = 500000000000;
+        $config['max_height']           = 500000000000;
+        $config['remove_spaces']        = TRUE;
+        $config['encrypt_name']         = TRUE;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('mobil_gambar')) {
 
-          //End Validasi
           $data = array(
             'title'         => 'Update Data mobil',
             'merek'         => $merek,
@@ -172,20 +165,11 @@ class Mobil extends CI_Controller
             'content'           => 'admin/mobil/update_mobil'
           );
           $this->load->view('admin/layout/wrapp', $data, FALSE);
-
-          //Masuk Database
-
         } else {
 
-          //Proses Manipulasi Gambar
-          $upload_data    = array('uploads'  => $this->upload->data());
-          //Gambar Asli dcontentmpan di folder assets/upload/Car
-          //lalu gambar Asli di copy untuk versi mini size ke folder assets/upload/car/thumbs
-
+          $upload_data                = array('uploads'  => $this->upload->data());
           $config['image_library']    = 'gd2';
           $config['source_image']     = './assets/img/mobil/' . $upload_data['uploads']['file_name'];
-          //Gambar Versi Kecil dipindahkan
-          // $config['new_image']        = './assets/upload/car/thumbs/'.$upload_data['uploads']['file_name'];
           $config['create_thumb']     = TRUE;
           $config['maintain_ratio']   = TRUE;
           $config['width']            = 300;
@@ -193,17 +177,13 @@ class Mobil extends CI_Controller
           $config['thumb_marker']     = '';
 
           $this->load->library('image_lib', $config);
-
           $this->image_lib->resize();
 
-
           $i     = $this->input;
-
-          // Hapus Gambar Lama Jika Ada upload gambar baru
           if ($mobil->mobil_gambar != "") {
             unlink('./assets/img/mobil/' . $mobil->mobil_gambar);
           }
-          //End Hapus Gambar
+
           $data  = array(
             'id'                => $id,
             'user_id'           => $this->session->userdata('id'),
@@ -223,13 +203,11 @@ class Mobil extends CI_Controller
             'date_updated'        => time()
           );
           $this->mobil_model->update($data);
-          $this->session->set_flashdata('sukses', 'Data telah Diedit');
+          $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah Diedit</div>');
           redirect(base_url('admin/mobil'), 'refresh');
         }
       } else {
-        //Update mobil Tanpa Ganti Gambar
         $i     = $this->input;
-        // Hapus Gambar Lama Jika ada upload gambar baru
         if ($mobil->mobil_gambar != "")
           $data  = array(
             'id'                => $id,
@@ -249,11 +227,10 @@ class Mobil extends CI_Controller
             'date_updated'        => time()
           );
         $this->mobil_model->update($data);
-        $this->session->set_flashdata('sukses', 'Data telah Diedit');
+        $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah Diedit</div>');
         redirect(base_url('admin/mobil'), 'refresh');
       }
     }
-    //End Masuk Database
     $data = array(
       'title'         => 'Edit mobil',
       'merek'         => $merek,
@@ -264,41 +241,26 @@ class Mobil extends CI_Controller
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
 
-  //delete
   public function delete($mobil_id)
   {
-    //Proteksi delete
     is_login();
 
     $mobil = $this->mobil_model->detail_mobil($mobil_id);
-    //Hapus gambar
     if ($mobil->mobil_gambar != "") {
       unlink('./assets/img/mobil/' . $mobil->mobil_gambar);
     }
-    //End Hapus Gambar
     $data = array('id'   => $mobil->id);
     $this->mobil_model->delete($data);
-    $this->session->set_flashdata('sukses', 'Data telah di Hapus');
+    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect(base_url('admin/mobil'), 'refresh');
   }
 
-
-
-
-
-  // Fungsi Paket Sewa
-
-  //Paket
   public function paket($mobil_id)
   {
     $mobil      = $this->mobil_model->detail_mobil($mobil_id);
     $paket      = $this->mobil_model->listpaket($mobil_id);
     $ketentuan  = $this->ketentuan_model->get_ketentuan();
 
-    // var_dump($paket);
-    // die;
-
-    //Validasi
     $valid = $this->form_validation;
 
     $valid->set_rules(
@@ -315,9 +277,7 @@ class Mobil extends CI_Controller
       array('required'      => '%s harus dicontent')
     );
 
-
     if ($valid->run() === FALSE) {
-      //End Validasi
       $data = array(
         'title'        => 'Tambah Paket mobil',
         'mobil'        => $mobil,
@@ -327,9 +287,6 @@ class Mobil extends CI_Controller
         'content'      => 'admin/mobil/index_paket'
       );
       $this->load->view('admin/layout/wrapp', $data, FALSE);
-
-      //Masuk Database
-
     } else {
       $i     = $this->input;
       $data  = array(
@@ -341,11 +298,9 @@ class Mobil extends CI_Controller
         'date_created'     => time()
       );
       $this->mobil_model->create_paket($data);
-      $this->session->set_flashdata('sukses', 'Data telah ditambahkan');
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah ditambahkan</div>');
       redirect(base_url('admin/mobil/paket/' . $mobil_id), 'refresh');
     }
-
-    //End Masuk Database
     $data = array(
       'title'         => 'Tambah mobil',
       'mobil'         => $mobil,
@@ -356,18 +311,12 @@ class Mobil extends CI_Controller
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
 
-  //gambar
   public function update_paket($id)
   {
-
     $ketentuan  = $this->ketentuan_model->get_ketentuan();
     $paket      = $this->paket_model->detail_paket($id);
 
-
-
-    //Validasi
     $valid = $this->form_validation;
-
     $valid->set_rules(
       'paket_name',
       'Nama Paket',
@@ -384,7 +333,6 @@ class Mobil extends CI_Controller
 
 
     if ($valid->run() === FALSE) {
-      //End Validasi
       $data = array(
         'title'             => 'Edit Paket',
         'paket'             => $paket,
@@ -392,9 +340,6 @@ class Mobil extends CI_Controller
         'content'           => 'admin/mobil/update_paket'
       );
       $this->load->view('admin/layout/wrapp', $data, FALSE);
-
-      //Masuk Database
-
     } else {
       $i     = $this->input;
       $data  = array(
@@ -407,11 +352,10 @@ class Mobil extends CI_Controller
         'date_created'      => time()
       );
       $this->mobil_model->edit_paket($data);
-      $this->session->set_flashdata('sukses', 'Data telah di Update');
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di Update</div>');
       redirect(base_url('admin/mobil'), 'refresh');
     }
 
-    //End Masuk Database
     $data = array(
       'title'         => 'Edit Paket',
       'paket'         => $paket,
@@ -421,22 +365,13 @@ class Mobil extends CI_Controller
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
 
-
-  //delete Paket
   public function delete_paket($id)
   {
-    //Proteksi delete
     is_login();
-
     $paket = $this->paket_model->detail_paket($id);
-
     $data = array('id'   => $paket->id);
     $this->paket_model->delete($data);
-    $this->session->set_flashdata('sukses', 'Data telah di Hapus');
+    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect($_SERVER['HTTP_REFERER']);
   }
 }
-
-
-    /* end of file mobil.php */
-    /* Location /application/controller/admin/mobil.php */

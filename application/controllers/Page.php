@@ -3,8 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Page extends CI_Controller
 {
+    /**
+     * Development By Edi Prasetyo
+     * edikomputer@gmail.com
+     * 0812 3333 5523
+     * https://edikomputer.com
+     * https://grahastudio.com
+     */
 
-    //Load Model
     public function __construct()
     {
         parent::__construct();
@@ -12,13 +18,11 @@ class Page extends CI_Controller
         $this->load->model('page_model');
     }
 
-    //main page - Berita
     public function index()
     {
         $meta           = $this->meta_model->get_meta();
         $page           = $this->page_model->get_page();
 
-        // End Listing Berita dengan paginasi
         $data = array(
             'title'       => 'Halaman',
             'deskripsi'   => 'Berita - ' . $meta->description,
@@ -28,7 +32,7 @@ class Page extends CI_Controller
         );
         $this->load->view('front/layout/wrapp', $data, FALSE);
     }
-    // Detail Page
+
     public function detail($page_slug)
     {
         $meta           = $this->meta_model->get_meta();
@@ -44,6 +48,3 @@ class Page extends CI_Controller
         $this->load->view('front/layout/wrapp', $data, FALSE);
     }
 }
-
-/* End of file berita.php */
-/* Location: ./application/controllers/Berita.php */

@@ -3,18 +3,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Rental_mobil extends CI_Controller
 {
-  //Load Model
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
+
   public function __construct()
   {
     parent::__construct();
-
+    $this->output->enable_profiler(FALSE);
     $this->load->library('pagination');
     $this->load->model('mobil_model');
     $this->load->model('transaksi_model');
     $this->load->model('bank_model');
     $this->load->model('pengaturan_model');
+    $this->load->model('pembayaran_model');
+    $this->load->model('lamasewa_model');
+    $this->load->model('jamsewa_model');
   }
-  //main page - Berita
+
   public function index()
   {
     $meta                           = $this->meta_model->get_meta();
@@ -32,13 +42,11 @@ class Rental_mobil extends CI_Controller
   }
   public function order($mobil_slug = NULL)
   {
-    //Redirect Jika nggak ada id_mobil nya
     if (empty($mobil_slug)) {
       redirect(base_url('rental-mobil'));
     } else {
       $mobil          = $this->mobil_model->read($mobil_slug);
-      // var_dump($mobil);
-      // die;
+
       if ($mobil == NULL) {
         $data = array(
           'user_id'     => $this->session->userdata('id'),
@@ -70,8 +78,6 @@ class Rental_mobil extends CI_Controller
     }
   }
 
-  // Update Count Mobil Views
-
   function add_count($mobil_slug)
   {
     // load cookie helper
@@ -96,8 +102,6 @@ class Rental_mobil extends CI_Controller
     }
   }
 
-
-  // BOOKING PAKET
   public function booking($id = NULL)
   {
     if (!empty($id)) {
@@ -108,7 +112,9 @@ class Rental_mobil extends CI_Controller
 
     $listing              = $this->mobil_model->sidebar();
     $listpaket            = $this->mobil_model->detail_paket($id);
-
+    $pembayaran           = $this->pembayaran_model->get_pembayaran_active();
+    $lamasewa             = $this->lamasewa_model->get_lamasewa();
+    $jamsewa              = $this->jamsewa_model->get_jamsewa();
 
     $this->form_validation->set_rules(
       'user_name',
@@ -177,25 +183,22 @@ class Rental_mobil extends CI_Controller
         'title'         => 'Booking Rental Mobil',
         'deskripsi'     => 'Booking Rental Mobil',
         'keywords'      => 'Booking Rental Mobil',
-        // 'mobil'      => $mobil,
         'listpaket'     => $listpaket,
         'listing'       => $listing,
+        'pembayaran'    => $pembayaran,
+        'lamasewa'      => $lamasewa,
+        'jamsewa'       => $jamsewa,
         'tanggal_post'  => date('Y-m-d H:i:s'),
         'content'           => 'front/rental/booking_rental'
       );
       $this->load->view('front/layout/wrapp', $data, FALSE);
     } else {
 
-
-
       $total_harga = $this->input->post('harga_satuan') * $this->input->post('lama_sewa');
       $sub = substr($total_harga, -3);
       $total =  random_string('numeric', 3);
       $hasil =  $total_harga + $total;
       $no = substr($hasil, -3);
-
-
-
 
       $data  = array(
         'user_id'           => $this->session->userdata('id'),
@@ -219,35 +222,25 @@ class Rental_mobil extends CI_Controller
         'total_harga'       => $hasil,
         'kode_unik'         => $no,
         'date_created'      => date('Y-m-d H:i:s')
-        // 'tanggal_bayar'      => date('Y-m-d H:i:s')
-
       );
-      //Proses Masuk Header Transaksi
-      // $this->transaksi_model->tambah($data);
-      if ($this->input->post('email') == "") //If something is in the 'email' field, it has propbably been filled by a bot, because regular users can't see the field.
-      {
+
+      if ($this->input->post('email') == "") {
         $insert_id = $this->transaksi_model->create($data);
       }
-      //Kirim Email
+
       $this->_sendEmail($insert_id);
-      //End Masuk tabel transaksi
       $this->session->set_flashdata('sukses', 'Checkout Berhasil');
       redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
-
-      //End Masuk Database
     }
   }
 
   private function _sendEmail($insert_id)
-
   {
-
     $email_order = $this->pengaturan_model->email_order();
     $transaksi  = $this->transaksi_model->detail_transaksi($insert_id);
     $meta = $this->meta_model->get_meta();
 
     $config = [
-
       'protocol'     => "$email_order->protocol",
       'smtp_host'   => "$email_order->smtp_host",
       'smtp_port'   => $email_order->smtp_port,
@@ -255,18 +248,13 @@ class Rental_mobil extends CI_Controller
       'smtp_pass'   => "$email_order->smtp_pass",
       'mailtype'     => 'html',
       'charset'     => 'utf-8',
-
-
     ];
 
     $this->load->library('email', $config);
     $this->email->initialize($config);
-
     $this->email->set_newline("\r\n");
-
     $this->email->from("$email_order->smtp_user", 'Order');
     $this->email->to($this->input->post('user_email'));
-
 
     $this->email->subject('Order ' . $transaksi->kode_transaksi . '');
     $this->email->message('Terima Kasih Atas Order Anda <br> 

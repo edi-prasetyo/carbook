@@ -6,15 +6,10 @@
     </div>
 
     <?php
-    //Notifikasi
     if ($this->session->flashdata('message')) {
-        echo '<div class="alert alert-success alert-dismissable fade show">';
-        echo '<button class="close" data-dismiss="alert" aria-label="Close">×</button>';
         echo $this->session->flashdata('message');
-        echo '</div>';
+        unset($_SESSION['message']);
     }
-    echo validation_errors('<div class="alert alert-warning">', '</div>');
-
     ?>
 
     <div class="table-responsive">
@@ -29,15 +24,13 @@
                 </tr>
             </thead>
             <?php $no = 1;
-            foreach ($list_seller as $list_seller) { ?>
+            foreach ($list_seller as $data) { ?>
                 <tr>
                     <td><?php echo $no; ?></td>
-                    <td><?php echo $list_seller->user_name; ?></td>
-                    <td><?php echo $list_seller->user_phone; ?></td>
-
+                    <td><?php echo $data->user_name; ?></td>
+                    <td><?php echo $data->user_phone; ?></td>
                     <td>
-
-                        <?php if ($list_seller->is_active == 1) : ?>
+                        <?php if ($data->is_active == 1) : ?>
                             <span class="badge badge-success">Aktif</span>
                         <?php else : ?>
                             <span class="badge badge-danger">Nonactive</span>
@@ -46,18 +39,12 @@
                     </td>
 
                     <td>
-                        <?php if ($list_seller->is_active == 0) : ?>
-                            <a class="btn btn-success btn-sm" href="<?php echo base_url('admin/member/activated/' . $list_seller->id); ?>"><i class="fas fa-user-times"></i> Activated</a>
+                        <?php if ($data->is_active == 0) : ?>
+                            <a class="btn btn-success btn-sm" href="<?php echo base_url('admin/member/activated/' . $data->id); ?>"><i class="fas fa-user-times"></i> Activated</a>
                         <?php else : ?>
-                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('admin/member/banned/' . $list_seller->id); ?>"><i class="fas fa-user-times"></i> Banned</a>
-
+                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('admin/member/banned/' . $data->id); ?>"><i class="fas fa-user-times"></i> Banned</a>
                         <?php endif; ?>
-
-
-
-
-
-                        <a href="<?php echo base_url('admin/member/detail/' . $list_seller->id); ?>" class="btn btn-info btn-sm" target="blank"> <i class="fas fa-external-link-alt"></i> Lihat</a>
+                        <a href="<?php echo base_url('admin/member/detail/' . $data->id); ?>" class="btn btn-info btn-sm" target="blank"> <i class="fas fa-external-link-alt"></i> Lihat</a>
 
                     </td>
                 </tr>

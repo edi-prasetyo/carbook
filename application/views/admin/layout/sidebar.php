@@ -5,23 +5,20 @@ $meta = $this->meta_model->get_meta();
 ?>
 
 
-
-
-
 <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
     <div class="border-right pb-5" id="sidebar-wrapper">
-        <div class="sidebar-heading text-muted">Admin </div>
-        <div class="py-4 px-3 mb-4 ">
-            <div class="media d-flex align-items-center"><img src="<?php echo base_url('assets/img/avatars/' . $user->user_image); ?>" alt="..." width="65" class="mr-3 rounded-circle shadow-sm">
-                <div class="media-body">
-                    <h5 class="m-0 text-muted"><?php echo $user->user_name; ?></h5>
-                    <p class="font-weight-light mb-0 text-muted"><?php echo $user->role; ?></p>
-                </div>
+
+        <div class="py-2 px-3 mt-5">
+            <div class="mb-2"><img src="<?php echo base_url('assets/img/avatars/' . $user->user_image); ?>" alt="..." width="65" class="mr-3 rounded-circle shadow-sm">
+                <p>
+                <h5 class="m-0 text-muted"><?php echo $user->user_name; ?></h5>
+                <p class="badge badge-success font-weight-light mb-0 text-white"><?php echo $user->role; ?></p>
+                </p>
             </div>
         </div>
-        <p class="text-muted font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
+        <p class="text-muted font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main Menu</p>
 
         <ul class="nav flex-column  mb-0">
             <li class="nav-item">
@@ -44,36 +41,37 @@ $meta = $this->meta_model->get_meta();
                 </a>
             </li>
 
-        </ul>
 
-        <li class="nav-item" data-toggle="collapse" href="#collapseMobil" role="button" aria-expanded="false" aria-controls="collapseMobil">
-            <a href="#" class="nav-link  d-flex w-100 justify-content-between ">
-                <div><i class="ti-car mr-3  fa-fw"></i> Mobil </div>
-                <i class="ti-angle-right my-auto small"></i>
-            </a>
-        </li>
 
-        <ul class="collapse" id="collapseMobil">
-            <li class="nav-item">
-                <a href="<?php echo base_url('admin/mobil'); ?>" class="nav-link  ">
-                    <i class="ti-car mr-3  fa-fw"></i>
-                    Data Mobil
+            <li class="nav-item" data-toggle="collapse" href="#collapseMobil" role="button" aria-expanded="false" aria-controls="collapseMobil">
+                <a href="#" class="nav-link  d-flex w-100 justify-content-between ">
+                    <div><i class="ti-car mr-3  fa-fw"></i> Mobil </div>
+                    <i class="ti-angle-right my-auto small"></i>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="<?php echo base_url('admin/jenismobil'); ?>" class="nav-link  ">
-                    <i class="bi-bookmarks mr-3  fa-fw"></i>
-                    Jenis Mobil
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo base_url('admin/merek'); ?>" class="nav-link  ">
-                    <i class="bi-lightbulb mr-3  fa-fw"></i> Merek Mobil
-                </a>
-            </li>
-        </ul>
 
-        <ul class="nav flex-column  mb-0">
+            <ul class="collapse" id="collapseMobil">
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/mobil'); ?>" class="nav-link  ">
+                        <i class="ti-car mr-3  fa-fw"></i>
+                        Data Mobil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/jenismobil'); ?>" class="nav-link  ">
+                        <i class="bi-bookmarks mr-3  fa-fw"></i>
+                        Jenis Mobil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/merek'); ?>" class="nav-link  ">
+                        <i class="bi-lightbulb mr-3  fa-fw"></i> Merek Mobil
+                    </a>
+                </li>
+
+            </ul>
+
+
 
             <li class="nav-item" data-toggle="collapse" href="#collapseBerita" role="button" aria-expanded="false" aria-controls="collapseBerita">
                 <a href="#" class="nav-link  d-flex w-100 justify-content-between ">
@@ -149,6 +147,53 @@ $meta = $this->meta_model->get_meta();
             </li>
 
             <ul class="collapse" id="collapseExample">
+
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/lamasewa'); ?>" class="nav-link  ">
+                        <i class="bi-record"></i> Lama Sewa
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/jamsewa'); ?>" class="nav-link  ">
+                        <i class="bi-record"></i> Jam Sewa
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/link'); ?>" class="nav-link  ">
+                        <i class="bi-record"></i>
+                        Links
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/menu'); ?>" class="nav-link  ">
+                        <i class="bi-record"></i>
+                        Menu
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/ketentuan'); ?>" class="nav-link  ">
+                        <i class="bi-record"></i>
+                        Ketentuan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo base_url('admin/pengaturan'); ?>" class="nav-link  ">
+                        <i class="bi-record"></i>
+                        Pengaturan Email
+                    </a>
+                </li>
+
+            </ul>
+
+            <li class="nav-item" data-toggle="collapse" href="#collapseProfile" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a href="#" class="nav-link  d-flex w-100 justify-content-between ">
+                    <div><i class="bi-info-circle mr-3  fa-fw"></i> Profile </div>
+                    <i class="ti-angle-right my-auto small"></i>
+                </a>
+            </li>
+
+            <ul class="collapse" id="collapseProfile">
                 <li class="nav-item">
                     <a href="<?php echo base_url('admin/meta'); ?>" class="nav-link  ">
                         <i class="bi-record"></i>
@@ -169,32 +214,6 @@ $meta = $this->meta_model->get_meta();
                         Favicon
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="<?php echo base_url('admin/menu'); ?>" class="nav-link  ">
-                        <i class="bi-record"></i>
-                        Menu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?php echo base_url('admin/link'); ?>" class="nav-link  ">
-                        <i class="bi-record"></i>
-                        Links
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?php echo base_url('admin/ketentuan'); ?>" class="nav-link  ">
-                        <i class="bi-record"></i>
-                        Ketentuan
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?php echo base_url('admin/pengaturan'); ?>" class="nav-link  ">
-                        <i class="bi-record"></i>
-                        Pengaturan Email
-                    </a>
-                </li>
-
             </ul>
 
 

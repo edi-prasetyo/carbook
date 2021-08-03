@@ -53,8 +53,13 @@ $page      = $this->page_model->get_page();
             </div>
         </div>
     </div>
+    <div class="credit border-top py-3">
+        <div class="container">
+            <div class="credit bg-white text-muted py-md-3">Copyright &copy; <?php echo date('Y') ?> - <?php echo $meta->title ?> - <?php echo $meta->tagline ?></div>
+        </div>
+    </div>
 </footer>
-<div class="credit bg-white text-center text-muted py-md-3 border-top">Copyright &copy; <?php echo date('Y') ?> - <?php echo $meta->title ?> - <?php echo $meta->tagline ?></div>
+
 <!-- Load javascript Jquery -->
 <script src="<?php echo base_url() ?>assets/template/front/vendor/jquery/jquery-3.2.1.slim.min.js"></script>
 <script src="<?php echo base_url() ?>assets/template/front/vendor/popper/popper.min.js"></script>
@@ -78,6 +83,7 @@ $page      = $this->page_model->get_page();
             minDate: minDate
         });
     });
+    $("#id_tanggal").keydown(false);
     $('.form-control-chosen').chosen({});
     $('#timepicker').timepicker();
 </script>

@@ -3,31 +3,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Berita extends CI_Controller
 {
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   //Load Model
   public function __construct()
   {
     parent::__construct();
+    $this->output->enable_profiler(FALSE);
     $this->load->model('berita_model');
     $this->load->model('category_model');
     $this->load->model('meta_model');
     $this->load->model('mobil_model');
     $this->load->library('pagination');
   }
-  //main page - Berita
   public function index()
   {
     $meta                           = $this->meta_model->get_meta();
     $category                       = $this->category_model->get_category();
     $mobil_popular                  = $this->mobil_model->mobil_populer();
-
-    // Listing Berita Dengan Pagination
     $this->load->library('pagination');
     $config['base_url']             = base_url('berita/index/');
     $config['total_rows']           = count($this->berita_model->total());
     $config['per_page']             = 6;
     $config['uri_segment']          = 3;
 
-    //Membuat Style pagination untuk BootStrap v4
     $config['first_link']       = 'First';
     $config['last_link']        = 'Last';
     $config['next_link']        = 'Next';
@@ -46,13 +50,10 @@ class Berita extends CI_Controller
     $config['first_tagl_close'] = '</span></li>';
     $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
     $config['last_tagl_close']  = '</span></li>';
-    //Limit dan Start
     $limit                          = $config['per_page'];
     $start                          = ($this->uri->segment(3)) ? ($this->uri->segment(3)) : 0;
-    //End Limit Start
     $this->pagination->initialize($config);
     $berita                         = $this->berita_model->berita($limit, $start);
-    // End Listing Berita dengan paginasi
     $data = array(
       'title'                       => 'Berita - ' . $meta->title,
       'deskripsi'                   => 'Berita - ' . $meta->description,
@@ -65,7 +66,6 @@ class Berita extends CI_Controller
     );
     $this->load->view('front/layout/wrapp', $data, FALSE);
   }
-  //main page - detail Berita
   public function detail($berita_slug = NULL)
   {
     if (!empty($berita_slug)) {
@@ -89,7 +89,6 @@ class Berita extends CI_Controller
     $this->add_count($berita_slug);
     $this->load->view('front/layout/wrapp', $data, FALSE);
   }
-  // This is the counter function..
   function add_count($berita_slug)
   {
     // load cookie helper
@@ -114,6 +113,3 @@ class Berita extends CI_Controller
     }
   }
 }
-
-/* End of file Berita.php */
-/* Location: ./application/controllers/Berita.php */

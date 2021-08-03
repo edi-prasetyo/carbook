@@ -144,15 +144,7 @@
 
 
 
-
-
-
-
             <?php endif; ?>
-
-
-
-
 
             <div class="col-md-4">
               <label>Tanggal Jemput <span class="text-danger">*</span></label>
@@ -163,36 +155,10 @@
                 <label>Jam Jemput <span class="text-danger">*</span></label>
                 <select class="form-control form-control-chosen" name="jam_jemput" value="<?php echo set_value('jam_jemput'); ?>" required>
                   <option value="">--Pilih Jam Jemput --</option>
-                  <option value='08.00'>08.00</option>
-                  <option value='08.30'>08.30</option>
-                  <option value='09.00'>09.00</option>
-                  <option value='09.30'>09.30</option>
-                  <option value='10.00'>10.00</option>
-                  <option value='10.30'>10.30</option>
-                  <option value='11.00'>11.00</option>
-                  <option value='11.30'>11.30</option>
-                  <option value='12.00'>12.00</option>
-                  <option value='12.30'>12.30</option>
-                  <option value='13.00'>13.00</option>
-                  <option value='13.30'>13.30</option>
-                  <option value='14.00'>14.00</option>
-                  <option value='14.30'>14.30</option>
-                  <option value='15.00'>15.00</option>
-                  <option value='15.30'>15.30</option>
-                  <option value='16.00'>16.00</option>
-                  <option value='16.30'>16.30</option>
-                  <option value='17.00'>17.00</option>
-                  <option value='18.30'>18.30</option>
-                  <option value='19.00'>19.00</option>
-                  <option value='19.30'>19.30</option>
-                  <option value='20.00'>20.00</option>
-                  <option value='20.30'>20.30</option>
-                  <option value='21.00'>21.00</option>
-                  <option value='21.30'>21.30</option>
-                  <option value='22.00'>22.00</option>
-                  <option value='22.30'>22.30</option>
-                  <option value='23.00'>23.00</option>
-                  <option value='23.30'>23.30</option>
+                  <?php foreach ($jamsewa as $data) : ?>
+                    <option value="<?php echo $data->jam; ?>"><?php echo $data->jam; ?> </option>
+                  <?php endforeach; ?>
+
                 </select>
                 <div class="invalid-feedback">Silahkan Jam Penjemputan</div>
               </div>
@@ -202,10 +168,10 @@
               <div class="form-group">
                 <select class="form-control form-control-chosen" name="lama_sewa" value="<?php echo set_value('lama_sewa'); ?>" required>
                   <option value="">-- Pilih Durasi --</option>
-                  <option value="1">1 Hari</option>
-                  <option value="2">2 Hari</option>
-                  <option value="3">3 Hari</option>
-                  <option value="4">4 Hari</option>
+                  <?php foreach ($lamasewa as $data) : ?>
+                    <option value="<?php echo $data->lama_sewa; ?>"><?php echo $data->lama_sewa; ?> Hari</option>
+                  <?php endforeach; ?>
+
                 </select>
                 <div class="invalid-feedback">Silahkan pilih Durasi Sewa</div>
               </div>
@@ -219,57 +185,36 @@
               <label>Permintaan Khusus (Optional)</label>
               <input class="form-control" type="text" name="permintaan_khusus" placeholder="Permintaan Khusus">
             </div>
+
+
             <div class="col-md-12 my-3">
-              <label>Metode Pembayaran <span class="text-danger">*</span></label>
+              <div class="form-group">
+                <label for="optionA">Pilih Metode Pembayaran!</label><br>
 
+                <?php foreach ($pembayaran as $data) : ?>
 
+                  <div class="custom-control custom-radio">
+                    <input class="form-check-input" type="radio" name="tipe_pembayaran" id="emailConsentRadio" value="optionB" required>
+                    <label class="form-check-label" for="optionB">
+                      <?php echo $data->nama_pembayaran; ?>
+                    </label>
 
-              <div class="my-1">
-                <div class="row">
-
-                  <div class="col-md-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <i class="bi-cash-stack text-warning" style="font-size: 3rem;"></i>
-                        <label class="form-check-label">
-                          <input type="radio" name="tipe_pembayaran" value="Cash"> Cash
-                          <?php echo form_error('tipe_pembayaran', '<small class="text-danger pl-3">', '</small>'); ?>
-                        </label>
-
-                        <div class="invalid-feedback">Pilih Metode Pembayaran</div>
-                      </div>
+                    <div class="invalid-feedback">
+                      Silahkan Pilih Metode Pembayaran
                     </div>
                   </div>
 
+                <?php endforeach; ?>
 
-
-                  <div class="col-md-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <i class="bi-credit-card text-success" style="font-size: 3rem;"></i>
-                        <label class="form-check-label">
-                          <input type="radio" name="tipe_pembayaran" value="Transfer"> Transfer
-                          <?php echo form_error('tipe_pembayaran', '<small class="text-danger pl-3">', '</small>'); ?>
-                        </label>
-
-                        <div class="invalid-feedback">Pilih Metode Pembayaran</div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
-
-                </div>
               </div>
-
-
 
             </div>
           </div>
           <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">
             Syarat dan Ketentuan Sewa
           </a>
+
+
           <div class="form-group mt-3">
             <button type="submit" name="submit" class="btn btn-info btn-block"><i class="fe fe-shopping-bag"></i> Pesan Sekarang</button>
           </div>
@@ -278,15 +223,8 @@
       </div>
     </div>
 
-
-
-
-
   </div>
 </div>
-
-
-
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">

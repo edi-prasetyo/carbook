@@ -3,7 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Layanan extends CI_Controller
 {
-    //load data
+    /**
+     * Development By Edi Prasetyo
+     * edikomputer@gmail.com
+     * 0812 3333 5523
+     * https://edikomputer.com
+     * https://grahastudio.com
+     */
+
     public function __construct()
     {
         parent::__construct();
@@ -16,15 +23,14 @@ class Layanan extends CI_Controller
             redirect('admin/dashboard');
         }
     }
-    //Index Category
+
     public function index()
     {
-        $config['base_url']       = base_url('admin/layanan/index/');
-        $config['total_rows']     = count($this->layanan_model->total_row());
-        $config['per_layanan']       = 10;
-        $config['uri_segment']    = 4;
+        $config['base_url']         = base_url('admin/layanan/index/');
+        $config['total_rows']       = count($this->layanan_model->total_row());
+        $config['per_layanan']      = 10;
+        $config['uri_segment']      = 4;
 
-        //Membuat Style pagination untuk BootStrap v4
         $config['first_link']       = 'First';
         $config['last_link']        = 'Last';
         $config['next_link']        = 'Next';
@@ -44,23 +50,20 @@ class Layanan extends CI_Controller
         $config['last_tag_open']    = '<li class="layanan-item"><span class="layanan-link">';
         $config['last_tagl_close']  = '</span></li>';
 
+        $limit                      = $config['per_layanan'];
+        $start                      = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
 
-        //Limit dan Start
-        $limit                    = $config['per_layanan'];
-        $start                    = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
-        //End Limit Start
         $this->pagination->initialize($config);
-
         $layanan = $this->layanan_model->get_layanan($limit, $start);
         $data = [
             'title'             => 'Layanan',
-            'layanan'              => $layanan,
+            'layanan'           => $layanan,
             'pagination'        => $this->pagination->create_links(),
-            'content'           => 'admin/layanan/index_layanan'
+            'content'           => 'admin/layanan/index'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }
-    // Create
+
     public function create()
     {
         $this->form_validation->set_rules(
@@ -84,7 +87,7 @@ class Layanan extends CI_Controller
                 'title'             => 'Buat Layanan',
                 'deskripsi'         => 'Deskripsi',
                 'keywords'          => 'Keywords',
-                'content'           => 'admin/layanan/create_layanan'
+                'content'           => 'admin/layanan/create'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
         } else {
@@ -93,22 +96,22 @@ class Layanan extends CI_Controller
             $data  = [
                 'user_id'               => $this->session->userdata('id'),
                 'layanan_slug'          =>  $layanan_slug . '-' . $slugcode,
-                'layanan_name'         => $this->input->post('layanan_name'),
-                'layanan_icon'         => $this->input->post('layanan_icon'),
+                'layanan_name'          => $this->input->post('layanan_name'),
+                'layanan_icon'          => $this->input->post('layanan_icon'),
                 'layanan_color'         => $this->input->post('layanan_color'),
                 'layanan_desc'          => $this->input->post('layanan_desc'),
                 'date_created'          => time()
             ];
             $this->layanan_model->create($data);
-            $this->session->set_flashdata('message', 'Data telah ditambahkan');
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah ditambahkan</div>');
             redirect(base_url('admin/layanan'), 'refresh');
         }
     }
-    //Update
+
     public function update($id)
     {
         $layanan = $this->layanan_model->detail_layanan($id);
-        //Validasi
+
         $this->form_validation->set_rules(
             'layanan_name',
             'Nama Layanan',
@@ -122,15 +125,12 @@ class Layanan extends CI_Controller
             array('required'         => '%s Harus Diisi')
         );
         if ($this->form_validation->run() === FALSE) {
-            //End Validasi
-
             $data = [
                 'title'             => 'Edit Layanan',
                 'layanan'              => $layanan,
-                'content'           => 'admin/layanan/update_layanan'
+                'content'           => 'admin/layanan/update'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
-            //Masuk Database
         } else {
 
             $data  = [
@@ -143,22 +143,19 @@ class Layanan extends CI_Controller
                 'date_updated'              => time()
             ];
             $this->layanan_model->update($data);
-            $this->session->set_flashdata('message', 'Data telah di Update');
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di Update</div>');
             redirect(base_url('admin/layanan'), 'refresh');
         }
-        //End Masuk Database
     }
-    //delete
+
     public function delete($id)
     {
-        //Proteksi delete
         is_login();
 
         $layanan = $this->layanan_model->detail_layanan($id);
         $data = ['id'   => $layanan->id];
-
         $this->layanan_model->delete($data);
-        $this->session->set_flashdata('message', 'Data telah di Hapus');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
         redirect(base_url('admin/layanan'), 'refresh');
     }
 }

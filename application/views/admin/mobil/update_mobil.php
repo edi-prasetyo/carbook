@@ -12,11 +12,12 @@ echo form_open_multipart(base_url('admin/mobil/update/' . $mobil->id));
 ?>
 
 <div class="row">
-
   <div class="col-md-8">
     <div class="card">
+      <div class="card-header">
+        <?php echo $title; ?>
+      </div>
       <div class="card-body">
-
         <div class="row">
           <div class="col-md-3">
             <label>Nama Mobil</label>

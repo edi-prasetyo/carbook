@@ -3,33 +3,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Transaksi extends CI_Controller
 {
-    //load data
+    /**
+     * Development By Edi Prasetyo
+     * edikomputer@gmail.com
+     * 0812 3333 5523
+     * https://edikomputer.com
+     * https://grahastudio.com
+     */
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model('transaksi_model');
         $this->load->model('bank_model');
     }
-    //listing data transaksi
-    // public function index()
-    // {
-
-    //     $data = array(
-    //         'title'       => 'Cek Pesanan',
-    //         'deskripsi'   => 'Cek Pesanan Rental Mobil',
-    //         'keywords'    => 'Transaksi',
-    //         'content'         => 'front/transaksi/index_transaksi'
-    //     );
-    //     $this->load->view('front/layout/wrapp', $data, FALSE);
-    // }
-
     public function index()
     {
-
         if ($this->session->userdata('id')) {
             redirect(base_url('myaccount/transaksi'), 'refresh');
         } else {
-
             $this->form_validation->set_rules(
                 'email',
                 'Email',
@@ -56,15 +48,12 @@ class Transaksi extends CI_Controller
                 ];
                 $this->load->view('front/layout/wrapp', $data, FALSE);
             } else {
-                //Validasi Berhasil
                 $this->detail();
             }
         }
     }
-
     public function detail()
     {
-
         $kode_transaksi             = $this->input->post('kode_transaksi');
         $email                      = $this->input->post('email');
         $detail_transaksi           = $this->transaksi_model->cek_transaksi($kode_transaksi, $email);
@@ -72,7 +61,6 @@ class Transaksi extends CI_Controller
 
         $transaksi = $this->db->get_where('transaksi', ['kode_transaksi' => $kode_transaksi])->row_array();
         $transakai_email = $this->db->get_where('transaksi', ['user_email' => $email])->row_array();
-
         if (empty($transaksi)) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger">Kode Transaksi Tidak ada</div> ');
             redirect('transaksi');
@@ -80,8 +68,6 @@ class Transaksi extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger">Email Tidak ada</div> ');
             redirect('transaksi');
         } else {
-
-
             $data = array(
                 'title'                     => 'Transaksi',
                 'deskripsi'                 => 'Deskripsi',
@@ -94,22 +80,20 @@ class Transaksi extends CI_Controller
         }
     }
 
-    //Tambah transaksi
     public function konfirmasi($id)
     {
-        $transaksi                  = $this->transaksi_model->detail($id);
-        $bank                       = $this->bank_model->get_allbank();
-
-
+        $transaksi                      = $this->transaksi_model->detail($id);
+        $bank                           = $this->bank_model->get_allbank();
         $config['upload_path']          = './assets/img/struk/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = 5000; //Dalam Kilobyte
-        $config['max_width']            = 5000; //Lebar (pixel)
-        $config['max_height']           = 5000; //tinggi (pixel)
+        $config['max_size']             = 5000000;
+        $config['max_width']            = 5000000;
+        $config['max_height']           = 5000000;
+        $config['remove_spaces']        = TRUE;
+        $config['encrypt_name']         = TRUE;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('bukti_bayar')) {
 
-            //End Validasi
             $data = array(
                 'title'         => 'Update transaksi',
                 'deskripsi'   => 'Deskripsi',
@@ -120,20 +104,11 @@ class Transaksi extends CI_Controller
                 'content'           => 'front/transaksi/konfirmasi_transaksi'
             );
             $this->load->view('front/layout/wrapp', $data, FALSE);
-
-            //Masuk Database
-
         } else {
 
-            //Proses Manipulasi Gambar
             $upload_data    = array('uploads'  => $this->upload->data());
-            //Gambar Asli dcontentmpan di folder assets/upload/Struk
-            //lalu gambara Asli di copy untuk versi mini size ke folder assets/upload/struk/thumbs
-
             $config['image_library']    = 'gd2';
             $config['source_image']     = './assets/img/struk/' . $upload_data['uploads']['file_name'];
-            //Gambar Versi Kecil dipindahkan
-            $config['new_image']        = './assets/img/struk/thumbs/' . $upload_data['uploads']['file_name'];
             $config['create_thumb']     = TRUE;
             $config['maintain_ratio']   = TRUE;
             $config['width']            = 200;
@@ -141,11 +116,7 @@ class Transaksi extends CI_Controller
             $config['thumb_marker']     = '';
 
             $this->load->library('image_lib', $config);
-
             $this->image_lib->resize();
-
-
-            $i     = $this->input;
 
             $data  = array(
                 'id'                    => $id,
@@ -169,7 +140,3 @@ class Transaksi extends CI_Controller
         $this->load->view('front/layout/wrapp', $data, FALSE);
     }
 }
-
-
-/* end of file transaksi.php */
-/* Location /application/controller/admin/transaksi.php */

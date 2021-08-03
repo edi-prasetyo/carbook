@@ -1,10 +1,9 @@
-
 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Delete<?php
-                                                                                        echo $paket->id ?>">
+                                                                                            echo $data->id ?>">
     <i class="ti-trash"></i> Hapus
 </button>
 
-<div class="modal fade" id="Delete<?php echo $paket->id ?>">
+<div class="modal fade" id="Delete<?php echo $data->id ?>">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,11 +12,11 @@
                     <span aria-hidden="true"><i class="fa fa-window-close"></i></span></button>
             </div>
             <div class="modal-body">
-                <p>Apakah Anda Yakin Ingin Menghapus Data  <b><?php echo $paket->paket_name ?></b>?</p>
+                <p>Apakah Anda Yakin Ingin Menghapus Data <b><?php echo $data->paket_name ?></b>?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
-                <a href="<?php echo base_url('admin/mobil/delete_paket/' . $paket->id) ?>" class="btn btn-danger pull-right"><i class="fa fa-close"></i> Ya, Hapus Artikel</a>
+                <a href="<?php echo base_url('admin/mobil/delete_paket/' . $data->id) ?>" class="btn btn-danger pull-right"><i class="fa fa-close"></i> Ya, Hapus Artikel</a>
             </div>
         </div>
         <!-- /.modal-content -->

@@ -3,7 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Category extends CI_Controller
 {
-  //Load Model
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
+
   public function __construct()
   {
     parent::__construct();
@@ -33,17 +40,13 @@ class Category extends CI_Controller
       $meta                     = $this->meta_model->get_meta();
       $category_detail          = $this->category_model->read($category_slug);
       $category_id              = $category_detail->id;
-
       $category          = $this->category_model->get_category();
       $mobil_popular           = $this->mobil_model->mobil_populer();
-
-
       $config['base_url']         = base_url('category/item/' . $category_slug . '/index/');
       $config['total_rows']       = count($this->berita_model->total_row_category($category_id));
       $config['per_page']         = 6;
       $config['uri_segment']      = 5;
 
-      //Membuat Style pagination untuk BootStrap v4
       $config['first_link']       = 'First';
       $config['last_link']        = 'Last';
       $config['next_link']        = 'Next';
@@ -62,18 +65,10 @@ class Category extends CI_Controller
       $config['first_tagl_close'] = '</span></li>';
       $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
       $config['last_tagl_close']  = '</span></li>';
-      //Limit dan Start
       $limit                      = $config['per_page'];
       $start                      = ($this->uri->segment(5)) ? ($this->uri->segment(5)) : 0;
-      //End Limit Start
       $this->pagination->initialize($config);
       $berita = $this->berita_model->category($category_id, $limit, $start);
-      // var_dump($berita);
-      // die;
-
-      // var_dump($category_detail->id);
-      // die;
-      // End Listing Berita dengan paginasi
       $data = array(
         'title'                 => 'Category - ' . $category_detail->category_name,
         'deskripsi'             => 'Berita - ' . $meta->description,

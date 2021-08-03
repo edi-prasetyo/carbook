@@ -13,7 +13,7 @@ class Menu_model extends CI_Model
   {
     $this->db->select('*');
     $this->db->from('menu');
-    $this->db->order_by('id', 'DESC');
+    $this->db->order_by('urutan', 'ASC');
     $query = $this->db->get();
     return $query->result();
   }

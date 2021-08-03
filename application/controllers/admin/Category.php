@@ -3,17 +3,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Category extends CI_Controller
 {
-  //load data
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
+
   public function __construct()
   {
     parent::__construct();
     $this->load->model('category_model');
   }
-  //Index Category
+
   public function index()
   {
     $category = $this->category_model->get_category();
-    //Validasi
+
     $this->form_validation->set_rules(
       'category_name',
       'Nama Kategori',
@@ -28,7 +35,7 @@ class Category extends CI_Controller
       $data = [
         'title'                           => 'Category Artikel',
         'category'                        => $category,
-        'content'                         => 'admin/category/index_category'
+        'content'                         => 'admin/category/index'
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
     } else {
@@ -40,15 +47,15 @@ class Category extends CI_Controller
         'date_created'                    => time()
       ];
       $this->category_model->create($data);
-      $this->session->set_flashdata('message', 'Data telah ditambahkan');
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah ditambahkan</div>');
       redirect(base_url('admin/category'), 'refresh');
     }
   }
-  //Update
+
   public function update($id)
   {
     $category = $this->category_model->detail_category($id);
-    //Validasi
+
     $this->form_validation->set_rules(
       'category_name',
       'Nama Kategori',
@@ -56,14 +63,13 @@ class Category extends CI_Controller
       array('required'                  => '%s Harus Diisi')
     );
     if ($this->form_validation->run() === FALSE) {
-      //End Validasi
+
       $data = [
         'title'                         => 'Edit kategori Berita',
         'category'                      => $category,
-        'content'                       => 'admin/category/update_category'
+        'content'                       => 'admin/category/update'
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
-      //Masuk Database
     } else {
       $data  = [
         'id'                            => $id,
@@ -71,20 +77,18 @@ class Category extends CI_Controller
         'date_updated'                  => time()
       ];
       $this->category_model->update($data);
-      $this->session->set_flashdata('message', 'Data telah di Update');
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di Update</div>');
       redirect(base_url('admin/category'), 'refresh');
     }
-    //End Masuk Database
   }
-  //delete Category
+
   public function delete($id)
   {
-    //Proteksi delete
     is_login();
     $category = $this->category_model->detail_category($id);
     $data = ['id'   => $category->id];
     $this->category_model->delete($data);
-    $this->session->set_flashdata('message', 'Data telah di Hapus');
+    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect(base_url('admin/category'), 'refresh');
   }
 }

@@ -1,7 +1,7 @@
 <div class="row mb-3">
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card shadow-sm bg-info text-white">
+        <div class="card bg-info text-white">
             <div class="card-header text-xs font-weight-bold text-uppercase">Transaksi</div>
             <div class="card-body">
                 <div class="row align-items-center">

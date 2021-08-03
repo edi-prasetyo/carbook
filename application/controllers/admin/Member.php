@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Member extends CI_Controller
 {
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   public function __construct()
   {
     parent::__construct();
@@ -19,7 +26,7 @@ class Member extends CI_Controller
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
-  //Detail Member
+
   public function detail($id)
   {
     $user_detail =  $this->user_model->detail($id);
@@ -30,29 +37,27 @@ class Member extends CI_Controller
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
-  //Banned User
+
   public function banned($id)
   {
-    //Proteksi delete
     is_login();
     $data = [
       'id'                    => $id,
       'is_active'             => 0,
     ];
     $this->user_model->update($data);
-    $this->session->set_flashdata('message', 'User Telah di banned');
+    $this->session->set_flashdata('message', '<div class="alert alert-danger">User Telah di banned</div>');
     redirect($_SERVER['HTTP_REFERER']);
   }
   public function activated($id)
   {
-    //Proteksi delete
     is_login();
     $data = [
       'id'                    => $id,
       'is_active'             => 1,
     ];
     $this->user_model->update($data);
-    $this->session->set_flashdata('message', 'User Telah di Aktifkan');
+    $this->session->set_flashdata('message', '<div class="alert alert-success">User Telah di Aktifkan</div>');
     redirect($_SERVER['HTTP_REFERER']);
   }
 }

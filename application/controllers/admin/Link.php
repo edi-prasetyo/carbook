@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Link extends CI_Controller
 {
+    /**
+     * Development By Edi Prasetyo
+     * edikomputer@gmail.com
+     * 0812 3333 5523
+     * https://edikomputer.com
+     * https://grahastudio.com
+     */
     public function __construct()
     {
         parent::__construct();
@@ -22,7 +29,7 @@ class Link extends CI_Controller
         $data = [
             'title'             => 'Manajemen Link',
             'list_link'         => $list_link,
-            'content'           => 'admin/link/index_link'
+            'content'           => 'admin/link/index'
 
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
@@ -49,7 +56,7 @@ class Link extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data = [
                 'title'         => "Create link",
-                'content'       => 'admin/link/create_link'
+                'content'       => 'admin/link/create'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
         } else {
@@ -60,7 +67,7 @@ class Link extends CI_Controller
                 'date_created'          => time()
             ];
             $this->link_model->create($data);
-            $this->session->set_flashdata('message', 'Data telah ditambahkan');
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah ditambahkan</div>');
             redirect(base_url('admin/link'), 'refresh');
         }
     }
@@ -80,7 +87,7 @@ class Link extends CI_Controller
             $data = [
                 'title'         => "Update link",
                 'link'          => $link,
-                'content'       => 'admin/link/update_link'
+                'content'       => 'admin/link/update'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
         } else {
@@ -91,7 +98,7 @@ class Link extends CI_Controller
                 'date_updated'          => time()
             ];
             $this->link_model->update($data);
-            $this->session->set_flashdata('message', 'Data telah di ubah');
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di ubah</div>');
             redirect(base_url('admin/link'), 'refresh');
         }
     }
@@ -102,7 +109,7 @@ class Link extends CI_Controller
 
         $data = array('id'   => $link->id);
         $this->link_model->delete($data);
-        $this->session->set_flashdata('message', 'Data telah di Hapus');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
         redirect(base_url('admin/link'), 'refresh');
     }
 }

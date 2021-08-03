@@ -4,9 +4,7 @@
     <?php
     //Notifikasi
     if ($this->session->flashdata('sukses')) {
-      echo '<div class="alert alert-success custom-alert">';
       echo $this->session->flashdata('sukses');
-      echo '</div>';
     }
 
     //Error warning
@@ -28,7 +26,7 @@
 
   <div class="col-md-8">
     <div class="card">
-      <div class="card-header bg-white">
+      <div class="card-header">
         <?php include('create_paket.php'); ?>
       </div>
 
@@ -45,15 +43,15 @@
           <tbody>
 
             <?php $i = 1;
-            foreach ($paket as $paket) { ?>
+            foreach ($paket as $data) { ?>
 
               <tr>
 
-                <td><?php echo $paket->paket_name ?></td>
-                <td>Rp. <?php echo number_format($paket->paket_price, '0', ',', ','); ?></td>
+                <td><?php echo $data->paket_name ?></td>
+                <td>Rp. <?php echo number_format($data->paket_price, '0', ',', ','); ?></td>
                 <td>
 
-                  <a href="<?php echo base_url('admin/mobil/update_paket/' . $paket->id) ?>" title="Edit Mobil" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Edit</a>
+                  <a href="<?php echo base_url('admin/mobil/update_paket/' . $data->id) ?>" title="Edit Mobil" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Edit</a>
                   <?php
                   //link Delete
                   include('delete_paket.php');

@@ -306,42 +306,11 @@ ul.navbar-nav .nav-item:after {
   width: 120px;
 }
 
-.paginasi {
-  padding: 15px 20px;
-  border-radius: 10px;
-}
-
-.paginasi a {
-  padding: 10px 20px 10px 20px;
-  background-color: #ba9c39;
-  color: #fff;
-  margin: 0;
-  border-left: 1px solid #fff;
-}
-
-.paginasi .active {
-  background: #1d7ceb;
-  color: #fff;
-}
-
-.paginasi a:hover {
-  text-decoration: none;
-  background-color: #1d7ceb;
-  color: #fff;
-}
-
-.paginasi strong {
-  padding: 10px 20px 10px 20px;
-  background-color: #ba9c39;
-  color: #fff;
-  margin: 0;
-}
-
 .bantuan {
-  background-color: #ba9c39;
+  background-color: #396cba;
 }
 .credit {
-  background-color: #ba9c39;
+  background-color: #fff;
 }
 
 .form-control:focus {

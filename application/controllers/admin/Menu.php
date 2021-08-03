@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Menu extends CI_Controller
 {
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   public function __construct()
   {
     parent::__construct();
@@ -15,7 +22,7 @@ class Menu extends CI_Controller
     $data = [
       'title'                     => 'Manajemen Menu',
       'list_menu'                 => $list_menu,
-      'content'                   => 'admin/menu/index_menu'
+      'content'                   => 'admin/menu/index'
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
@@ -40,7 +47,7 @@ class Menu extends CI_Controller
     if ($this->form_validation->run() == false) {
       $data = [
         'title'                   => "Create menu",
-        'content'                 => 'admin/menu/create_menu'
+        'content'                 => 'admin/menu/create'
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
     } else {
@@ -51,7 +58,7 @@ class Menu extends CI_Controller
         'date_created'            => time()
       ];
       $this->menu_model->create($data);
-      $this->session->set_flashdata('message', 'Data telah ditambahkan');
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah ditambahkan</div>');
       redirect(base_url('admin/menu'), 'refresh');
     }
   }
@@ -68,9 +75,9 @@ class Menu extends CI_Controller
     );
     if ($this->form_validation->run() == false) {
       $data = [
-        'title'                   => "Create menu",
+        'title'                   => "Update menu",
         'menu'                    => $menu,
-        'content'                 => 'admin/menu/update_menu'
+        'content'                 => 'admin/menu/update'
       ];
       $this->load->view('admin/layout/wrapp', $data, FALSE);
     } else {
@@ -82,7 +89,7 @@ class Menu extends CI_Controller
         'date_updated'            => time()
       ];
       $this->menu_model->update($data);
-      $this->session->set_flashdata('message', 'Data telah di ubah');
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di ubah</div>');
       redirect(base_url('admin/menu'), 'refresh');
     }
   }
@@ -92,7 +99,7 @@ class Menu extends CI_Controller
     $menu = $this->menu_model->detail_menu($id);
     $data = array('id'   => $menu->id);
     $this->menu_model->delete($data);
-    $this->session->set_flashdata('message', 'Data telah di Hapus');
+    $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect(base_url('admin/menu'), 'refresh');
   }
 }

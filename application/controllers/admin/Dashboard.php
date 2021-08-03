@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller
 {
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   public function __construct()
   {
     parent::__construct();
@@ -15,7 +22,7 @@ class Dashboard extends CI_Controller
     $transaksi                    = $this->transaksi_model->get_alltransaksi();
     $new_transaksi                = $this->transaksi_model->new_transaksi();
     $list_user                    = $this->user_model->listUser();
-    $count_user                    = $this->user_model->listUser();
+    $count_user                   = $this->user_model->listUser();
     $data = [
       'title'                     => 'Dashboard',
       'list_user'                 => $list_user,

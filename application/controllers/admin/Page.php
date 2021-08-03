@@ -3,7 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Page extends CI_Controller
 {
-    //load data
+    /**
+     * Development By Edi Prasetyo
+     * edikomputer@gmail.com
+     * 0812 3333 5523
+     * https://edikomputer.com
+     * https://grahastudio.com
+     */
+
     public function __construct()
     {
         parent::__construct();
@@ -16,7 +23,7 @@ class Page extends CI_Controller
             redirect('admin/dashboard');
         }
     }
-    //Index Category
+
     public function index()
     {
         $config['base_url']       = base_url('admin/page/index/');
@@ -24,7 +31,6 @@ class Page extends CI_Controller
         $config['per_page']       = 10;
         $config['uri_segment']    = 4;
 
-        //Membuat Style pagination untuk BootStrap v4
         $config['first_link']       = 'First';
         $config['last_link']        = 'Last';
         $config['next_link']        = 'Next';
@@ -44,11 +50,9 @@ class Page extends CI_Controller
         $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
         $config['last_tagl_close']  = '</span></li>';
 
-
-        //Limit dan Start
         $limit                    = $config['per_page'];
         $start                    = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
-        //End Limit Start
+
         $this->pagination->initialize($config);
 
         $page = $this->page_model->get_page($limit, $start);
@@ -56,11 +60,11 @@ class Page extends CI_Controller
             'title'             => 'Halaman',
             'page'              => $page,
             'pagination'        => $this->pagination->create_links(),
-            'content'           => 'admin/page/index_page'
+            'content'           => 'admin/page/index'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }
-    // Create
+
     public function create()
     {
         $this->form_validation->set_rules(
@@ -84,7 +88,7 @@ class Page extends CI_Controller
                 'title'             => 'Buat Halaman',
                 'deskripsi'         => 'Deskripsi',
                 'keywords'          => 'Keywords',
-                'content'           => 'admin/page/create_page'
+                'content'           => 'admin/page/create'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
         } else {
@@ -98,15 +102,15 @@ class Page extends CI_Controller
                 'date_created'      => time()
             ];
             $this->page_model->create($data);
-            $this->session->set_flashdata('message', 'Data telah ditambahkan');
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah ditambahkan</div>');
             redirect(base_url('admin/page'), 'refresh');
         }
     }
-    //Update
+
     public function update($id)
     {
         $page = $this->page_model->detail_page($id);
-        //Validasi
+
         $this->form_validation->set_rules(
             'page_title',
             'Judul Halaman',
@@ -120,15 +124,12 @@ class Page extends CI_Controller
             array('required'         => '%s Harus Diisi')
         );
         if ($this->form_validation->run() === FALSE) {
-            //End Validasi
-
             $data = [
                 'title'             => 'Edit halaman',
                 'page'              => $page,
-                'content'           => 'admin/page/update_page'
+                'content'           => 'admin/page/update'
             ];
             $this->load->view('admin/layout/wrapp', $data, FALSE);
-            //Masuk Database
         } else {
 
             $data  = [
@@ -139,22 +140,19 @@ class Page extends CI_Controller
                 'date_updated'      => time()
             ];
             $this->page_model->update($data);
-            $this->session->set_flashdata('message', 'Data telah di Update');
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di Update</div>');
             redirect(base_url('admin/page'), 'refresh');
         }
-        //End Masuk Database
     }
-    //delete
+
     public function delete($id)
     {
-        //Proteksi delete
         is_login();
 
         $page = $this->page_model->detail_page($id);
         $data = ['id'   => $page->id];
-
         $this->page_model->delete($data);
-        $this->session->set_flashdata('message', 'Data telah di Hapus');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger">Data telah di Hapus</div>');
         redirect(base_url('admin/page'), 'refresh');
     }
 }

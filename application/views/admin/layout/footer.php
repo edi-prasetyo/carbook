@@ -8,6 +8,7 @@
 <script src="<?php echo base_url('assets/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
 <!-- bootstrap color picker -->
 <script src="<?php echo base_url(); ?>assets/template/admin/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/template/admin/js/sidebars.js"></script>
 
 <script>
     //color picker with addon
@@ -69,6 +70,16 @@
             });
         }, false);
     })();
+</script>
+
+<script>
+    $('.custom-file-input').change(function(e) {
+        var files = [];
+        for (var i = 0; i < $(this)[0].files.length; i++) {
+            files.push($(this)[0].files[i].name);
+        }
+        $(this).next('.custom-file-label').html(files.join(', '));
+    });
 </script>
 
 

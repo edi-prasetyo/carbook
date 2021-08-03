@@ -3,14 +3,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Ketentuan extends CI_Controller
 {
-
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   //Load Model
   public function __construct()
   {
     parent::__construct();
     $this->load->model('ketentuan_model');
   }
-  //Main Ketentuan Ketentuan
+
   public function index()
   {
     $ketentuan = $this->ketentuan_model->get_ketentuan();
@@ -18,7 +24,7 @@ class Ketentuan extends CI_Controller
     $data = array(
       'title'    => 'Data Ketentuan (' . count($ketentuan) . ')',
       'ketentuan'   => $ketentuan,
-      'content'      => 'admin/ketentuan/index_ketentuan'
+      'content'      => 'admin/ketentuan/index'
     );
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
@@ -26,28 +32,24 @@ class Ketentuan extends CI_Controller
 
   public function create()
   {
-
     $ketentuan = $this->ketentuan_model->get_ketentuan();
 
-    //Validasi
     $this->form_validation->set_rules(
       'ketentuan_name',
       'Nama Ketentuan',
       'required|is_unique[ketentuan.ketentuan_name]',
       array(
-        'required'         => '%s Harus Dicontent',
+        'required'         => '%s Harus di isi',
       )
     );
     if ($this->form_validation->run() === FALSE) {
-      //End Validasi
 
       $data = array(
         'title'             => 'Buat Data Ketentuan',
         'ketentuan'              => $ketentuan,
-        'content'               => 'admin/ketentuan/create_ketentuan'
+        'content'               => 'admin/ketentuan/create'
       );
       $this->load->view('admin/layout/wrapp', $data, FALSE);
-      //Masuk Database
     } else {
       $i              = $this->input;
 
@@ -57,35 +59,29 @@ class Ketentuan extends CI_Controller
         'date_created'        => time()
       );
       $this->ketentuan_model->create($data);
-      $this->session->set_flashdata('sukses', 'Data Ketentuan telah ditambahkan');
+      $this->session->set_flashdata('sukses', '<div class="alert alert-success">Data Ketentuan telah ditambahkan</div>');
       redirect(base_url('admin/ketentuan'), 'refresh');
     }
-    //End Masuk Database
-
   }
 
-
-  //Edit Ketentuan
   public function update($id)
   {
     $ketentuan = $this->ketentuan_model->detail_ketentuan($id);
-    //Validasi
+
     $this->form_validation->set_rules(
       'ketentuan_name',
       'Nama Ketentuan',
       'required',
-      array('required'         => '%s Harus Dicontent')
+      array('required'         => '%s Harus Di isi')
     );
     if ($this->form_validation->run() === FALSE) {
-      //End Validasi
 
       $data = array(
-        'title'             => 'Edit Ketentuan',
-        'ketentuan'              => $ketentuan,
-        'content'               => 'admin/ketentuan/update_ketentuan'
+        'title'                 => 'Edit Ketentuan',
+        'ketentuan'             => $ketentuan,
+        'content'               => 'admin/ketentuan/update'
       );
       $this->load->view('admin/layout/wrapp', $data, FALSE);
-      //Masuk Database
     } else {
       $i              = $this->input;
 
@@ -96,28 +92,20 @@ class Ketentuan extends CI_Controller
         'date_updated'        => time()
       );
       $this->ketentuan_model->update($data);
-      $this->session->set_flashdata('sukses', 'Data Ketentuan telah di Update');
+      $this->session->set_flashdata('sukses', '<div class="alert alert-success">Data Ketentuan telah di Update</div>');
       redirect(base_url('admin/ketentuan'), 'refresh');
     }
-    //End Masuk Database
   }
 
-
-
-  //delete
-  public function delete($id_ketentuan)
+  public function delete($id)
   {
-    //Proteksi delete
-    $this->check_login->check();
+    is_login();
 
-    $ketentuan = $this->ketentuan_model->detail($id_ketentuan);
-    $data = array('id_ketentuan'   => $ketentuan->id_ketentuan);
+    $ketentuan = $this->ketentuan_model->detail_ketentuan($id);
+    $data = array('id'   => $ketentuan->id);
 
     $this->ketentuan_model->delete($data);
-    $this->session->set_flashdata('sukses', 'Data telah di Hapus');
+    $this->session->set_flashdata('sukses', '<div class="alert alert-danger">Data telah di Hapus</div>');
     redirect(base_url('admin/ketentuan'), 'refresh');
   }
 }
-
-/* end of file Ketentuan.php */
-/* Location /application/controller/admin/Ketentuan.php */

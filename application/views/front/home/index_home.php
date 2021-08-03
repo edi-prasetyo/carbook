@@ -34,7 +34,7 @@ $meta = $this->meta_model->get_meta(); ?>
 
 
 
-<section class="bg-light py-3">
+<section class="bg-white py-3">
     <div class="container pb-5">
         <div class="header-title my-5">
             <h2 class="text-center"><span style="font-weight:400;">Keunggulan</span><span style="font-weight:700;"> Layanan</span></h2>
@@ -45,7 +45,7 @@ $meta = $this->meta_model->get_meta(); ?>
             <?php foreach ($layanan as $layanan) : ?>
 
                 <div class="col-md-4">
-                    <div class="card mb-2">
+                    <div class="card mb-2 shadow-sm">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-3">
@@ -67,6 +67,24 @@ $meta = $this->meta_model->get_meta(); ?>
 
         </div>
     </div>
+</section>
+
+<section class="bg-info">
+    <?php foreach ($galery_featured as $data) : ?>
+        <div class="container col-xxl-8 px-4 py-2">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <img src="<?php echo base_url('assets/img/galery/' . $data->galery_img); ?>" class="d-block mx-lg-auto img-fluid rounded" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+                </div>
+                <div class="col-lg-6 text-white">
+                    <h1 class="display-5 fw-bold lh-1 mb-3"><?php echo $data->galery_title; ?></h1>
+                    <p class="lead"><?php echo $data->galery_desc; ?></p>
+
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
 </section>
 
 

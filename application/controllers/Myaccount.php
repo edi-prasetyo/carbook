@@ -3,7 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Myaccount extends CI_Controller
 {
-  //Load Model
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
+
   public function __construct()
   {
     parent::__construct();
@@ -12,14 +19,14 @@ class Myaccount extends CI_Controller
     $this->load->model('transaksi_model');
     $this->load->model('bank_model');
   }
-  //main page - Berita
+
   public function index()
   {
     $id = $this->session->userdata('id');
     $user = $this->user_model->user_detail($id);
     $meta = $this->meta_model->get_meta();
     $transaksi = $this->transaksi_model->mytransaksi($id);
-    // End Listing Berita dengan paginasi
+
     $data = array(
       'title'                           => 'Akun Saya',
       'deskripsi'                       => 'Berita - ' . $meta->description,
@@ -45,35 +52,32 @@ class Myaccount extends CI_Controller
       ]
     );
     if ($this->form_validation->run()) {
-      //Kalau nggak Ganti gambar
+
       if (!empty($_FILES['user_image']['name'])) {
         $config['upload_path']          = './assets/img/avatars/';
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = 5000; //Dalam Kilobyte
-        $config['max_width']            = 5000; //Lebar (pixel)
-        $config['max_height']           = 5000; //tinggi (pixel)
+        $config['max_size']             = 5000000;
+        $config['max_width']            = 5000000;
+        $config['max_height']           = 5000000;
+        $config['remove_spaces']        = TRUE;
+        $config['encrypt_name']         = TRUE;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('user_image')) {
-          //End Validasi
+
           $data = [
             'title'                     => 'Ubah Profile',
-            'deskripsi'                       => 'Berita - ' . $meta->description,
-            'keywords'                        => 'Berita - ' . $meta->keywords,
+            'deskripsi'                 => 'Profile - ' . $meta->description,
+            'keywords'                  => 'Profile - ' . $meta->keywords,
             'meta'                      => $meta,
             'error_upload'              => $this->upload->display_errors(),
             'content'                   => 'front/myaccount/update_account'
           ];
           $this->load->view('front/layout/wrapp', $data, FALSE);
-          //Masuk Database
         } else {
-          //Proses Manipulasi Gambar
-          $upload_data    = array('uploads'  => $this->upload->data());
-          //Gambar Asli disimpan di folder assets/upload/image
-          //lalu gambar Asli di copy untuk versi mini size ke folder assets/upload/image/thumbs
+
+          $upload_data                  = array('uploads'  => $this->upload->data());
           $config['image_library']      = 'gd2';
           $config['source_image']       = './assets/img/avatars/' . $upload_data['uploads']['file_name'];
-          //Gambar Versi Kecil dipindahkan
-          // $config['new_image']        = './assets/img/artikel/thumbs/' . $upload_data['uploads']['file_name'];
           $config['create_thumb']       = TRUE;
           $config['maintain_ratio']     = TRUE;
           $config['width']              = 500;
@@ -81,12 +85,10 @@ class Myaccount extends CI_Controller
           $config['thumb_marker']       = '';
           $this->load->library('image_lib', $config);
           $this->image_lib->resize();
-          // Hapus Gambar Lama Jika Ada upload gambar baru
+
           if ($user->user_image != "") {
             unlink('./assets/img/avatars/' . $user->user_image);
-            // unlink('./assets/img/artikel/thumbs/' . $berita->berita_gambar);
           }
-          //End Hapus Gambar
           $data  = [
             'id'                        => $id,
             'user_name'                 => $this->input->post('user_name'),
@@ -101,8 +103,6 @@ class Myaccount extends CI_Controller
           redirect(base_url('myaccount'), 'refresh');
         }
       } else {
-        //Update Berita Tanpa Ganti Gambar
-        // Hapus Gambar Lama Jika ada upload gambar baru
         if ($user->user_image != "")
           $data  = [
             'id'                          => $id,
@@ -145,7 +145,6 @@ class Myaccount extends CI_Controller
     );
     $this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
     if ($this->form_validation->run() == false) {
-      // End Listing Berita dengan paginasi
       $data = array(
         'title'                         => 'Ubah Profile',
         'deskripsi'                     => 'Profile - ' . $meta->description,
@@ -165,7 +164,7 @@ class Myaccount extends CI_Controller
       redirect(base_url('myaccount'), 'refresh');
     }
   }
-  // Fungsi Produk
+
   public function transaksi()
   {
     $id = $this->session->userdata('id');
@@ -176,10 +175,7 @@ class Myaccount extends CI_Controller
     $config['total_rows']               = count($this->transaksi_model->total_transaksi_user($id));
     $config['per_page']                 = 2;
     $config['uri_segment']              = 4;
-    // $config['use_page_numbers'] = TRUE;
-    // $config['page_query_string'] = true;
-    // $config['query_string_segment'] = 'page';
-    //Membuat Style pagination untuk BootStrap v4
+
     $config['first_link']               = 'First';
     $config['last_link']                = 'Last';
     $config['next_link']                = 'Next';
@@ -198,10 +194,10 @@ class Myaccount extends CI_Controller
     $config['first_tagl_close']         = '</span></li>';
     $config['last_tag_open']            = '<li class="page-item"><span class="page-link">';
     $config['last_tagl_close']          = '</span></li>';
-    //Limit dan Start
+
     $limit                              = $config['per_page'];
     $start                              = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
-    //End Limit Start
+
     $this->pagination->initialize($config);
 
     $transaksi = $this->transaksi_model->get_transaksi_user($id, $limit, $start);
@@ -209,7 +205,7 @@ class Myaccount extends CI_Controller
       'title'                           => 'Data Transaksi',
       'deskripsi'                       => 'deskripsi',
       'keywords'                        => 'keywords',
-      'transaksi'                      => $transaksi,
+      'transaksi'                       => $transaksi,
       'user'                            => $user,
       'meta'                            => $meta,
       'pagination'                      => $this->pagination->create_links(),
@@ -232,19 +228,16 @@ class Myaccount extends CI_Controller
     ];
     $this->load->view('front/layout/wrapp', $data, FALSE);
   }
-  //delete
+
   public function delete($id)
   {
-    //Proteksi delete
     is_login();
     $products = $this->products_model->myproduct_detail($id);
     if ($products->user_id == $this->session->userdata('id')) {
-      //Hapus gambar
       if ($products->product_img != "") {
         unlink('./assets/img/product/' . $products->product_img);
-        // unlink('./assets/img/artikel/thumbs/' . $berita->berita_gambar);
       }
-      //End Hapus Gambar
+
       $data = ['id'   => $products->id];
       $this->products_model->delete($data);
       $this->session->set_flashdata('message', 'Data telah di Hapus');
@@ -255,6 +248,3 @@ class Myaccount extends CI_Controller
     }
   }
 }
-
-/* End of file Myaccount.php */
-/* Location: ./application/controllers/Myaccount.php */

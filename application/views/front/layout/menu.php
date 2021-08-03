@@ -2,6 +2,7 @@
 $id             = $this->session->userdata('id');
 $user           = $this->user_model->user_detail($id);
 $meta           = $this->meta_model->get_meta();
+$menu           = $this->menu_model->get_menu();
 
 ?>
 
@@ -15,9 +16,9 @@ $meta           = $this->meta_model->get_meta();
 
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav">
-        <li class="nav-item active"> <a class="nav-link" href="<?php echo base_url(); ?>">Home </a> </li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo base_url('rental-mobil'); ?>"> Rental Mobil </a></li>
-        <li class="nav-item"><a class="nav-link" href="<?php echo base_url('berita'); ?>"> Berita </a></li>
+        <?php foreach ($menu as $data) : ?>
+          <li class="nav-item"><a class="nav-link" href="<?php echo base_url($data->url); ?>"> <?php echo $data->nama_menu_ind; ?> </a></li>
+        <?php endforeach; ?>
       </ul>
       <ul class="navbar-nav ml-auto">
 

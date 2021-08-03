@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User extends CI_Controller
 {
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   public function __construct()
   {
     parent::__construct();
@@ -18,7 +25,7 @@ class User extends CI_Controller
     ];
     $this->load->view('admin/layout/wrapp', $data, FALSE);
   }
-  //Detail User
+
   public function detail($id)
   {
     $user_detail =  $this->user_model->detail($id);

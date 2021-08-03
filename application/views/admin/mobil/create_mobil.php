@@ -14,8 +14,10 @@ echo form_open_multipart('admin/mobil/create', array('class' => 'needs-validatio
 <div class="row">
 
   <div class="col-md-8">
-
     <div class="card">
+      <div class="card-header">
+        <?php echo $title; ?>
+      </div>
       <div class="card-body">
 
         <div class="row">

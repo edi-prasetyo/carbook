@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Meta extends CI_Controller
 {
+  /**
+   * Development By Edi Prasetyo
+   * edikomputer@gmail.com
+   * 0812 3333 5523
+   * https://edikomputer.com
+   * https://grahastudio.com
+   */
   //Load Data Konfigurasi
   public function __construct()
   {
@@ -59,14 +66,14 @@ class Meta extends CI_Controller
         'date_updated'            => time()
       ];
       $this->meta_model->update($data);
-      $this->session->set_flashdata('message', 'Data telah di ubah');
+      $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah di ubah</div>');
       redirect(base_url('admin/meta'), 'refresh');
     }
   }
   public function logo()
   {
     $meta = $this->meta_model->get_meta();
-    //Validasi
+
     $this->form_validation->set_rules(
       'id',
       'Nama Perusahaan',
@@ -76,12 +83,14 @@ class Meta extends CI_Controller
     if ($this->form_validation->run()) {
       $config['upload_path']        = './assets/img/logo/';
       $config['allowed_types']      = 'gif|jpg|png|jpeg';
-      $config['max_size']           = 5000; //Dalam Kilobyte
-      $config['max_width']          = 5000; //Lebar (pixel)
-      $config['max_height']         = 5000; //tinggi (pixel)
+      $config['max_size']           = 5000000;
+      $config['max_width']          = 5000000;
+      $config['max_height']         = 5000000;
+      $config['remove_spaces']      = TRUE;
+      $config['encrypt_name']       = TRUE;
       $this->load->library('upload', $config);
       if (!$this->upload->do_upload('logo')) {
-        //End Validasi
+
         $data = [
           'title'                   => 'Update Logo',
           'meta'                    => $meta,
@@ -89,15 +98,11 @@ class Meta extends CI_Controller
           'content'                 => 'admin/meta/upload_logo'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
-        //Masuk Database
       } else {
-        //Proses Manipulasi Gambar
-        $upload_data    = array('uploads'  => $this->upload->data());
-        //Gambar Asli disimpan di folder assets/upload/image
-        //lalu gambara Asli di copy untuk versi mini size ke folder assets/upload/image/thumbs
+
+        $upload_data                = array('uploads'  => $this->upload->data());
         $config['image_library']    = 'gd2';
         $config['source_image']     = './assets/img/logo/' . $upload_data['uploads']['file_name'];
-        //Gambar Versi Kecil dipindahkan
         $config['new_image']        = './assets/img/logo/thumbs/' . $upload_data['uploads']['file_name'];
         $config['create_thumb']     = TRUE;
         $config['maintain_ratio']   = TRUE;
@@ -106,7 +111,7 @@ class Meta extends CI_Controller
         $config['thumb_marker']     = '';
         $this->load->library('image_lib', $config);
         $this->image_lib->resize();
-        // Hapus Gambar Lama Jika Ada upload gambar baru
+
         if ($meta->logo != "") {
           unlink('./assets/img/logo/' . $meta->logo);
           unlink('./assets/img/logo/thumbs/' . $meta->logo);
@@ -117,11 +122,11 @@ class Meta extends CI_Controller
           'logo'                    => $upload_data['uploads']['file_name']
         ];
         $this->meta_model->update($data);
-        $this->session->set_flashdata('message', 'Data telah diubah');
+        $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah diubah</div>');
         redirect(base_url('admin/meta'), 'refresh');
       }
     }
-    //End Masuk Database
+
     $data = [
       'title'                       => 'Logo Website',
       'meta'                        => $meta,
@@ -132,7 +137,7 @@ class Meta extends CI_Controller
   public function favicon()
   {
     $meta = $this->meta_model->get_meta();
-    //Validasi
+
     $this->form_validation->set_rules(
       'id',
       'Nama Perusahaan',
@@ -141,14 +146,16 @@ class Meta extends CI_Controller
     );
     if ($this->form_validation->run()) {
 
-      $config['upload_path']         = './assets/img/logo/';
-      $config['allowed_types']       = 'gif|jpg|png|jpeg';
-      $config['max_size']            = 5000; //Dalam Kilobyte
-      $config['max_width']           = 5000; //Lebar (pixel)
-      $config['max_height']          = 5000; //tinggi (pixel)
+      $config['upload_path']          = './assets/img/logo/';
+      $config['allowed_types']        = 'gif|jpg|png|jpeg';
+      $config['max_size']             = 5000000;
+      $config['max_width']            = 5000000;
+      $config['max_height']           = 5000000;
+      $config['remove_spaces']        = TRUE;
+      $config['encrypt_name']         = TRUE;
       $this->load->library('upload', $config);
       if (!$this->upload->do_upload('favicon')) {
-        //End Validasi
+
         $data = [
           'title'                     => 'Update Favicon',
           'meta'                      => $meta,
@@ -156,15 +163,10 @@ class Meta extends CI_Controller
           'content'                   => 'admin/meta/upload_favicon'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
-        //Masuk Database
       } else {
-        //Proses Manipulasi Gambar
-        $upload_data    = array('uploads'  => $this->upload->data());
-        //Gambar Asli disimpan di folder assets/upload/image
-        //lalu gambara Asli di copy untuk versi mini size ke folder assets/upload/image/thumbs
+        $upload_data                  = array('uploads'  => $this->upload->data());
         $config['image_library']      = 'gd2';
         $config['source_image']       = './assets/img/logo/' . $upload_data['uploads']['file_name'];
-        //Gambar Versi Kecil dipindahkan
         $config['new_image']          = './assets/img/logo/thumbs/' . $upload_data['uploads']['file_name'];
         $config['create_thumb']       = TRUE;
         $config['maintain_ratio']     = TRUE;
@@ -173,7 +175,6 @@ class Meta extends CI_Controller
         $config['thumb_marker']       = '';
         $this->load->library('image_lib', $config);
         $this->image_lib->resize();
-        // Hapus Gambar Lama Jika Ada upload gambar baru
         if ($meta->favicon != "") {
           unlink('./assets/img/logo/' . $meta->favicon);
           unlink('./assets/img/logo/thumbs/' . $meta->favicon);
@@ -184,11 +185,10 @@ class Meta extends CI_Controller
           'favicon'                   => $upload_data['uploads']['file_name']
         ];
         $this->meta_model->update($data);
-        $this->session->set_flashdata('message', 'Data telah diubah');
+        $this->session->set_flashdata('message', '<div class="alert alert-success">Data telah diubah</div>');
         redirect(base_url('admin/meta'), 'refresh');
       }
     }
-    //End Masuk Database
     $data = [
       'title'                         => 'Favicon Website',
       'meta'                          => $meta,

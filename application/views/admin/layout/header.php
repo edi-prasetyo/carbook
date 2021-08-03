@@ -17,6 +17,7 @@ $meta = $this->meta_model->get_meta();
     <link href="<?php echo base_url('assets/template/admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url('assets/template/admin/css/style.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/template/admin/css/sidebars.css'); ?>" rel="stylesheet">
     <!-- Icon -->
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url('assets/template/admin/vendor/fontawesome/css/all.min.css'); ?>" rel="stylesheet">

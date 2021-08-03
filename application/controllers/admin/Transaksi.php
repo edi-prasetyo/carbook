@@ -3,24 +3,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class transaksi extends CI_Controller
 {
-    //load data
+    /**
+     * Development By Edi Prasetyo
+     * edikomputer@gmail.com
+     * 0812 3333 5523
+     * https://edikomputer.com
+     * https://grahastudio.com
+     */
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model('transaksi_model');
         $this->load->library('pagination');
     }
-    //listing data transaksi
+
     public function index()
     {
         $config['base_url']         = base_url('admin/transaksi/index/');
         $config['total_rows']       = count($this->transaksi_model->total_row());
         $config['per_page']         = 10;
         $config['uri_segment']      = 4;
-        // $config['use_page_numbers'] = TRUE;
-        // $config['page_query_string'] = true;
-        // $config['query_string_segment'] = 'page';
-        //Membuat Style pagination untuk BootStrap v4
+
         $config['first_link']       = 'First';
         $config['last_link']        = 'Last';
         $config['next_link']        = 'Next';
@@ -39,17 +43,17 @@ class transaksi extends CI_Controller
         $config['first_tagl_close'] = '</span></li>';
         $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
         $config['last_tagl_close']  = '</span></li>';
-        //Limit dan Start
+
         $limit                      = $config['per_page'];
         $start                      = ($this->uri->segment(4)) ? ($this->uri->segment(4)) : 0;
-        //End Limit Start
+
         $this->pagination->initialize($config);
         $transaksi = $this->transaksi_model->get_transaksi($limit, $start);
         $data = [
             'title'                 => 'Data Transaksi',
             'transaksi'             => $transaksi,
             'pagination'            => $this->pagination->create_links(),
-            'content'               => 'admin/transaksi/index_transaksi'
+            'content'               => 'admin/transaksi/index'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }
@@ -59,13 +63,12 @@ class transaksi extends CI_Controller
         $data = [
             'title'                 => 'Detail Transaksi',
             'transaksi'             => $transaksi,
-            'content'               => 'admin/transaksi/view_transaksi'
+            'content'               => 'admin/transaksi/view'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
     }
     public function confirm($id)
     {
-        //Proteksi delete
         is_login();
         $data = [
             'id'                    => $id,
@@ -77,10 +80,9 @@ class transaksi extends CI_Controller
     }
     public function process($id)
     {
-        //Proteksi delete
         is_login();
         $data = [
-            'id'                    => $id,
+            'id'                        => $id,
             'status_bayar'             => 'Process',
         ];
         $this->transaksi_model->update($data);
@@ -89,7 +91,6 @@ class transaksi extends CI_Controller
     }
     public function cancel($id)
     {
-        //Proteksi delete
         is_login();
         $data = [
             'id'                    => $id,
@@ -98,22 +99,5 @@ class transaksi extends CI_Controller
         $this->transaksi_model->update($data);
         $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button> Transaksi Telah di Batalkan</div>');
         redirect(base_url('admin/transaksi'), 'refresh');
-    }
-    //delete
-    public function delete($id)
-    {
-        //Proteksi delete
-        is_login();
-        $transaksi = $this->transaksi_model->product_detail($id);
-        //Hapus gambar
-        if ($transaksi->product_img != "") {
-            unlink('./assets/img/product/' . $transaksi->product_img);
-            // unlink('./assets/img/artikel/thumbs/' . $berita->berita_gambar);
-        }
-        //End Hapus Gambar
-        $data = ['id'               => $transaksi->id];
-        $this->transaksi_model->delete($data);
-        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissable fade show"><button class="close" data-dismiss="alert" aria-label="Close">×</button>Data telah di Hapus</div>');
-        redirect($_SERVER['HTTP_REFERER']);
     }
 }

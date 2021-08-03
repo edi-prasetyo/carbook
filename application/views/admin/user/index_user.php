@@ -4,15 +4,10 @@
     </div>
 
     <?php
-    //Notifikasi
     if ($this->session->flashdata('message')) {
-        echo '<div class="alert alert-success alert-dismissable fade show">';
-        echo '<button class="close" data-dismiss="alert" aria-label="Close">×</button>';
         echo $this->session->flashdata('message');
-        echo '</div>';
+        unset($_SESSION['message']);
     }
-    echo validation_errors('<div class="alert alert-warning">', '</div>');
-
     ?>
     <div class="table-responsive">
         <table class="table table-flush">
@@ -43,16 +38,15 @@
                     </td>
 
                     <td>
-                        <?php if ($list_user->is_active == 0) : ?>
-                            <a class="btn btn-success btn-sm" href="<?php echo base_url('admin/seller/activated/' . $list_user->id); ?>"><i class="fas fa-user-times"></i> Activated</a>
+                        <?php if ($list_user->role_id == 1) : ?>
                         <?php else : ?>
-                            <a class="btn btn-danger btn-sm" href="<?php echo base_url('admin/seller/banned/' . $list_user->id); ?>"><i class="fas fa-user-times"></i> Banned</a>
+                            <?php if ($list_user->is_active == 0) : ?>
+                                <a class="btn btn-success btn-sm" href="<?php echo base_url('admin/admin/activated/' . $list_user->id); ?>"><i class="fas fa-user-times"></i> Activated</a>
+                            <?php else : ?>
+                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('admin/admin/banned/' . $list_user->id); ?>"><i class="fas fa-user-times"></i> Banned</a>
 
+                            <?php endif; ?>
                         <?php endif; ?>
-
-
-
-
 
                         <a href="<?php echo base_url('admin/user/detail/' . $list_user->id); ?>" class="btn btn-info btn-sm" target="blank"> <i class="fas fa-external-link-alt"></i> Lihat</a>
 

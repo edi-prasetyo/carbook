@@ -3,7 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Oops extends CI_Controller
 {
-    //main page - home page
+    /**
+     * Development By Edi Prasetyo
+     * edikomputer@gmail.com
+     * 0812 3333 5523
+     * https://edikomputer.com
+     * https://grahastudio.com
+     */
     public function index()
     {
         $data = array(
@@ -15,6 +21,3 @@ class Oops extends CI_Controller
         $this->load->view('front/layout/wrapp', $data, FALSE);
     }
 }
-
- /* End of file Oops.php */
- /* Location: ./application/controllers/Oops.php */

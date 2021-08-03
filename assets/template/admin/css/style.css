@@ -4,7 +4,8 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
  */
 body {
-  background: #eee;
+  background: rgb(255, 255, 255);
+  /* font-size: 16px; */
 }
 
 #wrapper {
@@ -58,4 +59,15 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+tr {
+  color: rgb(138, 138, 138);
+}
+a:not([class]) {
+  text-decoration: none;
+}
+
+a:not([class]):hover {
+  text-decoration: none;
 }
