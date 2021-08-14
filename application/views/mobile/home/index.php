@@ -1,3 +1,11 @@
+<nav class="site-header sticky-top py-1 bg-info">
+  <div class="container py-2 d-flex justify-content-between align-items-center">
+    <a class="text-white text-left" href="javascript:history.back()"><i class="ri-arrow-left-line"></i></a>
+    <a class="text-white text-center" href="#" aria-label="Product">
+      Home
+    </a>
+  </div>
+</nav>
 <div class="container">
 <div class="row my-5">
 	<div class="col-6">

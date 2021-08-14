@@ -39,13 +39,34 @@ class Auth extends CI_Controller
 			]
 		);
 		if ($this->form_validation->run() == false) {
-			$data = [
+			
+
+
+
+if (!$this->agent->is_mobile()) {
+          $data = [
 				'title' 		=> 'User Login',
 				'deskripsi'		=> 'deskripsi',
 				'keywords'		=> 'keywords',
 				'content'       => 'front/auth/login'
 			];
 			$this->load->view('front/layout/wrapp', $data, FALSE);
+     }
+     else {
+         $data = [
+				'title' 		=> 'User Login',
+				'deskripsi'		=> 'deskripsi',
+				'keywords'		=> 'keywords',
+				'content'       => 'mobile/auth/login'
+			];
+			$this->load->view('mobile/layout/wrapp', $data, FALSE);
+     }
+
+
+
+
+
+
 		} else {
 			$this->_login();
 		}

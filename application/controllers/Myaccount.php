@@ -27,7 +27,8 @@ class Myaccount extends CI_Controller
     $meta = $this->meta_model->get_meta();
     $transaksi = $this->transaksi_model->mytransaksi($id);
 
-    $data = array(
+if (!$this->agent->is_mobile()) {
+          $data = array(
       'title'                           => 'Akun Saya',
       'deskripsi'                       => 'Berita - ' . $meta->description,
       'keywords'                        => 'Berita - ' . $meta->keywords,
@@ -37,6 +38,21 @@ class Myaccount extends CI_Controller
       'content'                         => 'front/myaccount/index_account'
     );
     $this->load->view('front/layout/wrapp', $data, FALSE);
+     }
+     else {
+         $data = array(
+      'title'                           => 'Akun Saya',
+      'deskripsi'                       => 'Berita - ' . $meta->description,
+      'keywords'                        => 'Berita - ' . $meta->keywords,
+      'user'                            => $user,
+      'meta'                            => $meta,
+      'transaksi'                       => $transaksi,
+      'content'                         => 'mobile/myaccount/index'
+    );
+    $this->load->view('mobile/layout/wrapp', $data, FALSE);
+     }
+
+
   }
   public function update()
   {
@@ -201,7 +217,10 @@ class Myaccount extends CI_Controller
     $this->pagination->initialize($config);
 
     $transaksi = $this->transaksi_model->get_transaksi_user($id, $limit, $start);
-    $data = [
+    
+
+if (!$this->agent->is_mobile()) {
+          $data = [
       'title'                           => 'Data Transaksi',
       'deskripsi'                       => 'deskripsi',
       'keywords'                        => 'keywords',
@@ -212,6 +231,25 @@ class Myaccount extends CI_Controller
       'content'                         => 'front/myaccount/transaksi'
     ];
     $this->load->view('front/layout/wrapp', $data, FALSE);
+     }
+     else {
+         $data = [
+      'title'                           => 'Data Transaksi',
+      'deskripsi'                       => 'deskripsi',
+      'keywords'                        => 'keywords',
+      'transaksi'                       => $transaksi,
+      'user'                            => $user,
+      'meta'                            => $meta,
+      'pagination'                      => $this->pagination->create_links(),
+      'content'                         => 'mobile/myaccount/transaksi'
+    ];
+    $this->load->view('mobile/layout/wrapp', $data, FALSE);
+     }
+
+
+
+
+
   }
 
   public function detail_transaksi($id)

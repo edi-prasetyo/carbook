@@ -40,13 +40,30 @@ class Transaksi extends CI_Controller
                 ]
             );
             if ($this->form_validation->run() == false) {
-                $data = [
+               
+
+
+if (!$this->agent->is_mobile()) {
+           $data = [
                     'title'       => 'Cek Pesanan',
                     'deskripsi'   => 'Cek Pesanan Rental Mobil',
                     'keywords'    => 'Transaksi',
                     'content'         => 'front/transaksi/index_transaksi'
                 ];
                 $this->load->view('front/layout/wrapp', $data, FALSE);
+     }
+     else {
+          $data = [
+                    'title'       => 'Cek Pesanan',
+                    'deskripsi'   => 'Cek Pesanan Rental Mobil',
+                    'keywords'    => 'Transaksi',
+                    'content'         => 'mobile/transaksi/index'
+                ];
+                $this->load->view('mobile/layout/wrapp', $data, FALSE);
+     }
+
+
+
             } else {
                 $this->detail();
             }

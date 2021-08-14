@@ -30,7 +30,11 @@ class Rental_mobil extends CI_Controller
     $meta                           = $this->meta_model->get_meta();
     $mobil                          = $this->mobil_model->get_mobil();
 
-    $data = array(
+    
+
+
+if (!$this->agent->is_mobile()) {
+          $data = array(
       'title'                       => 'Rental Mobil - ' . $meta->title,
       'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
       'keywords'                    => 'Rental mobil - ' . $meta->keywords,
@@ -39,7 +43,24 @@ class Rental_mobil extends CI_Controller
       'content'                     => 'front/rental/index_rental'
     );
     $this->load->view('front/layout/wrapp', $data, FALSE);
+     }
+     else {
+         $data = array(
+      'title'                       => 'Rental Mobil - ' . $meta->title,
+      'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
+      'keywords'                    => 'Rental mobil - ' . $meta->keywords,
+      'paginasi'                    => $this->pagination->create_links(),
+      'mobil'                       => $mobil,
+      'content'                     => 'mobile/rental/index'
+    );
+    $this->load->view('mobile/layout/wrapp', $data, FALSE);
+     }
+
+
+
+
   }
+
   public function order($mobil_slug = NULL)
   {
     if (empty($mobil_slug)) {
