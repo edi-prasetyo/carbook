@@ -60,3 +60,6 @@ $route['rental-mobil/payment/(:any)']           = 'rental_mobil/payment/$1';
 // $route['category/(:any)']                       = 'category/index/$1';
 $route['404_override'] = 'oops';
 $route['translate_uri_dashes'] = FALSE;
+
+// Rest Api Routes
+$route['api/car']                          = 'api/car';
