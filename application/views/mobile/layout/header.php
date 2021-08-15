@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,16 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <title>Buzzle - Classifed Ads Mobile Template</title>
-  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/') ;?>css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/') ;?>css/style.css">
+  <title><?php echo $title; ?></title>
+  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/'); ?>css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/'); ?>css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/'); ?>css/slick.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/'); ?>css/slick-theme.css">
   <!-- Icon -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/') ;?>icon/remixicon/remixicon.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/template/mobile/'); ?>icon/remixicon/remixicon.css">
 
 </head>
+
 <body class="bg-light">
   <div id="app">
     <div class="view view-main view-init ios-edges" data-url="/">

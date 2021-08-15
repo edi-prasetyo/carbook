@@ -53,18 +53,35 @@ class Berita extends CI_Controller
     $limit                          = $config['per_page'];
     $start                          = ($this->uri->segment(3)) ? ($this->uri->segment(3)) : 0;
     $this->pagination->initialize($config);
-    $berita                         = $this->berita_model->berita($limit, $start);
-    $data = array(
-      'title'                       => 'Berita - ' . $meta->title,
-      'deskripsi'                   => 'Berita - ' . $meta->description,
-      'keywords'                    => 'Berita - ' . $meta->keywords,
-      'paginasi'                    => $this->pagination->create_links(),
-      'berita'                      => $berita,
-      'category'                    => $category,
-      'mobil_popular'               => $mobil_popular,
-      'content'                     => 'front/berita/index_berita'
-    );
-    $this->load->view('front/layout/wrapp', $data, FALSE);
+    $berita = $this->berita_model->berita($limit, $start);
+
+    if (!$this->agent->is_mobile()) {
+
+      $data = array(
+        'title'                       => 'Berita - ' . $meta->title,
+        'deskripsi'                   => 'Berita - ' . $meta->description,
+        'keywords'                    => 'Berita - ' . $meta->keywords,
+        'paginasi'                    => $this->pagination->create_links(),
+        'berita'                      => $berita,
+        'category'                    => $category,
+        'mobil_popular'               => $mobil_popular,
+        'content'                     => 'front/berita/index_berita'
+      );
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+
+      $data = array(
+        'title'                       => 'Berita - ' . $meta->title,
+        'deskripsi'                   => 'Berita - ' . $meta->description,
+        'keywords'                    => 'Berita - ' . $meta->keywords,
+        'paginasi'                    => $this->pagination->create_links(),
+        'berita'                      => $berita,
+        'category'                    => $category,
+        'mobil_popular'               => $mobil_popular,
+        'content'                     => 'mobile/berita/index'
+      );
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
   public function detail($berita_slug = NULL)
   {
@@ -77,17 +94,34 @@ class Berita extends CI_Controller
     $mobil_popular                  = $this->mobil_model->mobil_populer();
 
     $berita                         = $this->berita_model->read($berita_slug);
-    $data                           = array(
-      'title'                       => $berita->berita_title,
-      'deskripsi'                   => $berita->berita_title,
-      'keywords'                    => $berita->berita_keywords,
-      'berita'                      => $berita,
-      'category'                    => $category,
-      'mobil_popular'               => $mobil_popular,
-      'content'                     => 'front/berita/detail_berita'
-    );
-    $this->add_count($berita_slug);
-    $this->load->view('front/layout/wrapp', $data, FALSE);
+
+    if (!$this->agent->is_mobile()) {
+
+      $data                           = array(
+        'title'                       => $berita->berita_title,
+        'deskripsi'                   => $berita->berita_title,
+        'keywords'                    => $berita->berita_keywords,
+        'berita'                      => $berita,
+        'category'                    => $category,
+        'mobil_popular'               => $mobil_popular,
+        'content'                     => 'front/berita/detail_berita'
+      );
+      $this->add_count($berita_slug);
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+
+      $data                           = array(
+        'title'                       => $berita->berita_title,
+        'deskripsi'                   => $berita->berita_title,
+        'keywords'                    => $berita->berita_keywords,
+        'berita'                      => $berita,
+        'category'                    => $category,
+        'mobil_popular'               => $mobil_popular,
+        'content'                     => 'mobile/berita/detail'
+      );
+      $this->add_count($berita_slug);
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
   function add_count($berita_slug)
   {

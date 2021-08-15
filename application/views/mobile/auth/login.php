@@ -1,10 +1,11 @@
-<nav class="site-header sticky-top py-1 bg-info">
-  <div class="container py-2 d-flex justify-content-between align-items-center">
-    <a class="text-white text-left" href="javascript:history.back()"><i class="ri-arrow-left-line"></i></a>
-    <a class="text-white text-center" href="#" aria-label="Product">
-      Login
-    </a>
-  </div>
+<nav class="site-header bg-white sticky-top py-1 shadow-sm">
+    <div class="container py-2 d-flex justify-content-between align-items-center">
+        <a style="text-decoration:none;" class="text-dark text-left" href="javascript:history.back()"><i style="font-size: 25px;" class="ri-arrow-left-line"></i></a>
+        <span class="text-dark text-center font-weight-bold">
+            Login
+        </span>
+        <div style="color:transparent;"></div>
+    </div>
 </nav>
 
 <div class="container">
@@ -12,7 +13,7 @@
         <div class="card my-5">
 
             <div class="row">
-                
+
                 <!-- Nested Row within Card Body -->
                 <div class="col-md-5">
                     <div class="card-body">

@@ -30,35 +30,28 @@ class Rental_mobil extends CI_Controller
     $meta                           = $this->meta_model->get_meta();
     $mobil                          = $this->mobil_model->get_mobil();
 
-    
 
-
-if (!$this->agent->is_mobile()) {
-          $data = array(
-      'title'                       => 'Rental Mobil - ' . $meta->title,
-      'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
-      'keywords'                    => 'Rental mobil - ' . $meta->keywords,
-      'paginasi'                    => $this->pagination->create_links(),
-      'mobil'                       => $mobil,
-      'content'                     => 'front/rental/index_rental'
-    );
-    $this->load->view('front/layout/wrapp', $data, FALSE);
-     }
-     else {
-         $data = array(
-      'title'                       => 'Rental Mobil - ' . $meta->title,
-      'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
-      'keywords'                    => 'Rental mobil - ' . $meta->keywords,
-      'paginasi'                    => $this->pagination->create_links(),
-      'mobil'                       => $mobil,
-      'content'                     => 'mobile/rental/index'
-    );
-    $this->load->view('mobile/layout/wrapp', $data, FALSE);
-     }
-
-
-
-
+    if (!$this->agent->is_mobile()) {
+      $data = array(
+        'title'                       => 'Rental Mobil - ' . $meta->title,
+        'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
+        'keywords'                    => 'Rental mobil - ' . $meta->keywords,
+        'paginasi'                    => $this->pagination->create_links(),
+        'mobil'                       => $mobil,
+        'content'                     => 'front/rental/index_rental'
+      );
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+      $data = array(
+        'title'                       => 'Rental Mobil - ' . $meta->title,
+        'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
+        'keywords'                    => 'Rental mobil - ' . $meta->keywords,
+        'paginasi'                    => $this->pagination->create_links(),
+        'mobil'                       => $mobil,
+        'content'                     => 'mobile/rental/index'
+      );
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
 
   public function order($mobil_slug = NULL)
@@ -69,32 +62,61 @@ if (!$this->agent->is_mobile()) {
       $mobil          = $this->mobil_model->read($mobil_slug);
 
       if ($mobil == NULL) {
-        $data = array(
-          'user_id'     => $this->session->userdata('id'),
-          'title'       => 'Sewa Mobil',
-          'deskripsi'   => 'Sewa Mobil',
-          'keywords'    => 'Sewa Mobil',
-          'mobil'       => $mobil,
-          'content'         => 'front/rental/detail_rental'
-        );
-
-        $this->load->view('front/layout/wrapp', $data, FALSE);
+        if (!$this->agent->is_mobile()) {
+          // View For Desktop
+          $data = array(
+            'user_id'     => $this->session->userdata('id'),
+            'title'       => 'Sewa Mobil',
+            'deskripsi'   => 'Sewa Mobil',
+            'keywords'    => 'Sewa Mobil',
+            'mobil'       => $mobil,
+            'content'         => 'front/rental/detail_rental'
+          );
+          $this->load->view('front/layout/wrapp', $data, FALSE);
+        } else {
+          // View For Mobile Device
+          $data = array(
+            'user_id'     => $this->session->userdata('id'),
+            'title'       => 'Sewa Mobil',
+            'deskripsi'   => 'Sewa Mobil',
+            'keywords'    => 'Sewa Mobil',
+            'mobil'       => $mobil,
+            'content'         => 'mobile/rental/detail'
+          );
+          $this->load->view('mobile/layout/wrapp', $data, FALSE);
+        }
       } else {
 
         $id = $mobil->id;
         $listpaket          = $this->mobil_model->listpaket_front($id);
 
-        $data = array(
-          'user_id'     => $this->session->userdata('id'),
-          'title'       => $mobil->mobil_name,
-          'deskripsi'   => $mobil->mobil_name,
-          'keywords'    => $mobil->mobil_keywords,
-          'mobil'       => $mobil,
-          'listpaket'   => $listpaket,
-          'content'         => 'front/rental/detail_rental'
-        );
-        $this->add_count($mobil_slug);
-        $this->load->view('front/layout/wrapp', $data, FALSE);
+        if (!$this->agent->is_mobile()) {
+          // View For Desktop
+          $data = array(
+            'user_id'     => $this->session->userdata('id'),
+            'title'       => $mobil->mobil_name,
+            'deskripsi'   => $mobil->mobil_name,
+            'keywords'    => $mobil->mobil_keywords,
+            'mobil'       => $mobil,
+            'listpaket'   => $listpaket,
+            'content'         => 'front/rental/detail_rental'
+          );
+          $this->add_count($mobil_slug);
+          $this->load->view('front/layout/wrapp', $data, FALSE);
+        } else {
+          // View For Mobile Device
+          $data = array(
+            'user_id'     => $this->session->userdata('id'),
+            'title'       => $mobil->mobil_name,
+            'deskripsi'   => $mobil->mobil_name,
+            'keywords'    => $mobil->mobil_keywords,
+            'mobil'       => $mobil,
+            'listpaket'   => $listpaket,
+            'content'         => 'mobile/rental/detail'
+          );
+          $this->add_count($mobil_slug);
+          $this->load->view('mobile/layout/wrapp', $data, FALSE);
+        }
       }
     }
   }
@@ -196,23 +218,41 @@ if (!$this->agent->is_mobile()) {
       ]
     );
 
-
     if ($this->form_validation->run() == false) {
 
-      $data = array(
-        'user_id'       => $this->session->userdata('id'),
-        'title'         => 'Booking Rental Mobil',
-        'deskripsi'     => 'Booking Rental Mobil',
-        'keywords'      => 'Booking Rental Mobil',
-        'listpaket'     => $listpaket,
-        'listing'       => $listing,
-        'pembayaran'    => $pembayaran,
-        'lamasewa'      => $lamasewa,
-        'jamsewa'       => $jamsewa,
-        'tanggal_post'  => date('Y-m-d H:i:s'),
-        'content'           => 'front/rental/booking_rental'
-      );
-      $this->load->view('front/layout/wrapp', $data, FALSE);
+      if (!$this->agent->is_mobile()) {
+
+        $data = array(
+          'user_id'       => $this->session->userdata('id'),
+          'title'         => 'Booking Rental Mobil',
+          'deskripsi'     => 'Booking Rental Mobil',
+          'keywords'      => 'Booking Rental Mobil',
+          'listpaket'     => $listpaket,
+          'listing'       => $listing,
+          'pembayaran'    => $pembayaran,
+          'lamasewa'      => $lamasewa,
+          'jamsewa'       => $jamsewa,
+          'tanggal_post'  => date('Y-m-d H:i:s'),
+          'content'           => 'front/rental/booking_rental'
+        );
+        $this->load->view('front/layout/wrapp', $data, FALSE);
+      } else {
+
+        $data = array(
+          'user_id'       => $this->session->userdata('id'),
+          'title'         => 'Booking Rental Mobil',
+          'deskripsi'     => 'Booking Rental Mobil',
+          'keywords'      => 'Booking Rental Mobil',
+          'listpaket'     => $listpaket,
+          'listing'       => $listing,
+          'pembayaran'    => $pembayaran,
+          'lamasewa'      => $lamasewa,
+          'jamsewa'       => $jamsewa,
+          'tanggal_post'  => date('Y-m-d H:i:s'),
+          'content'           => 'mobile/rental/booking'
+        );
+        $this->load->view('mobile/layout/wrapp', $data, FALSE);
+      }
     } else {
 
       $total_harga = $this->input->post('harga_satuan') * $this->input->post('lama_sewa');

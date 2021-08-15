@@ -1,49 +1,192 @@
+/* List card */
+
+.list-card .count-number {
+  margin: 4px 0 0 0;
+  display: inline-block;
+}
+
+.list-card a,
+.list-card h6 {
+  color: inherit;
+
+  white-space: normal;
+  font-size: 15px;
+  text-overflow: ellipsis;
+}
+
+.list-card a:hover {
+  color: #0091bc;
+}
+
+.list-card .star {
+  right: 8px;
+  bottom: 8px;
+}
+
+.list-card .star .badge {
+  font-size: 11px;
+  padding: 5px 5px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.list-card .member-plan {
+  left: 8px;
+  top: 8px;
+}
+
+.list-card .member-plan .badge {
+  font-size: 11px;
+  padding: 5px 5px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.list-card .list-card-image {
+  position: relative;
+}
+
+.list-card .favourite-heart {
+  right: 8px;
+  top: 8px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.list-card .favourite-heart i {
+  background: #fff;
+  width: 23px;
+  height: 23px;
+  display: inline-block;
+  text-align: center;
+  font-size: 15px;
+  line-height: 24px;
+  border-radius: 50px;
+}
+
+.list-card.d-flex .list-card-image {
+  width: 130px;
+  height: 140px;
+  min-width: 130px;
+  max-width: 130px;
+}
+
+.list-card.d-flex .list-card-image .item-img {
+  height: 140px;
+  object-fit: cover;
+}
+
+.list-card .list-card-body p.text-gray {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.list-card .p-3 {
+  overflow: hidden;
+}
+
+.list-card.d-flex .list-card-body span.float-right.text-black-50 {
+  display: none;
+}
+
+.rating-stars .feather-star {
+  font-size: 10px;
+  background: #000000;
+  color: #fff;
+  padding: 2px;
+  text-shadow: 0px 0px 1px #d2b128;
+  border-radius: 5px;
+}
+
+.rating-stars .feather-star.star_active {
+  background: #f5cd25;
+}
 /* Menu */
 
-.osahan-menu-fotter {
+.carbook-menu-fotter {
   padding: 0px !important;
 }
 
-.osahan-menu-fotter .row {
+.carbook-menu-fotter .row {
   margin: 0px;
 }
 
-.osahan-menu-fotter .col {
+.carbook-menu-fotter .col {
   padding: 0px;
 }
 
-.osahan-menu-fotter .col a {
-  padding: 12px;
+.carbook-menu-fotter .col a {
+  padding: 5px;
   display: block;
 }
 
-.osahan-menu-fotter .col a p {
+.carbook-menu-fotter .col a p {
   font-size: 19px;
 }
 
-.osahan-menu-fotter .col.selected a {
-  color: #dc3545;
+.carbook-menu-fotter .col.selected a {
+  border-top: 2px solid #004bbd;
+  color: #004bbd;
   background: #f8f9fa;
 }
 
-.osahan-menu-fotter .col.selected p {
-  color: #dc3545;
+.carbook-menu-fotter .col.selected p {
+  color: #004bbd;
 }
 
-.osahan-menu-fotter .col.bg-white.rounded-circle.mt-n4.px-3.py-2 {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-  height: 100px;
-  min-height: 100px;
-  max-height: 100px;
-  margin: -15px 0 0 0 !important;
+/* HOME PAGE STYLES */
+.boot-elemant-bg {
+  height: 300px;
+
+  /* Create the parallax scrolling effect */
+  /* background-attachment: fixed; */
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  background-size: 500px auto;
+  background-color: black;
+}
+.boot-elemant-bg img {
+  width: 100%;
+}
+/* --- Hero --- */
+.hero {
+  position: relative;
+}
+/*===== hero-svg ======*/
+.hero-svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  fill: #fff;
+}
+.productcat {
+  margin-top: -50px;
+  /* position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto; */
+}
+/* TEST */
+.test {
+  color: rgb(0, 80, 184);
 }
 
-.osahan-menu-fotter .col.bg-white.rounded-circle.mt-n4.px-3.py-2 a {
-  width: 68px;
-  color: #fff !important;
-  height: 68px;
-  font-size: 27px !important;
-  padding: 16px;
+/* RATING */
+.rating-stars .ri-star-line.star_active {
+  color: #f5cd25;
+}
+
+/* BTN Order */
+.btn-order-block {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: #0573bd;
+  padding: 17px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
 }
