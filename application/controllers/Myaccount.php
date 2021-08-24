@@ -27,32 +27,31 @@ class Myaccount extends CI_Controller
     $meta = $this->meta_model->get_meta();
     $transaksi = $this->transaksi_model->mytransaksi($id);
 
-if (!$this->agent->is_mobile()) {
-          $data = array(
-      'title'                           => 'Akun Saya',
-      'deskripsi'                       => 'Berita - ' . $meta->description,
-      'keywords'                        => 'Berita - ' . $meta->keywords,
-      'user'                            => $user,
-      'meta'                            => $meta,
-      'transaksi'                       => $transaksi,
-      'content'                         => 'front/myaccount/index_account'
-    );
-    $this->load->view('front/layout/wrapp', $data, FALSE);
-     }
-     else {
-         $data = array(
-      'title'                           => 'Akun Saya',
-      'deskripsi'                       => 'Berita - ' . $meta->description,
-      'keywords'                        => 'Berita - ' . $meta->keywords,
-      'user'                            => $user,
-      'meta'                            => $meta,
-      'transaksi'                       => $transaksi,
-      'content'                         => 'mobile/myaccount/index'
-    );
-    $this->load->view('mobile/layout/wrapp', $data, FALSE);
-     }
-
-
+    if (!$this->agent->is_mobile()) {
+      // Desktop View
+      $data = array(
+        'title'                           => 'Akun Saya',
+        'deskripsi'                       => 'Berita - ' . $meta->description,
+        'keywords'                        => 'Berita - ' . $meta->keywords,
+        'user'                            => $user,
+        'meta'                            => $meta,
+        'transaksi'                       => $transaksi,
+        'content'                         => 'front/myaccount/index_account'
+      );
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+      // Mobile View
+      $data = array(
+        'title'                           => 'Akun Saya',
+        'deskripsi'                       => 'Berita - ' . $meta->description,
+        'keywords'                        => 'Berita - ' . $meta->keywords,
+        'user'                            => $user,
+        'meta'                            => $meta,
+        'transaksi'                       => $transaksi,
+        'content'                         => 'mobile/myaccount/index'
+      );
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
   public function update()
   {
@@ -80,15 +79,29 @@ if (!$this->agent->is_mobile()) {
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('user_image')) {
 
-          $data = [
-            'title'                     => 'Ubah Profile',
-            'deskripsi'                 => 'Profile - ' . $meta->description,
-            'keywords'                  => 'Profile - ' . $meta->keywords,
-            'meta'                      => $meta,
-            'error_upload'              => $this->upload->display_errors(),
-            'content'                   => 'front/myaccount/update_account'
-          ];
-          $this->load->view('front/layout/wrapp', $data, FALSE);
+          if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = [
+              'title'                     => 'Ubah Profile',
+              'deskripsi'                 => 'Profile - ' . $meta->description,
+              'keywords'                  => 'Profile - ' . $meta->keywords,
+              'meta'                      => $meta,
+              'error_upload'              => $this->upload->display_errors(),
+              'content'                   => 'front/myaccount/update_account'
+            ];
+            $this->load->view('front/layout/wrapp', $data, FALSE);
+          } else {
+            // Mobile View
+            $data = [
+              'title'                     => 'Ubah Profile',
+              'deskripsi'                 => 'Profile - ' . $meta->description,
+              'keywords'                  => 'Profile - ' . $meta->keywords,
+              'meta'                      => $meta,
+              'error_upload'              => $this->upload->display_errors(),
+              'content'                   => 'mobile/myaccount/update'
+            ];
+            $this->load->view('mobile/layout/wrapp', $data, FALSE);
+          }
         } else {
 
           $upload_data                  = array('uploads'  => $this->upload->data());
@@ -133,15 +146,29 @@ if (!$this->agent->is_mobile()) {
         redirect(base_url('myaccount'), 'refresh');
       }
     }
-    $data = [
-      'title'                           => 'Ubah Profile',
-      'deskripsi'                       => 'Berita - ' . $meta->description,
-      'keywords'                        => 'Berita - ' . $meta->keywords,
-      'meta'                            => $meta,
-      'user'                            => $user,
-      'content'                         => 'front/myaccount/update_account'
-    ];
-    $this->load->view('front/layout/wrapp', $data, FALSE);
+    if (!$this->agent->is_mobile()) {
+      // Desktop View
+      $data = [
+        'title'                           => 'Ubah Profile',
+        'deskripsi'                       => 'Berita - ' . $meta->description,
+        'keywords'                        => 'Berita - ' . $meta->keywords,
+        'meta'                            => $meta,
+        'user'                            => $user,
+        'content'                         => 'front/myaccount/update_account'
+      ];
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+      // Mobile View
+      $data = [
+        'title'                           => 'Ubah Profile',
+        'deskripsi'                       => 'Berita - ' . $meta->description,
+        'keywords'                        => 'Berita - ' . $meta->keywords,
+        'meta'                            => $meta,
+        'user'                            => $user,
+        'content'                         => 'mobile/myaccount/update'
+      ];
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
   public function ubah_password()
   {
@@ -161,15 +188,29 @@ if (!$this->agent->is_mobile()) {
     );
     $this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
     if ($this->form_validation->run() == false) {
-      $data = array(
-        'title'                         => 'Ubah Profile',
-        'deskripsi'                     => 'Profile - ' . $meta->description,
-        'keywords'                      => 'Profile - ' . $meta->keywords,
-        'user'                          => $user,
-        'meta'                          => $meta,
-        'content'                       => 'front/myaccount/password_account'
-      );
-      $this->load->view('front/layout/wrapp', $data, FALSE);
+      if (!$this->agent->is_mobile()) {
+        // Desktop View
+        $data = array(
+          'title'                         => 'Ubah Profile',
+          'deskripsi'                     => 'Profile - ' . $meta->description,
+          'keywords'                      => 'Profile - ' . $meta->keywords,
+          'user'                          => $user,
+          'meta'                          => $meta,
+          'content'                       => 'front/myaccount/password_account'
+        );
+        $this->load->view('front/layout/wrapp', $data, FALSE);
+      } else {
+        // Mobile View
+        $data = array(
+          'title'                         => 'Ubah Password',
+          'deskripsi'                     => 'Profile - ' . $meta->description,
+          'keywords'                      => 'Profile - ' . $meta->keywords,
+          'user'                          => $user,
+          'meta'                          => $meta,
+          'content'                       => 'mobile/myaccount/password'
+        );
+        $this->load->view('mobile/layout/wrapp', $data, FALSE);
+      }
     } else {
       $data = [
         'id'                            => $id,
@@ -217,72 +258,62 @@ if (!$this->agent->is_mobile()) {
     $this->pagination->initialize($config);
 
     $transaksi = $this->transaksi_model->get_transaksi_user($id, $limit, $start);
-    
-
-if (!$this->agent->is_mobile()) {
-          $data = [
-      'title'                           => 'Data Transaksi',
-      'deskripsi'                       => 'deskripsi',
-      'keywords'                        => 'keywords',
-      'transaksi'                       => $transaksi,
-      'user'                            => $user,
-      'meta'                            => $meta,
-      'pagination'                      => $this->pagination->create_links(),
-      'content'                         => 'front/myaccount/transaksi'
-    ];
-    $this->load->view('front/layout/wrapp', $data, FALSE);
-     }
-     else {
-         $data = [
-      'title'                           => 'Data Transaksi',
-      'deskripsi'                       => 'deskripsi',
-      'keywords'                        => 'keywords',
-      'transaksi'                       => $transaksi,
-      'user'                            => $user,
-      'meta'                            => $meta,
-      'pagination'                      => $this->pagination->create_links(),
-      'content'                         => 'mobile/myaccount/transaksi'
-    ];
-    $this->load->view('mobile/layout/wrapp', $data, FALSE);
-     }
-
-
-
-
-
+    if (!$this->agent->is_mobile()) {
+      // Desktop View
+      $data = [
+        'title'                           => 'Data Transaksi',
+        'deskripsi'                       => 'deskripsi',
+        'keywords'                        => 'keywords',
+        'transaksi'                       => $transaksi,
+        'user'                            => $user,
+        'meta'                            => $meta,
+        'pagination'                      => $this->pagination->create_links(),
+        'content'                         => 'front/myaccount/transaksi'
+      ];
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+      // Mobile View
+      $data = [
+        'title'                           => 'Data Transaksi',
+        'deskripsi'                       => 'deskripsi',
+        'keywords'                        => 'keywords',
+        'transaksi'                       => $transaksi,
+        'user'                            => $user,
+        'meta'                            => $meta,
+        'pagination'                      => $this->pagination->create_links(),
+        'content'                         => 'mobile/myaccount/transaksi'
+      ];
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
 
   public function detail_transaksi($id)
   {
     $transaksi = $this->transaksi_model->detail_transaksi($id);
     $bank = $this->bank_model->get_allbank();
-    $data = [
-      'title'                         => 'Detail Transaksi',
-      'deskripsi'                     => 'detail Transaksi',
-      'keywords'                      => 'detail Transaksi',
-      'transaksi'                          => $transaksi,
-      'bank'                          => $bank,
-      'content'                       => 'front/myaccount/detail_transaksi'
-    ];
-    $this->load->view('front/layout/wrapp', $data, FALSE);
-  }
 
-  public function delete($id)
-  {
-    is_login();
-    $products = $this->products_model->myproduct_detail($id);
-    if ($products->user_id == $this->session->userdata('id')) {
-      if ($products->product_img != "") {
-        unlink('./assets/img/product/' . $products->product_img);
-      }
-
-      $data = ['id'   => $products->id];
-      $this->products_model->delete($data);
-      $this->session->set_flashdata('message', 'Data telah di Hapus');
-      redirect('myaccount/myproducts');
+    if (!$this->agent->is_mobile()) {
+      // Desktop View
+      $data = [
+        'title'                         => 'Detail Transaksi',
+        'deskripsi'                     => 'detail Transaksi',
+        'keywords'                      => 'detail Transaksi',
+        'transaksi'                          => $transaksi,
+        'bank'                          => $bank,
+        'content'                       => 'front/myaccount/detail_transaksi'
+      ];
+      $this->load->view('front/layout/wrapp', $data, FALSE);
     } else {
-      $this->session->set_flashdata('message', 'Kamu tidak Boleh menghapus data orang lain');
-      redirect('myaccount/myproducts');
+      // Mobile View
+      $data = [
+        'title'                         => 'Detail Transaksi',
+        'deskripsi'                     => 'detail Transaksi',
+        'keywords'                      => 'detail Transaksi',
+        'transaksi'                          => $transaksi,
+        'bank'                          => $bank,
+        'content'                       => 'mobile/myaccount/detail'
+      ];
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
     }
   }
 }

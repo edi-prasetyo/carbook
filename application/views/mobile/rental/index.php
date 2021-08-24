@@ -14,7 +14,7 @@
     <?php foreach ($mobil as $mobil) : ?>
 
       <div class="col-md-4 col-6">
-        <div class="card mb-3">
+        <div class="card mb-3 shadow-sm border-0">
           <!-- <div class="img-frame"> -->
           <img src="<?php echo base_url('assets/img/mobil/' . $mobil->mobil_gambar); ?>" class="card-img-top" alt="...">
           <!-- </div> -->

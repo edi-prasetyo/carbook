@@ -194,7 +194,7 @@
                 <?php foreach ($pembayaran as $data) : ?>
 
                   <div class="custom-control custom-radio">
-                    <input class="form-check-input" type="radio" name="tipe_pembayaran" id="emailConsentRadio" value="optionB" required>
+                    <input class="form-check-input" type="radio" name="tipe_pembayaran" id="emailConsentRadio" value="<?php echo $data->nama_pembayaran; ?>" required>
                     <label class="form-check-label" for="optionB">
                       <?php echo $data->nama_pembayaran; ?>
                     </label>

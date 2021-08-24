@@ -39,34 +39,25 @@ class Auth extends CI_Controller
 			]
 		);
 		if ($this->form_validation->run() == false) {
-			
-
-
-
-if (!$this->agent->is_mobile()) {
-          $data = [
-				'title' 		=> 'User Login',
-				'deskripsi'		=> 'deskripsi',
-				'keywords'		=> 'keywords',
-				'content'       => 'front/auth/login'
-			];
-			$this->load->view('front/layout/wrapp', $data, FALSE);
-     }
-     else {
-         $data = [
-				'title' 		=> 'User Login',
-				'deskripsi'		=> 'deskripsi',
-				'keywords'		=> 'keywords',
-				'content'       => 'mobile/auth/login'
-			];
-			$this->load->view('mobile/layout/wrapp', $data, FALSE);
-     }
-
-
-
-
-
-
+			if (!$this->agent->is_mobile()) {
+				// Desktop View
+				$data = [
+					'title' 		=> 'User Login',
+					'deskripsi'		=> 'deskripsi',
+					'keywords'		=> 'keywords',
+					'content'       => 'front/auth/login'
+				];
+				$this->load->view('front/layout/wrapp', $data, FALSE);
+			} else {
+				// Mobile View
+				$data = [
+					'title' 		=> 'User Login',
+					'deskripsi'		=> 'deskripsi',
+					'keywords'		=> 'keywords',
+					'content'       => 'mobile/auth/login'
+				];
+				$this->load->view('mobile/layout/wrapp', $data, FALSE);
+			}
 		} else {
 			$this->_login();
 		}
@@ -109,6 +100,7 @@ if (!$this->agent->is_mobile()) {
 	}
 	public function register()
 	{
+		$send_email_register = $this->pengaturan_model->sendemail_status_register();
 		if ($this->session->userdata('id')) {
 			redirect('myaccount');
 		}
@@ -141,13 +133,25 @@ if (!$this->agent->is_mobile()) {
 		$this->form_validation->set_rules('password2', 'Ulangi Password', 'required|trim|matches[password1]');
 
 		if ($this->form_validation->run() == false) {
-			$data = [
-				'title'			=> 'Register',
-				'deskripsi'		=> 'Deskripsi',
-				'keywords'		=> 'Keywords',
-				'content'       => 'front/auth/register'
-			];
-			$this->load->view('front/layout/wrapp', $data, FALSE);
+			if (!$this->agent->is_mobile()) {
+				// Desktop View
+				$data = [
+					'title'			=> 'Register',
+					'deskripsi'		=> 'Deskripsi',
+					'keywords'		=> 'Keywords',
+					'content'       => 'front/auth/register'
+				];
+				$this->load->view('front/layout/wrapp', $data, FALSE);
+			} else {
+				// Mobile View
+				$data = [
+					'title'			=> 'Register',
+					'deskripsi'		=> 'Deskripsi',
+					'keywords'		=> 'Keywords',
+					'content'       => 'mobile/auth/register'
+				];
+				$this->load->view('mobile/layout/wrapp', $data, FALSE);
+			}
 		} else {
 			$email = $this->input->post('email', true);
 			$data = [
@@ -168,7 +172,10 @@ if (!$this->agent->is_mobile()) {
 			];
 			$this->db->insert('user', $data);
 			$this->db->insert('user_token', $user_token);
-			$this->_sendEmail($token, 'verify');
+
+			if ($send_email_register->status == 1) {
+				$this->_sendEmail($token, 'verify');
+			}
 			$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat Anda berhasil mendaftar, silahkan Aktivasi akun</div> ');
 			redirect('auth');
 		}
@@ -253,13 +260,25 @@ if (!$this->agent->is_mobile()) {
 			]
 		);
 		if ($this->form_validation->run() == false) {
-			$data = [
-				'title'		=> 'Forgot Password',
-				'deskripsi'		=> 'Deskripsi',
-				'keywords'		=> 'Keywords',
-				'content'	=> 'front/auth/forgot_password'
-			];
-			$this->load->view('front/layout/wrapp', $data, FALSE);
+			if (!$this->agent->is_mobile()) {
+				// Desktop View
+				$data = [
+					'title'		=> 'Forgot Password',
+					'deskripsi'		=> 'Deskripsi',
+					'keywords'		=> 'Keywords',
+					'content'	=> 'front/auth/forgot_password'
+				];
+				$this->load->view('front/layout/wrapp', $data, FALSE);
+			} else {
+				// Mobile View
+				$data = [
+					'title'		=> 'Forgot Password',
+					'deskripsi'		=> 'Deskripsi',
+					'keywords'		=> 'Keywords',
+					'content'	=> 'mobile/auth/forgot_password'
+				];
+				$this->load->view('mobile/layout/wrapp', $data, FALSE);
+			}
 		} else {
 			$email = $this->input->post('email');
 			$user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
@@ -319,13 +338,25 @@ if (!$this->agent->is_mobile()) {
 		);
 
 		if ($this->form_validation->run() == false) {
-			$data = [
-				'title'		=> 'Change Password',
-				'deskripsi'		=> 'Deskripsi',
-				'keywords'		=> 'Keywords',
-				'content'	=> 'front/auth/change_password'
-			];
-			$this->load->view('front/layout/wrapp', $data, FALSE);
+			if (!$this->agent->is_mobile()) {
+				// Desktop View
+				$data = [
+					'title'		=> 'Change Password',
+					'deskripsi'		=> 'Deskripsi',
+					'keywords'		=> 'Keywords',
+					'content'	=> 'front/auth/change_password'
+				];
+				$this->load->view('front/layout/wrapp', $data, FALSE);
+			} else {
+				// Mobile View
+				$data = [
+					'title'		=> 'Change Password',
+					'deskripsi'		=> 'Deskripsi',
+					'keywords'		=> 'Keywords',
+					'content'	=> 'mobile/auth/change_password'
+				];
+				$this->load->view('mobile/layout/wrapp', $data, FALSE);
+			}
 		} else {
 			$password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
 			$email = $this->session->userdata('reset_email');

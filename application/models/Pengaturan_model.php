@@ -43,4 +43,27 @@ class Pengaturan_model extends CI_Model
     $this->db->where('id', $data['id']);
     $this->db->update('pengaturan_email', $data);
   }
+  public function sendemail_status_all()
+  {
+    $this->db->select('*');
+    $this->db->from('kirim_email');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function sendemail_status_order()
+  {
+    $this->db->select('*');
+    $this->db->from('kirim_email');
+    $this->db->where('type', 'Order');
+    $query = $this->db->get();
+    return $query->row();
+  }
+  public function sendemail_status_register()
+  {
+    $this->db->select('*');
+    $this->db->from('kirim_email');
+    $this->db->where('type', 'Register');
+    $query = $this->db->get();
+    return $query->row();
+  }
 }

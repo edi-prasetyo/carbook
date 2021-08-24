@@ -1,9 +1,7 @@
 <?php $meta = $this->meta_model->get_meta(); ?>
 <nav class="site-header sticky-top py-1" style="background-color: transparent;position:absolute">
 	<div class="container py-2 d-flex justify-content-between align-items-center">
-
 		<a class="text-white text-center" href="#" aria-label="Product">
-
 		</a>
 	</div>
 </nav>
@@ -65,7 +63,7 @@
 	<div class="row my-3">
 		<div class="col-6">
 			<a href="<?php echo base_url('rental-mobil'); ?>" class="text-dark small font-weight-bold text-decoration-none">
-				<div class="card shadow-sm text-center">
+				<div class="card shadow-sm text-center border-0">
 					<div class="card-body">
 						<p class="h3 m-0 text-info"><i class="ri-car-line"></i></p>
 						Rental Car
@@ -76,7 +74,7 @@
 
 		<div class="col-6">
 			<a href="<?php echo base_url('berita'); ?>" class="text-dark small font-weight-bold text-decoration-none">
-				<div class="card shadow-sm text-center">
+				<div class="card shadow-sm text-center border-0">
 					<div class="card-body">
 						<p class="h3 m-0 text-danger"><i class="ri-newspaper-line"></i></p>
 						Berita
@@ -88,7 +86,7 @@
 
 		<div class="col-6 mt-3">
 			<a href="<?php echo base_url('contact'); ?>" class="text-dark small font-weight-bold text-decoration-none">
-				<div class="card shadow-sm text-center">
+				<div class="card shadow-sm text-center border-0">
 					<div class="card-body">
 						<p class="h3 m-0 text-success"><i class="ri-mail-send-line"></i></p>
 						Contact Us
@@ -100,7 +98,7 @@
 
 		<div class="col-6 mt-3">
 			<a href="<?php echo base_url('transaksi'); ?>" class="text-dark small font-weight-bold text-decoration-none">
-				<div class="card shadow-sm text-center">
+				<div class="card shadow-sm text-center border-0">
 					<div class="card-body">
 						<p class="h3 m-0 text-primary"><i class="ri-file-paper-line"></i></p>
 						Cek Order
@@ -162,23 +160,22 @@
 		<?php foreach ($berita as $data) : ?>
 
 			<div class="col-12 pt-2">
-				<div class="d-flex align-items-center list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-					<div class="list-card-image">
-
-						<a href="restaurant.html">
+				<a href="<?php echo base_url('berita/detail/' . $data->berita_slug); ?>" class="text-muted text-decoration-none">
+					<div class="d-flex align-items-center list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+						<div class="list-card-image">
 							<img src="<?php echo base_url('assets/img/artikel/' . $data->berita_gambar); ?>" class="img-fluid item-img w-100">
-						</a>
-					</div>
-					<div class="p-3 position-relative">
-						<div class="list-card-body">
-							<h6 class="mb-1"><a href="restaurant.html" class="text-black"><?php echo substr($data->berita_title, 0, 30); ?>..</a></h6>
-							<p class="text-gray mb-3"><?php echo date('F j, Y', strtotime($data->date_created)); ?></p>
 						</div>
-						<div class="list-card-badge">
-							<span class="badge badge-success"><?php echo $data->category_name; ?></span>
+						<div class="p-3 position-relative">
+							<div class="list-card-body">
+								<h6 class="mb-1"><?php echo substr($data->berita_title, 0, 30); ?>..</h6>
+								<p class="text-gray mb-3"><?php echo date('F j, Y', strtotime($data->date_created)); ?></p>
+							</div>
+							<div class="list-card-badge">
+								<span class="badge badge-success"><?php echo $data->category_name; ?></span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 			</div>
 		<?php endforeach; ?>
 	</div>

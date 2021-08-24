@@ -30,15 +30,30 @@ class Galery extends CI_Controller
     $start                          = ($this->uri->segment(3)) ? ($this->uri->segment(3)) : 0;
     $this->pagination->initialize($config);
     $galery                         = $this->galery_model->galery($limit, $start);
-    $data = array(
-      'title'                       => 'Galery - ' . $meta->title,
-      'deskripsi'                   => 'Galery - ' . $meta->description,
-      'keywords'                    => 'Galery - ' . $meta->keywords,
-      'paginasi'                    => $this->pagination->create_links(),
-      'galery'                      => $galery,
-      'content'                     => 'front/galery/index_galery'
-    );
-    $this->load->view('front/layout/wrapp', $data, FALSE);
+
+    if (!$this->agent->is_mobile()) {
+      // Desktop View
+      $data = array(
+        'title'                       => 'Galery - ' . $meta->title,
+        'deskripsi'                   => 'Galery - ' . $meta->description,
+        'keywords'                    => 'Galery - ' . $meta->keywords,
+        'paginasi'                    => $this->pagination->create_links(),
+        'galery'                      => $galery,
+        'content'                     => 'front/galery/index_galery'
+      );
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+      // Mobile View
+      $data = array(
+        'title'                       => 'Galery',
+        'deskripsi'                   => 'Galery - ' . $meta->description,
+        'keywords'                    => 'Galery - ' . $meta->keywords,
+        'paginasi'                    => $this->pagination->create_links(),
+        'galery'                      => $galery,
+        'content'                     => 'mobile/galery/index'
+      );
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
   public function detail($galery_slug = NULL)
   {

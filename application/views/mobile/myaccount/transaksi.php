@@ -14,7 +14,7 @@
     <div class="list-group shadow-sm mb-5 mt-3">
       <?php
       foreach ($transaksi as $transaksi) : ?>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="<?php echo base_url('myaccount/detail_transaksi/' . $transaksi->id); ?>" class="list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"><?php echo $transaksi->nama_mobil; ?></h5>
             <small><?php if ($transaksi->status_bayar == "Pending") : ?>

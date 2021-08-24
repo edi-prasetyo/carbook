@@ -118,7 +118,7 @@ class Bank extends CI_Controller
                     'bank_account'          => $this->input->post('bank_account'),
                     'bank_branch'           => $this->input->post('bank_branch'),
                     'bank_logo'             => $upload_data['uploads']['file_name'],
-                    'date_created'          > time()
+                    'date_created'          => time()
                 ];
                 $this->bank_model->create($data);
                 $this->session->set_flashdata('message', '<div class="alert alert-success">Data Bank telah ditambahkan</div>');

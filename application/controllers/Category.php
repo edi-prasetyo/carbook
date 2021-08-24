@@ -24,15 +24,30 @@ class Category extends CI_Controller
   {
     $category          = $this->category_model->get_category();
     $mobil_popular           = $this->mobil_model->mobil_populer();
-    $data = [
-      'title'                 => 'Category',
-      'deskripsi'             => 'Category',
-      'keywords'              => 'Category',
-      'category'              => $category,
-      'mobil_popular'         => $mobil_popular,
-      'content'               => 'front/category/index_category'
-    ];
-    $this->load->view('front/layout/wrapp', $data, FALSE);
+
+    if (!$this->agent->is_mobile()) {
+      // Desktop View
+      $data = [
+        'title'                 => 'Category',
+        'deskripsi'             => 'Category',
+        'keywords'              => 'Category',
+        'category'              => $category,
+        'mobil_popular'         => $mobil_popular,
+        'content'               => 'front/category/index_category'
+      ];
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+      // Mobile View
+      $data = [
+        'title'                 => 'Category',
+        'deskripsi'             => 'Category',
+        'keywords'              => 'Category',
+        'category'              => $category,
+        'mobil_popular'         => $mobil_popular,
+        'content'               => 'mobile/category/index'
+      ];
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
   public function item($category_slug = NULL)
   {
@@ -69,17 +84,34 @@ class Category extends CI_Controller
       $start                      = ($this->uri->segment(5)) ? ($this->uri->segment(5)) : 0;
       $this->pagination->initialize($config);
       $berita = $this->berita_model->category($category_id, $limit, $start);
-      $data = array(
-        'title'                 => 'Category - ' . $category_detail->category_name,
-        'deskripsi'             => 'Berita - ' . $meta->description,
-        'keywords'              => 'Berita - ' . $meta->keywords,
-        'berita'                => $berita,
-        'category'              => $category,
-        'mobil_popular'                   => $mobil_popular,
-        'pagination'            => $this->pagination->create_links(),
-        'content'               => 'front/category/item_category'
-      );
-      $this->load->view('front/layout/wrapp', $data, FALSE);
+
+      if (!$this->agent->is_mobile()) {
+        // Desktop View
+        $data = array(
+          'title'                 => 'Category - ' . $category_detail->category_name,
+          'deskripsi'             => 'Berita - ' . $meta->description,
+          'keywords'              => 'Berita - ' . $meta->keywords,
+          'berita'                => $berita,
+          'category'              => $category,
+          'mobil_popular'                   => $mobil_popular,
+          'pagination'            => $this->pagination->create_links(),
+          'content'               => 'front/category/item_category'
+        );
+        $this->load->view('front/layout/wrapp', $data, FALSE);
+      } else {
+        // Mobile View
+        $data = array(
+          'title'                 => 'Category - ' . $category_detail->category_name,
+          'deskripsi'             => 'Berita - ' . $meta->description,
+          'keywords'              => 'Berita - ' . $meta->keywords,
+          'berita'                => $berita,
+          'category'              => $category,
+          'mobil_popular'                   => $mobil_popular,
+          'pagination'            => $this->pagination->create_links(),
+          'content'               => 'mobile/category/item'
+        );
+        $this->load->view('mobile/layout/wrapp', $data, FALSE);
+      }
     } else {
       redirect(base_url('berita'));
     }

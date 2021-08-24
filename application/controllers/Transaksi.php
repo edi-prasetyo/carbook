@@ -40,30 +40,25 @@ class Transaksi extends CI_Controller
                 ]
             );
             if ($this->form_validation->run() == false) {
-               
-
-
-if (!$this->agent->is_mobile()) {
-           $data = [
-                    'title'       => 'Cek Pesanan',
-                    'deskripsi'   => 'Cek Pesanan Rental Mobil',
-                    'keywords'    => 'Transaksi',
-                    'content'         => 'front/transaksi/index_transaksi'
-                ];
-                $this->load->view('front/layout/wrapp', $data, FALSE);
-     }
-     else {
-          $data = [
-                    'title'       => 'Cek Pesanan',
-                    'deskripsi'   => 'Cek Pesanan Rental Mobil',
-                    'keywords'    => 'Transaksi',
-                    'content'         => 'mobile/transaksi/index'
-                ];
-                $this->load->view('mobile/layout/wrapp', $data, FALSE);
-     }
-
-
-
+                if (!$this->agent->is_mobile()) {
+                    // Desktop View
+                    $data = [
+                        'title'       => 'Cek Pesanan',
+                        'deskripsi'   => 'Cek Pesanan Rental Mobil',
+                        'keywords'    => 'Transaksi',
+                        'content'         => 'front/transaksi/index_transaksi'
+                    ];
+                    $this->load->view('front/layout/wrapp', $data, FALSE);
+                } else {
+                    // Mobile View
+                    $data = [
+                        'title'       => 'Cek Pesanan',
+                        'deskripsi'   => 'Cek Pesanan Rental Mobil',
+                        'keywords'    => 'Transaksi',
+                        'content'         => 'mobile/transaksi/index'
+                    ];
+                    $this->load->view('mobile/layout/wrapp', $data, FALSE);
+                }
             } else {
                 $this->detail();
             }
@@ -85,15 +80,30 @@ if (!$this->agent->is_mobile()) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger">Email Tidak ada</div> ');
             redirect('transaksi');
         } else {
-            $data = array(
-                'title'                     => 'Transaksi',
-                'deskripsi'                 => 'Deskripsi',
-                'keywords'                  => 'Transaksi Angelita Rentcar',
-                'detail_transaksi'          => $detail_transaksi,
-                'bank'                      => $bank,
-                'content'                   => 'front/transaksi/detail_transaksi'
-            );
-            $this->load->view('front/layout/wrapp', $data, FALSE);
+
+            if (!$this->agent->is_mobile()) {
+                // Desktop View
+                $data = array(
+                    'title'                     => 'Transaksi',
+                    'deskripsi'                 => 'Deskripsi',
+                    'keywords'                  => 'Transaksi Angelita Rentcar',
+                    'detail_transaksi'          => $detail_transaksi,
+                    'bank'                      => $bank,
+                    'content'                   => 'front/transaksi/detail_transaksi'
+                );
+                $this->load->view('front/layout/wrapp', $data, FALSE);
+            } else {
+                // Mobile View
+                $data = array(
+                    'title'                     => 'Transaksi',
+                    'deskripsi'                 => 'Deskripsi',
+                    'keywords'                  => 'Transaksi Angelita Rentcar',
+                    'detail_transaksi'          => $detail_transaksi,
+                    'bank'                      => $bank,
+                    'content'                   => 'mobile/transaksi/detail'
+                );
+                $this->load->view('mobile/layout/wrapp', $data, FALSE);
+            }
         }
     }
 
@@ -109,18 +119,33 @@ if (!$this->agent->is_mobile()) {
         $config['remove_spaces']        = TRUE;
         $config['encrypt_name']         = TRUE;
         $this->load->library('upload', $config);
+        $this->upload->initialize($config);
         if (!$this->upload->do_upload('bukti_bayar')) {
-
-            $data = array(
-                'title'         => 'Update transaksi',
-                'deskripsi'   => 'Deskripsi',
-                'keywords'    => 'Transaksi',
-                'transaksi'     => $transaksi,
-                'bank'          => $bank,
-                'error_upload'  => $this->upload->display_errors(),
-                'content'           => 'front/transaksi/konfirmasi_transaksi'
-            );
-            $this->load->view('front/layout/wrapp', $data, FALSE);
+            if (!$this->agent->is_mobile()) {
+                // Desktop View
+                $data = array(
+                    'title'         => 'Konfirmasi',
+                    'deskripsi'     => 'Deskripsi',
+                    'keywords'      => 'Transaksi',
+                    'transaksi'     => $transaksi,
+                    'bank'          => $bank,
+                    'error_upload'  => $this->upload->display_errors(),
+                    'content'           => 'front/transaksi/konfirmasi_transaksi'
+                );
+                $this->load->view('front/layout/wrapp', $data, FALSE);
+            } else {
+                // Mobile View
+                $data = array(
+                    'title'         => 'Konfirmasi',
+                    'deskripsi'     => 'Deskripsi',
+                    'keywords'      => 'Transaksi',
+                    'transaksi'     => $transaksi,
+                    'bank'          => $bank,
+                    'error_upload'  => $this->upload->display_errors(),
+                    'content'           => 'mobile/transaksi/konfirmasi'
+                );
+                $this->load->view('mobile/layout/wrapp', $data, FALSE);
+            }
         } else {
 
             $upload_data    = array('uploads'  => $this->upload->data());
@@ -148,12 +173,24 @@ if (!$this->agent->is_mobile()) {
     }
     public function sukses()
     {
-        $data = array(
-            'title'           => 'Konfirmasi transaksi',
-            'deskripsi'   => 'Deskripsi',
-            'keywords'    => 'Transaksi',
-            'content'             => 'front/transaksi/transaksi_sukses'
-        );
-        $this->load->view('front/layout/wrapp', $data, FALSE);
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = array(
+                'title'                 => 'Konfirmasi transaksi',
+                'deskripsi'             => 'Deskripsi',
+                'keywords'              => 'Transaksi',
+                'content'               => 'front/transaksi/transaksi_sukses'
+            );
+            $this->load->view('front/layout/wrapp', $data, FALSE);
+        } else {
+            // Mobile View
+            $data = array(
+                'title'                 => 'Konfirmasi transaksi',
+                'deskripsi'             => 'Deskripsi',
+                'keywords'              => 'Transaksi',
+                'content'               => 'mobile/transaksi/sukses'
+            );
+            $this->load->view('mobile/layout/wrapp', $data, FALSE);
+        }
     }
 }

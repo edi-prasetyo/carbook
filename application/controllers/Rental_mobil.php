@@ -30,8 +30,8 @@ class Rental_mobil extends CI_Controller
     $meta                           = $this->meta_model->get_meta();
     $mobil                          = $this->mobil_model->get_mobil();
 
-
     if (!$this->agent->is_mobile()) {
+      // Desktop View
       $data = array(
         'title'                       => 'Rental Mobil - ' . $meta->title,
         'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
@@ -42,6 +42,7 @@ class Rental_mobil extends CI_Controller
       );
       $this->load->view('front/layout/wrapp', $data, FALSE);
     } else {
+      // Mobile View
       $data = array(
         'title'                       => 'Rental Mobil - ' . $meta->title,
         'deskripsi'                   => 'Rental Mobil - ' . $meta->description,
@@ -63,7 +64,7 @@ class Rental_mobil extends CI_Controller
 
       if ($mobil == NULL) {
         if (!$this->agent->is_mobile()) {
-          // View For Desktop
+          // Desktop View
           $data = array(
             'user_id'     => $this->session->userdata('id'),
             'title'       => 'Sewa Mobil',
@@ -74,7 +75,7 @@ class Rental_mobil extends CI_Controller
           );
           $this->load->view('front/layout/wrapp', $data, FALSE);
         } else {
-          // View For Mobile Device
+          // Mobile View
           $data = array(
             'user_id'     => $this->session->userdata('id'),
             'title'       => 'Sewa Mobil',
@@ -91,7 +92,7 @@ class Rental_mobil extends CI_Controller
         $listpaket          = $this->mobil_model->listpaket_front($id);
 
         if (!$this->agent->is_mobile()) {
-          // View For Desktop
+          // Desktop View
           $data = array(
             'user_id'     => $this->session->userdata('id'),
             'title'       => $mobil->mobil_name,
@@ -104,7 +105,7 @@ class Rental_mobil extends CI_Controller
           $this->add_count($mobil_slug);
           $this->load->view('front/layout/wrapp', $data, FALSE);
         } else {
-          // View For Mobile Device
+          // Mobile View
           $data = array(
             'user_id'     => $this->session->userdata('id'),
             'title'       => $mobil->mobil_name,
@@ -158,6 +159,7 @@ class Rental_mobil extends CI_Controller
     $pembayaran           = $this->pembayaran_model->get_pembayaran_active();
     $lamasewa             = $this->lamasewa_model->get_lamasewa();
     $jamsewa              = $this->jamsewa_model->get_jamsewa();
+    $send_email_order  = $this->pengaturan_model->sendemail_status_order();
 
     $this->form_validation->set_rules(
       'user_name',
@@ -221,7 +223,7 @@ class Rental_mobil extends CI_Controller
     if ($this->form_validation->run() == false) {
 
       if (!$this->agent->is_mobile()) {
-
+        // Desktop View
         $data = array(
           'user_id'       => $this->session->userdata('id'),
           'title'         => 'Booking Rental Mobil',
@@ -237,7 +239,7 @@ class Rental_mobil extends CI_Controller
         );
         $this->load->view('front/layout/wrapp', $data, FALSE);
       } else {
-
+        // Mobile View
         $data = array(
           'user_id'       => $this->session->userdata('id'),
           'title'         => 'Booking Rental Mobil',
@@ -289,7 +291,10 @@ class Rental_mobil extends CI_Controller
         $insert_id = $this->transaksi_model->create($data);
       }
 
-      $this->_sendEmail($insert_id);
+      if ($send_email_order->status == 1) {
+        $this->_sendEmail($insert_id);
+      }
+
       $this->session->set_flashdata('sukses', 'Checkout Berhasil');
       redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
     }
@@ -701,8 +706,6 @@ class Rental_mobil extends CI_Controller
 </html>
         ');
 
-
-
     if ($this->email->send()) {
       return true;
     } else {
@@ -715,14 +718,29 @@ class Rental_mobil extends CI_Controller
   {
     $bank                               = $this->bank_model->get_allbank();
     $last_transaksi                     = $this->transaksi_model->last_transaksi($insert_id);
-    $data = [
-      'title'                           => 'Order Sukses',
-      'deskripsi'                       => 'Sewa mobil Online',
-      'keywords'                        => 'Order Sewa Mobil',
-      'last_transaksi'                  => $last_transaksi,
-      'bank'                            => $bank,
-      'content'                         => 'front/rental/order_success'
-    ];
-    $this->load->view('front/layout/wrapp', $data, FALSE);
+
+    if (!$this->agent->is_mobile()) {
+      // Desktop View
+      $data = [
+        'title'                           => 'Order Sukses',
+        'deskripsi'                       => 'Sewa mobil Online',
+        'keywords'                        => 'Order Sewa Mobil',
+        'last_transaksi'                  => $last_transaksi,
+        'bank'                            => $bank,
+        'content'                         => 'front/rental/order_success'
+      ];
+      $this->load->view('front/layout/wrapp', $data, FALSE);
+    } else {
+      // Mobile View
+      $data = [
+        'title'                           => 'Order Sukses',
+        'deskripsi'                       => 'Sewa mobil Online',
+        'keywords'                        => 'Order Sewa Mobil',
+        'last_transaksi'                  => $last_transaksi,
+        'bank'                            => $bank,
+        'content'                         => 'mobile/rental/success'
+      ];
+      $this->load->view('mobile/layout/wrapp', $data, FALSE);
+    }
   }
 }

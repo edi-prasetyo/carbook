@@ -56,7 +56,7 @@ class Berita extends CI_Controller
     $berita = $this->berita_model->berita($limit, $start);
 
     if (!$this->agent->is_mobile()) {
-
+      // Desktop View
       $data = array(
         'title'                       => 'Berita - ' . $meta->title,
         'deskripsi'                   => 'Berita - ' . $meta->description,
@@ -69,7 +69,7 @@ class Berita extends CI_Controller
       );
       $this->load->view('front/layout/wrapp', $data, FALSE);
     } else {
-
+      // Mobile View
       $data = array(
         'title'                       => 'Berita - ' . $meta->title,
         'deskripsi'                   => 'Berita - ' . $meta->description,
@@ -96,7 +96,7 @@ class Berita extends CI_Controller
     $berita                         = $this->berita_model->read($berita_slug);
 
     if (!$this->agent->is_mobile()) {
-
+      // Desktop View
       $data                           = array(
         'title'                       => $berita->berita_title,
         'deskripsi'                   => $berita->berita_title,
@@ -109,7 +109,7 @@ class Berita extends CI_Controller
       $this->add_count($berita_slug);
       $this->load->view('front/layout/wrapp', $data, FALSE);
     } else {
-
+      // Mobile View
       $data                           = array(
         'title'                       => $berita->berita_title,
         'deskripsi'                   => $berita->berita_title,

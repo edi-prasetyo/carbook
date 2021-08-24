@@ -6,9 +6,16 @@
 <!-- Bootstrap core JavaScript -->
 <script src="<?php echo base_url('assets/template/admin/vendor/jquery/jquery.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/template/admin/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- bootstrap color picker -->
 <script src="<?php echo base_url(); ?>assets/template/admin/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/template/admin/js/sidebars.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 <script>
     //color picker with addon

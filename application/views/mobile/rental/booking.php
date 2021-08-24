@@ -8,7 +8,7 @@
     </div>
 </nav>
 
-<div class="container mb-3 my-3">
+<div class="container mb-5 pb-2 my-3">
     <div class="card shadow-sm border-0">
         <div class="d-flex align-items-center border-bottom p-3">
             <div class="left mr-3">
@@ -164,7 +164,7 @@
                             <?php foreach ($pembayaran as $data) : ?>
 
                                 <div class="custom-control custom-radio">
-                                    <input class="form-check-input" type="radio" name="tipe_pembayaran" id="emailConsentRadio" value="optionB" required>
+                                    <input class="form-check-input" type="radio" name="tipe_pembayaran" id="emailConsentRadio" value="<?php echo $data->nama_pembayaran; ?>" required>
                                     <label class="form-check-label" for="optionB">
                                         <?php echo $data->nama_pembayaran; ?>
                                     </label>
@@ -180,6 +180,7 @@
 
                     </div>
                 </div>
+
                 <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">
                     Syarat dan Ketentuan Sewa
                 </a>

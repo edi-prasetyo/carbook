@@ -19,12 +19,24 @@ class Contact extends CI_Controller
     public function index()
     {
         $meta                   = $this->meta_model->get_meta();
-        $data = array(
-            'title'             => 'Contact Us',
-            'deskripsi'         => 'Berita - ' . $meta->description,
-            'keywords'          => 'Berita - ' . $meta->keywords,
-            'content'           => 'front/contact/index_contact'
-        );
-        $this->load->view('front/layout/wrapp', $data, FALSE);
+        if (!$this->agent->is_mobile()) {
+            // Desktop View
+            $data = array(
+                'title'             => 'Contact Us',
+                'deskripsi'         => 'Berita - ' . $meta->description,
+                'keywords'          => 'Berita - ' . $meta->keywords,
+                'content'           => 'front/contact/index_contact'
+            );
+            $this->load->view('front/layout/wrapp', $data, FALSE);
+        } else {
+            // Mobile View
+            $data = array(
+                'title'             => 'Contact Us',
+                'deskripsi'         => 'Berita - ' . $meta->description,
+                'keywords'          => 'Berita - ' . $meta->keywords,
+                'content'           => 'mobile/contact/index'
+            );
+            $this->load->view('mobile/layout/wrapp', $data, FALSE);
+        }
     }
 }

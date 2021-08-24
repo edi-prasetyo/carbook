@@ -16,18 +16,21 @@ class Pengaturan extends CI_Controller
         parent::__construct();
         $this->load->model('pengaturan_model');
         $this->load->model('pembayaran_model');
+        $this->load->model('kirimemail_model');
     }
     public function index()
     {
         $email_register                = $this->pengaturan_model->email_register();
         $email_order                   = $this->pengaturan_model->email_order();
-        $payment = $this->pembayaran_model->get_pembayaran();
+        $payment                        = $this->pembayaran_model->get_pembayaran();
+        $sendemail                      = $this->kirimemail_model->get_sendemail();
 
         $data    = [
             'title'                     => 'Pengaturan',
             'email_register'            => $email_register,
             'email_order'               => $email_order,
             'payment'                   => $payment,
+            'sendemail'                 => $sendemail,
             'content'                   => 'admin/pengaturan/index_pengaturan'
         ];
         $this->load->view('admin/layout/wrapp', $data, FALSE);
@@ -113,6 +116,39 @@ class Pengaturan extends CI_Controller
         ];
         $this->pembayaran_model->update($data);
         $this->session->set_flashdata('message', '<div class="alert alert-success">Pembayaran Telah di Aktifkan</div>');
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function sendemail()
+    {
+        $sendemail = $this->pengaturan_model->sendemail_status_all();
+        $data = [
+            'title'     => 'Kirim Email',
+            'sendemail'  => $sendemail,
+            'content'   => 'admin/pengaturan/index_pengaturan'
+        ];
+        $this->load->view('admin/layout/wrapp', $data, FALSE);
+    }
+    public function sendemail_inactive($id)
+    {
+        is_login();
+        $data = [
+            'id'                    => $id,
+            'status'                => 0,
+        ];
+        $this->kirimemail_model->update($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger">Data Telah di Update</div>');
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+    public function sendemail_active($id)
+    {
+        is_login();
+        $data = [
+            'id'                    => $id,
+            'status'                => 1,
+        ];
+        $this->kirimemail_model->update($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success">Data Telah di Update</div>');
         redirect($_SERVER['HTTP_REFERER']);
     }
 }
