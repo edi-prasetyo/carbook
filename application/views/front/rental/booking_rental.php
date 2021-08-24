@@ -60,7 +60,7 @@
         <div class="card-body">
 
           <?php
-          echo form_open_multipart('rental-mobil/booking/' . md5($listpaket->id), array('class' => 'needs-validation', 'novalidate' => 'novalidate'));
+          echo form_open('rental-mobil/booking/' . md5($listpaket->id), array('class' => 'needs-validation', 'novalidate' => 'novalidate'));
           $kode_transaksi = date('dmY') . strtoupper(random_string('alnum', 5));
           ?>
           <input type="hidden" name="kode_transaksi" value="<?php echo $kode_transaksi ?>">

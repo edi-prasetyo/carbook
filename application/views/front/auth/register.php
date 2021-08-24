@@ -22,7 +22,7 @@ $meta = $this->meta_model->get_meta();
                             <h1 class="h4 text-gray-900 mb-4"><i class="bi-person-check" style="font-size: 2rem;"></i> Buat Akun Gratis!</h1>
                         </div>
                         <?php
-                        echo form_open_multipart('auth/register',  array('class' => 'needs-validation', 'novalidate' => 'novalidate'))
+                        echo form_open('auth/register',  array('class' => 'needs-validation', 'novalidate' => 'novalidate'))
                         ?>
                         <div class="form-group">
                             <select class="form-control custom-select" name="user_title" value="" required>
