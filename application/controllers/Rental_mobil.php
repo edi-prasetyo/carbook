@@ -321,15 +321,10 @@ class Rental_mobil extends CI_Controller
     $this->email->to($this->input->post('user_email'));
 
     $this->email->subject('Order ' . $transaksi->kode_transaksi . '');
-    $this->email->message('Terima Kasih Atas Order Anda <br> 
-                          Kode Transaksi : ' . $transaksi->kode_transaksi . '<br> 
-                          Email          : ' . $transaksi->user_email . '<br>
-                          Jumlah Tagihan : ' . $transaksi->total_harga . '<br>
-                          Tanggal Jemput : ' . $transaksi->tanggal_jemput . '<br>
-                          Jam Jemput     : ' . $transaksi->jam_jemput . '<br>
+    $this->email->message('
+                         
                            
-                          
-    
+                      
                           <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
