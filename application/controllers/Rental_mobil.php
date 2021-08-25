@@ -293,10 +293,12 @@ class Rental_mobil extends CI_Controller
 
       if ($send_email_order->status == 1) {
         $this->_sendEmail($insert_id);
+        $this->session->set_flashdata('sukses', 'Checkout Berhasil');
+        redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
+      } else {
+        $this->session->set_flashdata('sukses', 'Checkout Berhasil');
+        redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
       }
-
-      $this->session->set_flashdata('sukses', 'Checkout Berhasil');
-      redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
     }
   }
 

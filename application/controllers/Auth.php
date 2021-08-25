@@ -175,9 +175,12 @@ class Auth extends CI_Controller
 
 			if ($send_email_register->status == 1) {
 				$this->_sendEmail($token, 'verify');
+				$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat Anda berhasil mendaftar, silahkan Aktivasi akun</div> ');
+				redirect('auth');
+			} else {
+				$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat Anda berhasil mendaftar, silahkan Login</div> ');
+				redirect('auth');
 			}
-			$this->session->set_flashdata('message', '<div class="alert alert-success">Selamat Anda berhasil mendaftar, silahkan Aktivasi akun</div> ');
-			redirect('auth');
 		}
 	}
 	private function _sendEmail($token, $type)
