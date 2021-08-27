@@ -159,7 +159,7 @@ class Rental_mobil extends CI_Controller
     $pembayaran           = $this->pembayaran_model->get_pembayaran_active();
     $lamasewa             = $this->lamasewa_model->get_lamasewa();
     $jamsewa              = $this->jamsewa_model->get_jamsewa();
-    // $send_email_order  = $this->pengaturan_model->sendemail_status_order();
+     $send_email_order  = $this->pengaturan_model->sendemail_status_order();
 
     $this->form_validation->set_rules(
       'user_name',
@@ -291,10 +291,14 @@ class Rental_mobil extends CI_Controller
         $insert_id = $this->transaksi_model->create($data);
       }
 
-
-      $this->_sendEmail($insert_id);
-      $this->session->set_flashdata('sukses', 'Checkout Berhasil');
+if ($send_email_order->status == 1) {
+	$this->_sendEmail($insert_id);
+	$this->session->set_flashdata('sukses', 'Checkout Berhasil');
       redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
+	} else {
+		$this->session->set_flashdata('sukses', 'Checkout Berhasil');
+      redirect(base_url('rental-mobil/order-success/' . md5($insert_id)), 'refresh');
+	}   
     }
   }
 

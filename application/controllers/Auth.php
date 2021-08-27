@@ -212,9 +212,6 @@ class Auth extends CI_Controller
 		}
 		if ($this->email->send()) {
 			return true;
-		} else {
-			echo $this->email->print_debugger();
-			die;
 		}
 	}
 	public function verify()
