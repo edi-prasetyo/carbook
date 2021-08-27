@@ -701,10 +701,7 @@ class Rental_mobil extends CI_Controller
 
     if ($this->email->send()) {
       return true;
-    } else {
-      echo $this->email->print_debugger();
-      die;
-    }
+    } 
   }
 
   public function order_success($insert_id)
